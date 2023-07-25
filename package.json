@@ -1,0 +1,30 @@
+{
+	"name": "eco-profile-master",
+	"version": "0.1.0",
+	"description": "Eco Profile Master",
+	"author": "Mahbub Hussain",
+	"license": "GPL-2.0-or-later",
+	"main": "src/assets/build/index.js",
+	"scripts": {
+		"setup": "npm install --force && composer install",
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"format:js": "wp-scripts format",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"prettier": "@wordpress/prettier-config",
+	"devDependencies": {
+		"@wordpress/scripts": "^23.1.0",
+		"autoprefixer": "^10.4.14",
+		"eslint-plugin-prettier": "^4.0.0",
+		"postcss": "^8.4.27",
+		"prettier": "npm:wp-prettier@2.2.1-beta-1",
+		"sass": "^1.64.1",
+		"tailwindcss": "^3.3.3"
+	}
+}
