@@ -1,5 +1,23 @@
 {
 	"name": "epm/eco-profile-master",
+	"description": "Login, registration and edit profile shortcodes for the front-end. Also you can choose what fields should be displayed or add new (custom) ones both in the front-end and in the dashboard.",
+	"license": "GPLv2",
+	"authors": [
+		{
+			"name": "Mahbub Hussain",
+			"email": "mahbubhussaincse@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"EcoProfile\\Master\\": "includes/"
+		},
+		"files": [
+			"includes/functions.php"
+		]
+	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
 		"squizlabs/php_codesniffer": "^3.6",
