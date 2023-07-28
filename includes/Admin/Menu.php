@@ -8,7 +8,6 @@ namespace EcoProfile\Master\Admin;
  */
 class Menu
 {
-
     /**
      * Constructor
      */
@@ -36,6 +35,8 @@ class Menu
         add_submenu_page($slug, esc_attr__('Form Fields', 'eco-profile-master'), esc_attr__('Form Fields', 'eco-profile-master'), $capability, 'eco-profile-master-form-fields', [$this, 'epm_plugin_form_fields_page']);
         add_submenu_page($slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'epm_plugin_user_listing_page']);
     }
+
+
     /**
      * Render the plugin page.
      * @return void
@@ -48,8 +49,9 @@ class Menu
      */
     public function epm_plugin_page()
     {
-        echo "plugin page";
+        echo "I am plugin page";
     }
+
     /**
      * Plugin Settings callback function
      */

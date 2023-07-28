@@ -62,6 +62,7 @@ final class Eco_Profile_Master
 		register_deactivation_hook(__FILE__, array($this, 'epm_deactice'));
 		add_action('plugins_loaded', array($this, 'epm_plugin_init'));
 		add_action('wp_loaded', [$this, 'flush_rewrite_rules']);
+		$this->init_hooks();
 	}
 
 	/**
@@ -118,11 +119,13 @@ final class Eco_Profile_Master
 	{
 		define('EP_MASTER_VERSION', self::VERSION);
 		define('EP_PROFILE_FILE', __FILE__);
-		define('EP_MASTER_PATH', __DIR__);
+		define('EP_MASTER_DIR', __DIR__);
+		define('EP_MASTER_PATH', dirname(EP_PROFILE_FILE));
 		define('EP_MASTER_URL', plugins_url('', EP_PROFILE_FILE));
 		define('EP_MASTER_ASSETS', EP_MASTER_URL . '/src/assets');
 		define('EP_MASTER_BUILD', EP_MASTER_URL . '/build');
 		define('EP_MASTER_SLUG', self::SLUG);
+		define('EP_MASTER_TEMPLATE_PATH', EP_MASTER_PATH . '/templates');
 	}
 
 	/**
@@ -175,13 +178,14 @@ final class Eco_Profile_Master
 	 */
 	public function includes()
 	{
+
 		if ($this->is_request('admin')) {
 			$this->container['admin_menu'] = new \EcoProfile\Master\Admin\Menu();
 		} elseif ($this->is_request('frontend')) {
 			$this->container['forntend_shortcode'] = new \EcoProfile\Master\Frontend\Shortcode();
 		}
-
 		// Common classes
+		$this->container['assets'] =  new \EcoProfile\Master\Assets\Manager();
 	}
 
 	/**
@@ -193,6 +197,8 @@ final class Eco_Profile_Master
 	{
 		// Localize our plugin
 		add_action('init', [$this, 'localization_setup']);
+		// Add the plugin page links
+		add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'plugin_action_links']);
 	}
 
 	/**
@@ -205,6 +211,11 @@ final class Eco_Profile_Master
 	public function localization_setup()
 	{
 		load_plugin_textdomain('echo-profile-master', false, dirname(plugin_basename(__FILE__)) . '/languages');
+
+		if (is_admin()) {
+			// Load wp-script translation for job-place-app
+			wp_set_script_translations('ep-master-js', 'echo-profile-master', plugin_dir_path(__FILE__) . 'languages/');
+		}
 	}
 
 	/**
@@ -232,6 +243,19 @@ final class Eco_Profile_Master
 			case 'frontend':
 				return (!is_admin() || defined('DOING_AJAX')) && !defined('DOING_CRON');
 		}
+	}
+
+	/**
+	 * Plugin action links
+	 *
+	 * @param array $links
+	 *
+	 * @return array
+	 */
+	public function plugin_action_links($links)
+	{
+		$links[] = '<a href="' . admin_url('admin.php?page=eco-profile-master-settings') . '">' . __('Settings', ' echo-profile-master') . '</a>';
+		return $links;
 	}
 }
 

@@ -26,6 +26,7 @@ class Shortcode
      */
     public function epm_render_shortcode($atts, $content = '')
     {
-        return 'Hello From Shortcode';
+        wp_enqueue_style('ep-master-css');
+        return '<div class="center bg">Hello From Shortcode</div>';
     }
 }
