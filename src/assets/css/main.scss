@@ -1,3 +1,23 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.form-table th {
+    vertical-align: top;
+    text-align: left;
+    padding: 20px 10px 20px 0;
+    width: 355px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+select.regular {
+    width: 18rem;
+}
+
+div#epm_basics h2,
+div#epm_advanced h2 {
+    font-size: 1.3em;
+    margin: 1em 0;
+    font-weight: 500;
+}

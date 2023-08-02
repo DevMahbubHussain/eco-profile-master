@@ -15,7 +15,7 @@ class Manager
      */
     public function __construct()
     {
-        add_action('init', array($this, 'epm_register_all_scripts'));
+        add_action('init', [$this, 'register_all_scripts']);
         add_action('wp_enqueue_scripts', array($this, 'epm_wp_register_assets'));
         add_action('admin_enqueue_scripts', array($this, 'epm_admin_register_assets'));
     }
@@ -25,7 +25,7 @@ class Manager
      *
      * @return void
      */
-    public function epm_register_all_scripts()
+    public function register_all_scripts()
     {
         $this->register_styles($this->get_styles());
         $this->register_scripts($this->get_scripts());
@@ -102,10 +102,16 @@ class Manager
     public function epm_admin_register_assets()
     {
         // Check if we are on the admin page and page=eco-profile-master.
-        if (!is_admin() || !isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-settings' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-user-listing' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-form-fields') {
+        if (!is_admin() || !isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-settings' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-user-listing' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-admin-bar') {
             return;
         }
         wp_enqueue_style('ep-master-css');
         wp_enqueue_script('ep-master-js');
+    }
+
+    public function epm_wp_register_assets()
+    {
+        wp_enqueue_style('ep-master-css');
+        // wp_enqueue_script('ep-master-js');
     }
 }

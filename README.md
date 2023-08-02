@@ -19,20 +19,13 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
  1. Email confirmation when changing user email address : (checkbox) -  If checked, an activation email is sent for the new email address.
  2. Remember me checked by default : (checkbox) - Check the 'Remember Me' checkbox on Login forms, by default.
  3. Automatically log in users after password reset : (Checkbox) -  Automatically log in users after they reset their password using the Recover Password form.
- 4. Save the Last Login date in user meta: (Checkbox) -  By checking this option, each time a user logins, the date and time will be saved in the database.
- 5. Save Last Profile Update date in user meta: (Checkbox) -  By checking this option, each time a modifies his profile the date and time will be saved in the database.
-
-## Form Fields
-
- 1. Automatically generate password for users (Checkbox) -  By checking this option, the password will be automatically generated and emailed to the user.
- 2. Unique Display Name for users (Checkbox) - By checking this option, users will not be able to choose a **Display Name** that is already used by another account
- 3. Always capitalize First Name and Last Name default fields (Checkbox) -  If you have these fields in your forms, they will be always saved with the first letter as uppercase. -   eg.:  **John Cena**  instead of  **john cena**
+ 4. Automatically generate password for users (Checkbox) -  By checking this option, the password will be automatically generated and emailed to the user.
+ 5. Always capitalize First Name and Last Name default fields (Checkbox) -  If you have these fields in your forms, they will be always saved with the first letter as uppercase. -   eg.:  **John Cena**  instead of  **john cena**
 
 
 ## Form Fields
+ 1. Other options will add later as user **Educations**, **Skills Sets**, **Certificates**, **Work Experience**, **Portfolio**, **Social Login** and other staffs (it will be in paid version).
 
- 1. Automatically generate password for users (Checkbox) -  By checking this option, the password will be automatically generated and emailed to the user.
- 2. Unique Display Name for users (Checkbox) - By checking this option, users will not be able to choose a **Display Name** that is already used by another account
- 3. Always capitalize First Name and Last Name default fields (Checkbox) -  If you have these fields in your forms, they will be always saved with the first letter as uppercase. -   eg.:  **John Cena**  instead of  **john cena**
- 4. Other options will add later as user **Educations**, **Skills Sets**, **Certificates**, **Work Experience**, **Portfolio**, **Social Login** and other staffs (it will be in paid version).
+
+
 

@@ -44,14 +44,6 @@ final class Eco_Profile_Master
 	const SLUG = 'eco-profile-master';
 
 	/**
-	 * Holds various class instances.
-	 *
-	 * @var array
-	 *
-	 */
-	private $container = [];
-
-	/**
 	 * Class Constructor
 	 */
 	private function __construct()
@@ -62,7 +54,6 @@ final class Eco_Profile_Master
 		register_deactivation_hook(__FILE__, array($this, 'epm_deactice'));
 		add_action('plugins_loaded', array($this, 'epm_plugin_init'));
 		add_action('wp_loaded', [$this, 'flush_rewrite_rules']);
-		$this->init_hooks();
 	}
 
 	/**
@@ -79,35 +70,6 @@ final class Eco_Profile_Master
 		}
 
 		return $instance;
-	}
-
-	/**
-	 * Magic getter to bypass referencing plugin.
-	 *
-	 *
-	 * @param $prop
-	 *
-	 * @return mixed
-	 */
-	public function __get($prop)
-	{
-		if (array_key_exists($prop, $this->container)) {
-			return $this->container[$prop];
-		}
-
-		return $this->{$prop};
-	}
-
-	/**
-	 * Magic isset to bypass referencing plugin.
-	 *
-	 * @param $prop
-	 *
-	 * @return mixed
-	 */
-	public function __isset($prop)
-	{
-		return isset($this->{$prop}) || isset($this->container[$prop]);
 	}
 
 	/**
@@ -178,18 +140,18 @@ final class Eco_Profile_Master
 	 */
 	public function includes()
 	{
-
 		if ($this->is_request('admin')) {
-			$this->container['admin_menu'] = new \EcoProfile\Master\Admin\Menu();
+			new \EcoProfile\Master\Admin();
 		} elseif ($this->is_request('frontend')) {
-			$this->container['forntend_shortcode'] = new \EcoProfile\Master\Frontend\Shortcode();
+			new \EcoProfile\Master\Frontend();
 		}
-		// Common classes
-		$this->container['assets'] =  new \EcoProfile\Master\Assets\Manager();
+		// common classes 
+		new \EcoProfile\Master\Assets\Manager();
 	}
 
+
 	/**
-	 * Initialize the hooks.
+	 * Initialize the hooks.P
 	 *
 	 * @return void
 	 */
@@ -199,7 +161,9 @@ final class Eco_Profile_Master
 		add_action('init', [$this, 'localization_setup']);
 		// Add the plugin page links
 		add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'plugin_action_links']);
+		add_action('init', [$this, 'init_classes']);
 	}
+
 
 	/**
 	 * Initialize plugin for localization.

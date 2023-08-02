@@ -8,12 +8,31 @@ namespace EcoProfile\Master\Admin;
  */
 class Menu
 {
+
+    /**
+     * Slug
+     * 
+     * @return string
+     * 
+     */
+    public $slug = EP_MASTER_SLUG;
+
+
+    /**
+     * Variable
+     *
+     * @var [type]
+     */
+
+    public $settings_api;
+
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($settings_api)
     {
-        add_action('admin_menu', [$this, 'epm_init_menu']);
+        $this->settings_api = $settings_api;
+        add_action('admin_menu', array($this, 'epm_init_menu'));
     }
 
     /**
@@ -25,22 +44,16 @@ class Menu
 
     public function epm_init_menu()
     {
-        $slug = EP_MASTER_SLUG;
         $menu_position = 50;
         $capability    = 'manage_options';
         $logo_icon = 'dashicons-businessperson';
-        add_menu_page(esc_attr__('Eco Profile Master', 'eco-profile-master'), esc_attr__('Eco Profile Master', 'eco-profile-master'), $capability, $slug, [$this, 'epm_plugin_page'], $logo_icon, $menu_position);
-        add_submenu_page($slug, esc_attr__('Basic Information', 'eco-profile-master'), esc_attr__('Basic Information', 'eco-profile-master'), $capability, $slug, [$this, 'epm_plugin_page']);
-        add_submenu_page($slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this, 'epm_plugin_settings_page']);
-        add_submenu_page($slug, esc_attr__('Form Fields', 'eco-profile-master'), esc_attr__('Form Fields', 'eco-profile-master'), $capability, 'eco-profile-master-form-fields', [$this, 'epm_plugin_form_fields_page']);
-        add_submenu_page($slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'epm_plugin_user_listing_page']);
+        add_menu_page(esc_attr__('Eco Profile Master', 'eco-profile-master'), esc_attr__('Eco Profile Master', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page'], $logo_icon, $menu_position);
+        add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->settings_api, 'plugin_settings_page']);
+        add_submenu_page($this->slug, esc_attr__('Admin Bar', 'eco-profile-master'), esc_attr__('Admin Bar', 'eco-profile-master'), $capability, 'eco-profile-master-admin-bar', [$this, 'admin_bar_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'eco-profile-master-user-email', [$this, 'email_customizer_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'user_listings_plugin_page']);
     }
-
-
-    /**
-     * Render the plugin page.
-     * @return void
-     */
 
     /**
      * Plugin page callback function
@@ -49,28 +62,31 @@ class Menu
      */
     public function epm_plugin_page()
     {
-        echo "I am plugin page";
+        require_once EP_MASTER_TEMPLATE_PATH . '/features/general-settings/general.php ';
     }
 
     /**
      * Plugin Settings callback function
      */
-
-    public function epm_plugin_settings_page()
+    public function email_customizer_plugin_page()
     {
-        echo 'Plugin Settings';
-    }
-    /**
-     * Plugin form fields callback function
-     */
-
-    public function epm_plugin_form_fields_page()
-    {
-        echo "I am forms fields";
+        echo "i am email customizer callback";
     }
 
-    public function epm_plugin_user_listing_page()
+
+    public function admin_bar_plugin_page()
     {
-        echo "User Listings";
+        echo "Admin Bar cb";
     }
+
+
+    public function user_listings_plugin_page()
+    {
+        echo "User Listing Page";
+      
+    }
+
+
+
+    
 }
