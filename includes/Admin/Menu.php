@@ -17,30 +17,19 @@ class Menu
      */
     public $slug = EP_MASTER_SLUG;
 
-
     /**
-     * Variable
-     *
-     * @var [type]
-     */
-
-    public $settings_api;
-
-    /**
-     * Hold metabox api class 
      * Variable
      * @var string
      */
 
-    public $metabox_api;
+    public $epm_admin_settings;
 
     /**
      * Constructor
      */
-    public function __construct($settings_api, $metabox_api)
+    public function __construct($epm_admin_settings)
     {
-        $this->settings_api = $settings_api;
-        $this->metabox_api = $metabox_api;
+        $this->epm_admin_settings = $epm_admin_settings;
         add_action('admin_menu', array($this, 'epm_init_menu'));
     }
 
@@ -58,11 +47,15 @@ class Menu
         $logo_icon = 'dashicons-businessperson';
         add_menu_page(esc_attr__('Eco Profile Master', 'eco-profile-master'), esc_attr__('Eco Profile Master', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page'], $logo_icon, $menu_position);
         add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->settings_api, 'plugin_settings_page']);
+        add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->epm_admin_settings, 'plugin_settings_page']);
         add_submenu_page($this->slug, esc_attr__('Admin Bar', 'eco-profile-master'), esc_attr__('Admin Bar', 'eco-profile-master'), $capability, 'eco-profile-master-admin-bar', [$this, 'admin_bar_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'fx_smb', [$this->metabox_api, 'email_customizer_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'eco-profile-master-email-customizer', [$this, 'email_customizer_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'user_listings_plugin_page']);
     }
+
+   
+
+
 
     /**
      * Plugin page callback function
@@ -77,10 +70,10 @@ class Menu
     /**
      * Plugin Settings callback function
      */
-    // public function email_customizer_plugin_page()
-    // {
-    //     echo "i am email customizer callback";
-    // }
+    public function plugin_settings_page()
+    {
+        echo "i am email customizer callback";
+    }
 
 
     public function admin_bar_plugin_page()
@@ -91,8 +84,15 @@ class Menu
 
     public function user_listings_plugin_page()
     {
-        echo "User Listing Page";
-      
+        echo '<div class="wrap">';
+        echo '<h1>My Custom Page</h1>';
+        echo '<p>This is my custom admin page content.</p>';
+        echo '</div>';
+    }
+
+    public function email_customizer_plugin_page()
+    {
+        echo "Email CB";
     }
 
 

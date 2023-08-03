@@ -8,12 +8,20 @@ namespace EcoProfile\Master;
 class Admin
 {
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
-        $settings_api = new Admin\Settings\Epm_Settings_Fields();
-        $metabox_api = new Admin\Metabox\Metabox();
-        new Admin\Menu($settings_api, $metabox_api);
-        new Admin\Settings\Epm_Settings(); //later need to check 
-        new Admin\Metabox\Metabox(); ////later need to check 
+        $epm_admin_settings = new Admin\Settings\Epm_Settings();
+        $this->dispatch_action($epm_admin_settings);
+        new Admin\Menu($epm_admin_settings);
+        new Admin\Settings\Epm_Settings();
+    }
+
+    public function dispatch_action($epm_admin_settings)
+    {
+        add_action('admin_init', [$epm_admin_settings, 'general_settings_form_handler']);
+
     }
 }
