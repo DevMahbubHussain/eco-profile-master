@@ -27,11 +27,20 @@ class Menu
     public $settings_api;
 
     /**
+     * Hold metabox api class 
+     * Variable
+     * @var string
+     */
+
+    public $metabox_api;
+
+    /**
      * Constructor
      */
-    public function __construct($settings_api)
+    public function __construct($settings_api, $metabox_api)
     {
         $this->settings_api = $settings_api;
+        $this->metabox_api = $metabox_api;
         add_action('admin_menu', array($this, 'epm_init_menu'));
     }
 
@@ -51,7 +60,7 @@ class Menu
         add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->settings_api, 'plugin_settings_page']);
         add_submenu_page($this->slug, esc_attr__('Admin Bar', 'eco-profile-master'), esc_attr__('Admin Bar', 'eco-profile-master'), $capability, 'eco-profile-master-admin-bar', [$this, 'admin_bar_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'eco-profile-master-user-email', [$this, 'email_customizer_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'fx_smb', [$this->metabox_api, 'email_customizer_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'user_listings_plugin_page']);
     }
 
@@ -68,10 +77,10 @@ class Menu
     /**
      * Plugin Settings callback function
      */
-    public function email_customizer_plugin_page()
-    {
-        echo "i am email customizer callback";
-    }
+    // public function email_customizer_plugin_page()
+    // {
+    //     echo "i am email customizer callback";
+    // }
 
 
     public function admin_bar_plugin_page()
