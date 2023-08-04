@@ -7,12 +7,13 @@ namespace EcoProfile\Master\Admin\Settings;
  */
 class Epm_Settings
 {
+   
     /**
      * General Settings Plugin Page Handler function.
      *
      * @return void
      */
-    public function plugin_settings_page()
+    public function epm_plugin_settings_page()
     {
         if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) == 'eco-profile-master-settings') {
             $template = __DIR__ . '/views/form-fields.php';
@@ -22,8 +23,27 @@ class Epm_Settings
         }
     }
 
-    public function general_settings_form_handler()
+
+
+
+    /**
+     * General Settings Form Handler Function.
+     *
+     * @return void
+     */
+    public function epm_general_settings_form_handler()
     {
         epm_general_settings_form_submission();
     }
+    /**
+     * Advanced Settings Form Handler Function.
+     *
+     * @return void
+     */
+
+    public function epm_advanced_settings_form_handler()
+    {
+        epm_advanced_settings_form_submission();
+    }
+
 }

@@ -16,12 +16,12 @@ class Admin
         $epm_admin_settings = new Admin\Settings\Epm_Settings();
         $this->dispatch_action($epm_admin_settings);
         new Admin\Menu($epm_admin_settings);
-        new Admin\Settings\Epm_Settings();
     }
 
     public function dispatch_action($epm_admin_settings)
     {
-        add_action('admin_init', [$epm_admin_settings, 'general_settings_form_handler']);
+        add_action('admin_init', [$epm_admin_settings, 'epm_general_settings_form_handler']);
+        add_action('admin_init', [$epm_admin_settings, 'epm_advanced_settings_form_handler']);
 
     }
 }
