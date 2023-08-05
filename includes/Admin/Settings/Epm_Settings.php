@@ -16,15 +16,24 @@ class Epm_Settings
     public function epm_plugin_settings_page()
     {
         if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) == 'eco-profile-master-settings') {
-            $template = __DIR__ . '/views/form-fields.php';
+            $template = __DIR__ . '/views/form-settings.php';
+        }
+        if (file_exists($template)) {
+            include $template;
+        }
+
+       // wp_enqueue_script('epm-accordian-js');
+    }
+
+    public function epm_form_fields_plugin_page()
+    {
+        if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) == 'eco-profile-master-form-fields') {
+            $template = __DIR__ . '/views/form-settings.php';
         }
         if (file_exists($template)) {
             include $template;
         }
     }
-
-
-
 
     /**
      * General Settings Form Handler Function.
@@ -45,5 +54,7 @@ class Epm_Settings
     {
         epm_advanced_settings_form_submission();
     }
+
+
 
 }

@@ -48,13 +48,9 @@ class Menu
         add_menu_page(esc_attr__('Eco Profile Master', 'eco-profile-master'), esc_attr__('Eco Profile Master', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page'], $logo_icon, $menu_position);
         add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->epm_admin_settings, 'epm_plugin_settings_page']);
-        add_submenu_page($this->slug, esc_attr__('Admin Bar', 'eco-profile-master'), esc_attr__('Admin Bar', 'eco-profile-master'), $capability, 'eco-profile-master-admin-bar', [$this, 'admin_bar_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('Email Customizer', 'eco-profile-master'), esc_attr__('Email Customizer', 'eco-profile-master'), $capability, 'eco-profile-master-email-customizer', [$this, 'email_customizer_plugin_page']);
+        add_submenu_page($this->slug, esc_attr__('Form Fields', 'eco-profile-master'), esc_attr__('Form Fields', 'eco-profile-master'), $capability, 'eco-profile-master-form-fields', [$this, 'epm_form_fields_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'user_listings_plugin_page']);
     }
-
-   
-
 
 
     /**
@@ -93,6 +89,11 @@ class Menu
     public function email_customizer_plugin_page()
     {
         echo "Email CB";
+    }
+
+    public function epm_form_fields_plugin_page()
+    {
+        echo "Working on Later";
     }
 
 

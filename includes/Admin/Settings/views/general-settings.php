@@ -5,6 +5,17 @@
         <table class="form-table epm-th">
             <tbody>
                 <tr>
+                    <th><label for="epm_form_style"><?php _e('Form Styles:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_form_style" id="epm_form_style">
+                            <option value="style-1" <?php selected('style-1', get_option('epm_form_style')); ?>><?php _e('Style 1'); ?></option>
+                            <option value="style-2" <?php selected('style-2', get_option('epm_form_style')); ?>><?php _e('Style 2'); ?></option>
+                            <option value="style-3" <?php selected('style-3', get_option('epm_form_style')); ?>><?php _e('Style 3'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Select "Yes" to automatically log in new users after successful registration.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="epm_automatically_login"><?php _e('Automatically Log In:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_automatically_login" id="epm_automatically_login">
@@ -52,6 +63,16 @@
                             <option value="email" <?php selected('email', get_option('epm_loginwith')); ?>><?php _e('Email'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Users can Log In with either their Username or their Email or only username or only email.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_image"><?php _e('Allow Users to Upload Profile Image:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_image" id="epm_image">
+                            <option value="yes" <?php selected('yes', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
+                            <option value="no" <?php selected('no', get_option('epm_image')); ?>><?php _e('No'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Users can Upload their Profile Image.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
                 <tr>

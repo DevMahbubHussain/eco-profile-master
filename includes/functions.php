@@ -26,11 +26,13 @@ function epm_general_settings_form_submission()
 
         // Define an array with the option names and their corresponding POST keys
         $options = array(
+            'epm_form_style' => 'epm_form_style',
             'epm_automatically_login' => 'epm_automatically_login',
             'epm_email_confirmation_activated' => 'epm_email_confirmation_activated',
             'epm_roles_editor_activated' => 'epm_roles_editor_activated',
             'epm_admin_approval' => 'epm_admin_approval',
             'epm_loginwith' => 'epm_loginwith',
+            'epm_image' => 'epm_image',
             'epm_lost_password_page' => 'epm_lost_password_page'
         );
 

@@ -40,7 +40,7 @@ class Manager
     public function get_styles(): array
     {
         return [
-            'ep-master-css' => [
+            'epm-master-css' => [
                 'src' => EP_MASTER_BUILD . '/index.css',
                 'version' => EP_MASTER_VERSION,
                 'deps' => []
@@ -59,7 +59,7 @@ class Manager
         $dependency = require_once EP_MASTER_DIR . '/build/index.asset.php';
 
         return [
-            'ep-master-js' => [
+            'epm-master-js' => [
                 'src'       => EP_MASTER_BUILD . '/index.js',
                 'version'   => $dependency['version'],
                 'deps'      => $dependency['dependencies'],
@@ -105,8 +105,10 @@ class Manager
         if (!is_admin() || !isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-settings' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-user-listing' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-admin-bar') {
             return;
         }
-        wp_enqueue_style('ep-master-css');
-        wp_enqueue_script('ep-master-js');
+        wp_enqueue_style('epm-master-css');
+        wp_enqueue_script('epm-master-js');
+        wp_enqueue_script('jquery-ui-accordion');
+
     }
 
     public function epm_wp_register_assets()

@@ -38,3 +38,35 @@ a {
     transition-duration: .05s;
     transition-timing-function: ease-in-out;
 }
+/* CSS for Collapsible Panels */
+.collapsible-panels .panel {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.collapsible-panels .panel-header {
+    cursor: pointer;
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+.collapsible-panels .panel-content {
+    display: none;
+    padding: 10px;
+}
+
+/* CSS to show the active panel */
+.collapsible-panels .panel-header.active {
+    background-color: #ddd;
+    /* Add styling for the active panel header */
+}
+
+.epm_label {
+    display: inline-block;
+    min-width: 150px;
+    font-weight: bold;
+}
+
+.regular-text {
+    width: 30em;
+}
