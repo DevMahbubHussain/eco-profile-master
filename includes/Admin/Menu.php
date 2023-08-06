@@ -60,7 +60,7 @@ class Menu
      */
     public function epm_plugin_page()
     {
-        require_once EP_MASTER_TEMPLATE_PATH . '/features/general-settings/general.php ';
+        require_once EP_MASTER_TEMPLATE_PATH . '/features/general-settings/general.php';
     }
 
     /**
