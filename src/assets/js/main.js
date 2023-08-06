@@ -16,5 +16,15 @@
                 $(this).next('.panel-content').slideDown();
             }
         });
+
+        // tabs 
+        $("#tabs").tabs();
+
+
+
+
+
     });
+
+
 })(jQuery);

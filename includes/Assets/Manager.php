@@ -44,7 +44,12 @@ class Manager
                 'src' => EP_MASTER_BUILD . '/index.css',
                 'version' => EP_MASTER_VERSION,
                 'deps' => []
-            ]
+            ],
+            'epm-codemirror-css' => [
+                'src'       => EP_MASTER_ASSETS . '/lib/codemirror.css',
+                'version' => filemtime(EP_MASTER_PATH . '/lib/codemirror.css'),
+                'deps'      => [],
+            ],
         ];
     }
 
@@ -63,6 +68,18 @@ class Manager
                 'src'       => EP_MASTER_BUILD . '/index.js',
                 'version'   => $dependency['version'],
                 'deps'      => $dependency['dependencies'],
+                'in_footer' => true,
+            ],
+            'epm-ace-js' => [
+                'src'       => EP_MASTER_ASSETS . '/lib/ace/ace.js',
+                'version' => filemtime(EP_MASTER_PATH . '/lib/ace/ace.js'),
+                'deps'      => ['jquery'],
+                'in_footer' => true,
+            ],
+            'epm-ace-js-rules' => [
+                'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
+                'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
+                'deps'      => ['epm-ace-js'],
                 'in_footer' => true,
             ],
         ];
@@ -105,9 +122,14 @@ class Manager
         if (!is_admin() || !isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-settings' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-user-listing' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-admin-bar') {
             return;
         }
+        // wp_enqueue_script('epm-ace-js');
+        // wp_enqueue_script('epm-ace-js-rules');
+        // wp_enqueue_style('epm-codemirror-css');
         wp_enqueue_style('epm-master-css');
         wp_enqueue_script('epm-master-js');
         wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-tabs');
+
 
     }
 

@@ -38,6 +38,10 @@ a {
     transition-duration: .05s;
     transition-timing-function: ease-in-out;
 }
+a:focus {
+    box-shadow: none;
+    outline: none;
+}
 /* CSS for Collapsible Panels */
 .collapsible-panels .panel {
     border: 1px solid #ccc;
@@ -69,4 +73,16 @@ a {
 
 .regular-text {
     width: 30em;
+}
+/* custom.css */
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+    /* Your desired active tab background color */
+    color: #000;
+    /* Your desired active tab text color */
+}
+
+#epm_ace_editor {
+    position: relative;
+    width: 550px;
+    height: 400px;
 }
