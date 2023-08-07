@@ -44,12 +44,12 @@ class Manager
                 'src' => EP_MASTER_BUILD . '/index.css',
                 'version' => EP_MASTER_VERSION,
                 'deps' => []
-            ],
-            'epm-codemirror-css' => [
-                'src'       => EP_MASTER_ASSETS . '/lib/codemirror.css',
-                'version' => filemtime(EP_MASTER_PATH . '/lib/codemirror.css'),
-                'deps'      => [],
-            ],
+            ]
+            // 'epm-codemirror-css' => [
+            //     'src'       => EP_MASTER_ASSETS . '/lib/codemirror.css',
+            //     'version' => filemtime(EP_MASTER_PATH . '/lib/codemirror.css'),
+            //     'deps'      => [],
+            // ],
         ];
     }
 
@@ -69,19 +69,19 @@ class Manager
                 'version'   => $dependency['version'],
                 'deps'      => $dependency['dependencies'],
                 'in_footer' => true,
-            ],
-            'epm-ace-js' => [
-                'src'       => EP_MASTER_ASSETS . '/lib/ace/ace.js',
-                'version' => filemtime(EP_MASTER_PATH . '/lib/ace/ace.js'),
-                'deps'      => ['jquery'],
-                'in_footer' => true,
-            ],
-            'epm-ace-js-rules' => [
-                'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
-                'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
-                'deps'      => ['epm-ace-js'],
-                'in_footer' => true,
-            ],
+            ]
+            // 'epm-ace-js' => [
+            //     'src'       => EP_MASTER_ASSETS . '/lib/ace/ace.js',
+            //     'version' => filemtime(EP_MASTER_PATH . '/lib/ace/ace.js'),
+            //     'deps'      => ['jquery'],
+            //     'in_footer' => true,
+            // ],
+            // 'epm-ace-js-rules' => [
+            //     'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
+            //     'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
+            //     'deps'      => ['epm-ace-js'],
+            //     'in_footer' => true,
+            // ],
         ];
     }
 

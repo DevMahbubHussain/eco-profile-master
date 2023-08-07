@@ -95,8 +95,4 @@ class Menu
     {
         echo "Working on Later";
     }
-
-
-
-    
 }

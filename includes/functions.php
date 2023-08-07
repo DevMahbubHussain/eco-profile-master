@@ -13,7 +13,7 @@
  */
 function epm_general_settings_form_submission()
 {
-    if ($_POST['updated'] === 'true') {
+    if (isset($_POST['updated']) && $_POST['updated'] === 'true') {
         if (!isset($_POST['epm_general_settings'])) {
             return;
         }
@@ -52,7 +52,7 @@ function epm_general_settings_form_submission()
  */
 function epm_advanced_settings_form_submission()
 {
-    if ($_POST['updated'] === 'true') {
+    if (isset($_POST['updated']) && $_POST['updated'] === 'true') {
         if (!isset($_POST['epm_advanced_settings'])) {
             return;
         }
@@ -136,6 +136,20 @@ function epm_get_general_settings_active_page()
 <?php
     endforeach;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
