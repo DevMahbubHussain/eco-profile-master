@@ -56,5 +56,16 @@ class Epm_Settings
     }
 
 
+    /**
+     * Admin Bar function.
+     *
+     * @return void
+     */
+    public function epm_admin_bar_form_handler()
+    {
+        update_epm_display_admin_settings();
+    }
+
+
 
 }

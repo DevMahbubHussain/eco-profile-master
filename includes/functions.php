@@ -14,16 +14,13 @@
 function epm_general_settings_form_submission()
 {
     if (isset($_POST['updated']) && $_POST['updated'] === 'true') {
+
         if (!isset($_POST['epm_general_settings'])) {
             return;
         }
-        if (!wp_verify_nonce($_POST['general_settings_nonce'], 'general_settings_action')) {
-            wp_die('Not allow');
+        if (!wp_verify_nonce($_POST['general_settings_nonce'], 'general_settings_nonce') || !current_user_can('manage_options')) {
+            wp_die('Security check failed.');
         }
-        if (!current_user_can('manage_options')) {
-            wp_die('Not allow');
-        }
-
         // Define an array with the option names and their corresponding POST keys
         $options = array(
             'epm_form_style' => 'epm_form_style',
@@ -53,12 +50,13 @@ function epm_general_settings_form_submission()
 function epm_advanced_settings_form_submission()
 {
     if (isset($_POST['updated']) && $_POST['updated'] === 'true') {
+
         if (!isset($_POST['epm_advanced_settings'])) {
             return;
         }
 
-        if (!wp_verify_nonce($_POST['advanced_settings_nonce'], 'advanced_settings_action') || !current_user_can('manage_options')) {
-            wp_die('Not allow');
+        if (!wp_verify_nonce($_POST['advanced_settings_nonce'], 'advanced_settings_nonce') || !current_user_can('manage_options')) {
+            wp_die('Security check failed.');
         }
 
         // Define an array with the checkbox names
@@ -79,6 +77,44 @@ function epm_advanced_settings_form_submission()
     }
 }
 
+/**
+ * Admin Bar function
+ *
+ * @return void
+ */
+function update_epm_display_admin_settings()
+{
+    if (!isset($_POST['epm_admin_bar'])) {
+        return;
+    }
+    if (!isset($_POST['update_epm_display_admin_settings_nonce']) || !wp_verify_nonce($_POST['update_epm_display_admin_settings_nonce'], 'update_epm_display_admin_settings_nonce')) {
+        wp_die('Security check failed.');
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_die('Not allowed.');
+    }
+
+    if (isset($_POST['epm_display_admin_settings'])) {
+        $admin_settings = $_POST['epm_display_admin_settings'];
+        // Sanitize and validate the data 
+        $allowed_values = array('default', 'show', 'hide');
+
+        foreach ($admin_settings as $role => $visibility) {
+            if (!in_array($visibility, $allowed_values)) {
+                // Invalid value, set to 'default' as fallback
+                $admin_settings[$role] = 'default';
+            }
+        }
+        $admin_settings = array_map('sanitize_text_field', $admin_settings);
+        update_option('epm_display_admin_settings', $admin_settings);
+    }
+    wp_safe_redirect(add_query_arg('epm_action_result', 'success', wp_get_referer()));
+    exit();
+}
+// add_action('admin_post_update_epm_display_admin_settings', 'update_epm_display_admin_settings');
+// add_action('admin_post_nopriv_update_epm_display_admin_settings', 'update_epm_display_admin_settings');
+
 
 /**
  * Admin notice function.
@@ -97,8 +133,6 @@ function display_admin_notice()
     }
 }
 add_action('admin_notices', 'display_admin_notice');
-
-
 
 /**
  * Get all the pages
@@ -136,10 +170,6 @@ function epm_get_general_settings_active_page()
 <?php
     endforeach;
 }
-
-
-
-
 
 
 

@@ -86,3 +86,17 @@ a:focus {
     width: 550px;
     height: 400px;
 }
+.epm-wrap,
+.epm-wrap p {
+    font-size: 15px;
+    max-width: 1050px;
+    padding: 10px 0;
+}
+
+.epm-admin-bar>.description {
+    margin-top: 23px;
+}
+
+table.widefat.epm-label tr td label {
+    margin-right: 32px;
+}

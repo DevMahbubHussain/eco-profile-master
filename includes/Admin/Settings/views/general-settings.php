@@ -1,7 +1,7 @@
 <div class="wrap">
-    <form method="POST" action="">
-        <input type="hidden" name="updated" value="true">
-        <?php wp_nonce_field('general_settings_action', 'general_settings_nonce'); ?>
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <input type="hidden" name="updated" value="true" />
+        <?php wp_nonce_field('general_settings_nonce', 'general_settings_nonce'); ?>
         <table class="form-table epm-th">
             <tbody>
                 <tr>
