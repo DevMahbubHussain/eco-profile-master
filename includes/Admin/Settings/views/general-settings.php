@@ -12,7 +12,7 @@
                             <option value="style-2" <?php selected('style-2', get_option('epm_form_style')); ?>><?php _e('Style 2'); ?></option>
                             <option value="style-3" <?php selected('style-3', get_option('epm_form_style')); ?>><?php _e('Style 3'); ?></option>
                         </select>
-                        <p class="epm-description"><?php _e('Select "Yes" to automatically log in new users after successful registration.', 'eco-profile-master'); ?></p>
+                        <p class="epm-description"><?php _e('Select form style.', 'eco-profile-master'); ?></p>
                     </td>
                 </tr>
                 <tr>
