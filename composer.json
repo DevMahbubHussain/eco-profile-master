@@ -15,7 +15,9 @@
 			"EcoProfile\\Master\\": "includes/"
 		},
 		"files": [
-			"includes/functions.php"
+			"includes/functions.php",
+			"includes/Admin/Settings/functions.php",
+			"includes/Admin/Settings/utility.php"
 		]
 	},
 	"require-dev": {
