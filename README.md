@@ -29,3 +29,52 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
 
 
 
+## Rgistration form will implemented based on folwwing Features. 
+
+1. Automatically Log In
+2. Email Confirmation Activated
+3. Admin Approval
+
+## Form fields list .
+
+## Name
+1. Username
+2. First Name
+3. Last Name
+4. Nickname
+
+## Contact Info
+1. E-mail
+2. Website
+
+## About Yourself
+1. Biographical Info
+2. Password
+3. Repeat Password
+
+
+## Profile Image and Avatar 
+1. Profile Image 
+2. Avatar Implementaion 
+
+## Social Information 
+1. Facebook URL 
+2. Tiwitter URL 
+3. Linked in
+4. YouTube 
+
+
+
+## Working Process of Registration form 
+
+1. Shortcode function 
+     1. Render output function 
+
+2. Render output will divide several utility functions
+   1. form 
+   2. validation 
+   3. Mail functions 
+   4. Featuere functions like , automatic login, admin approval,form style, email confirmation 
+     
+
+

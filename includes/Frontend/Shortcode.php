@@ -29,4 +29,6 @@ class Shortcode
         wp_enqueue_style('ep-master-css');
         return '<div class="center bg">Hello From Shortcode</div>';
     }
+
+
 }

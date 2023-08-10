@@ -8,9 +8,9 @@
                     <th><label for="epm_form_style"><?php _e('Form Styles:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_form_style" id="epm_form_style">
-                            <option value="style-1" <?php selected('style-1', get_option('epm_form_style')); ?>><?php _e('Style 1'); ?></option>
-                            <option value="style-2" <?php selected('style-2', get_option('epm_form_style')); ?>><?php _e('Style 2'); ?></option>
-                            <option value="style-3" <?php selected('style-3', get_option('epm_form_style')); ?>><?php _e('Style 3'); ?></option>
+                            <option value="style1" <?php selected('style1', get_option('epm_form_style')); ?>><?php _e('Style 1'); ?></option>
+                            <option value="style2" <?php selected('style2', get_option('epm_form_style')); ?>><?php _e('Style 2'); ?></option>
+                            <option value="style3" <?php selected('style3', get_option('epm_form_style')); ?>><?php _e('Style 3'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Select form style.', 'eco-profile-master'); ?></p>
                     </td>

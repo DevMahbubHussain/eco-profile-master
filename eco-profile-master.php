@@ -45,6 +45,10 @@ final class Eco_Profile_Master
 
 	/**
 	 * Class Constructor
+	 *
+	 * Initializes the plugin, autoloads classes, defines constants, and registers hooks.
+	 *
+	 * @since 1.0.0
 	 */
 	private function __construct()
 	{
@@ -52,14 +56,38 @@ final class Eco_Profile_Master
 		$this->epm_define_constants();
 		register_activation_hook(__FILE__, array($this, 'epm_activate'));
 		register_deactivation_hook(__FILE__, array($this, 'epm_deactice'));
-		add_action('plugins_loaded', array($this, 'epm_plugin_init'));
-		add_action('wp_loaded', [$this, 'flush_rewrite_rules']);
+		$this->epm_add_hooks();
 	}
 
 	/**
-	 * Initializes a singleton instance
+	 * Adds hooks for plugin functionality.
 	 *
-	 * @return \Eco_Profile_Master
+	 * Registers WordPress actions and filters to initiate specific
+	 * functionalities of the plugin, including localization setup and
+	 * plugin action links.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	private function epm_add_hooks()
+	{
+		add_action('plugins_loaded', array($this, 'epm_plugin_init'));
+		// Localize our plugin
+		add_action('init', [$this, 'localization_setup']);
+		// Add the plugin page links
+		add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'plugin_action_links']);
+	}
+
+	/**
+	 * Initializes a singleton instance.
+	 *
+	 * This method ensures that only one instance of the class is created
+	 * during its lifetime. If an instance doesn't exist, it creates one.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return \Eco_Profile_Master The singleton instance.
 	 */
 	public static function init()
 	{
@@ -73,9 +101,12 @@ final class Eco_Profile_Master
 	}
 
 	/**
-	 * Define the required plugin constants
+	 * Define required plugin constants.
 	 *
-	 * @return void
+	 * Sets up fundamental constants for the plugin, such as version,
+	 * paths, URLs, and asset directories.
+	 *
+	 * @since 1.0.0
 	 */
 	public function epm_define_constants()
 	{
@@ -91,7 +122,12 @@ final class Eco_Profile_Master
 	}
 
 	/**
-	 * Plugin activation
+	 * Plugin activation.
+	 *
+	 * Handles plugin activation by updating installation time and version.
+	 * Additionally, flushes rewrite rules to ensure proper permalink structure.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -103,28 +139,30 @@ final class Eco_Profile_Master
 			update_option('epm_installed', time());
 		}
 		update_option('epm_version', EP_MASTER_VERSION);
+
+		flush_rewrite_rules();
 	}
 
 	/**
-	 * Placeholder for deactivation function.
+	 * Plugin deactivation function.
+	 *
+	 * This method for deactivation-related tasks.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public function epm_deactice()
 	{
-		// do somthing in deactivate
-	}
-	/**
-	 * Flush rewrite rules after plugin is activated.
-	 *
-	 */
-	public function flush_rewrite_rules()
-	{
-		// fix rewrite rules
+		// do something in deactivate
 	}
 
 	/**
-	 * Initialize the plugin
+	 * Initialize the plugin.
+	 *
+	 * Initiates the plugin by including required files and initializing components.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -134,41 +172,70 @@ final class Eco_Profile_Master
 	}
 
 	/**
-	 * Include the required files.
+	 * Include required files and initialize components.
+	 *
+	 * Conditionally includes necessary files based on the current request type (admin or frontend).
+	 * Initializes admin, frontend, and common components.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function includes()
+	private function includes()
 	{
 		if ($this->is_request('admin')) {
-			new \EcoProfile\Master\Admin();
+			$this->init_admin();
 		} elseif ($this->is_request('frontend')) {
-			new \EcoProfile\Master\Frontend();
+			$this->init_frontend();
 		}
-		// common classes 
-		new \EcoProfile\Master\Assets\Manager();
+		// Initialize common classes
+		$this->init_common();
 	}
 
-
 	/**
-	 * Initialize the hooks.P
+	 * Initialize admin components.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function init_hooks()
+	private function init_admin()
 	{
-		// Localize our plugin
-		add_action('init', [$this, 'localization_setup']);
-		// Add the plugin page links
-		add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'plugin_action_links']);
-		add_action('init', [$this, 'init_classes']);
+		new \EcoProfile\Master\Admin();
 	}
 
+	/**
+	 * Initialize frontend components.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	private function init_frontend()
+	{
+		new \EcoProfile\Master\Frontend();
+	}
+
+	/**
+	 * Initialize common components.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	private function init_common()
+	{
+		new \EcoProfile\Master\Assets\Manager();
+		// ... other common component initializations ...
+	}
 
 	/**
 	 * Initialize plugin for localization.
 	 *
-	 * @uses load_plugin_textdomain()
+	 * Sets up localization for the plugin by loading the translation files
+	 * and setting script translations for localization.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -177,17 +244,22 @@ final class Eco_Profile_Master
 		load_plugin_textdomain('echo-profile-master', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
 		if (is_admin()) {
-			// Load wp-script translation for job-place-app
+			// Load script translation for wp-scripts
 			wp_set_script_translations('ep-master-js', 'echo-profile-master', plugin_dir_path(__FILE__) . 'languages/');
 		}
 	}
 
+
 	/**
-	 * What type of request is this.
+	 * Determine the type of request.
 	 *
-	 * @param string $type admin, ajax, cron or frontend
+	 * Determines the type of request being made (admin, ajax, cron, frontend) based on the provided $type parameter.
 	 *
-	 * @return bool
+	 * @since 1.0.0
+	 *
+	 * @param string $type The type of request to check (admin, ajax, cron, frontend).
+	 *
+	 * @return bool Whether the current request matches the specified type.
 	 */
 	private function is_request($type)
 	{
@@ -210,12 +282,16 @@ final class Eco_Profile_Master
 	}
 
 	/**
-	 * Plugin action links
+	 * Generate plugin action links.
 	 *
-	 * @param array $links
+	 * Adds a "Settings" link to the plugin's action links.
 	 *
-	 * @return array
+	 * @since 1.0.0
+	 *
+	 * @param array $links Existing action links.
+	 * @return array Modified action links with the added "Settings" link.
 	 */
+
 	public function plugin_action_links($links)
 	{
 		$links[] = '<a href="' . admin_url('admin.php?page=eco-profile-master-settings') . '">' . __('Settings', ' echo-profile-master') . '</a>';
@@ -224,14 +300,26 @@ final class Eco_Profile_Master
 }
 
 /**
- * Initializes the main plugin
+ * Initialize the main plugin.
  *
- * @return \Eco_Profile_Master
+ * Initializes the Eco_Profile_Master plugin and returns its instance.
+ *
+ * @since 1.0.0
+ *
+ * @return \Eco_Profile_Master The main plugin instance.
  */
-function ep_master()
+
+function epm_master()
 {
 	return Eco_Profile_Master::init();
 }
 
-// kick-off the plugin.
-ep_master();
+/**
+ * Kick off the plugin.
+ *
+ * Initializes and starts the Eco_Profile_Master plugin.
+ *
+ * @since 1.0.0
+ */
+
+epm_master();

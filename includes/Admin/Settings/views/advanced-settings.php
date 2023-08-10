@@ -28,7 +28,7 @@
                 <tr>
                     <th><label for="epm_auto_generate_pass"><?php _e('Automatically generate password for users', 'eco-profile-master'); ?></label></th>
                     <td>
-                        <input type="checkbox" id="epm_first_lastname_captitilize" name="epm_auto_generate_pass" value="1" <?php checked(get_option('epm_auto_generate_pass'), 1); ?>>
+                        <input type="checkbox" id="epm_auto_generate_pass" name="epm_auto_generate_pass" value="1" <?php checked(get_option('epm_auto_generate_pass'), 1); ?>>
                         <p class="epm-description"><?php _e('By checking this option, the password will be automatically generated and emailed to the user.', 'eco-profile-master'); ?></p>
                     </td>
                 </tr>

@@ -15,7 +15,7 @@ class Manager
      */
     public function __construct()
     {
-        add_action('init', [$this, 'register_all_scripts']);
+        add_action('init', array($this, 'register_all_scripts'));
         add_action('wp_enqueue_scripts', array($this, 'epm_wp_register_assets'));
         add_action('admin_enqueue_scripts', array($this, 'epm_admin_register_assets'));
     }
@@ -108,34 +108,72 @@ class Manager
             wp_register_script($handle, $script['src'], $script['deps'], $script['version'], $script['in_footer']);
         }
     }
-    /**
-     * Enqueue admin styles and scripts.
-     *
-     *  Loads the JS and CSS only on the Eco Profile Master admin page.
-     *
-     * @return void
-     */
 
+
+
+    /**
+     * Enqueue admin styles and scripts for Eco Profile Master.
+     */
     public function epm_admin_register_assets()
     {
-        // Check if we are on the admin page and page=eco-profile-master.
-        if (!is_admin() || !isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-settings' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-user-listing' &&  sanitize_text_field(wp_unslash($_GET['page'])) !== 'eco-profile-master-admin-bar') {
-            return;
+        if ($this->epm_is_valid_admin_page()) {
+            $this->epm_enqueue_admin_styles();
+            $this->epm_enqueue_admin_scripts();
         }
-        // wp_enqueue_script('epm-ace-js');
-        // wp_enqueue_script('epm-ace-js-rules');
-        // wp_enqueue_style('epm-codemirror-css');
+    }
+
+    /**
+     * Check if the current page is a valid Eco Profile Master admin page.
+     *
+     * @return bool True if it's a valid admin page, false otherwise.
+     */
+    private function epm_is_valid_admin_page()
+    {
+        $valid_pages = [
+            'eco-profile-master',
+            'eco-profile-master-settings',
+            'eco-profile-master-user-listing',
+            'eco-profile-master-admin-bar'
+        ];
+
+        return is_admin() && isset($_GET['page']) && in_array(sanitize_text_field(wp_unslash($_GET['page'])), $valid_pages);
+    }
+
+    /**
+     * Enqueue admin-specific styles for Eco Profile Master.
+     */
+    private function epm_enqueue_admin_styles()
+    {
+        // Enqueue necessary admin styles
         wp_enqueue_style('epm-master-css');
+    }
+
+    /**
+     * Enqueue admin-specific scripts for Eco Profile Master.
+     */
+    private function epm_enqueue_admin_scripts()
+    {
+        // Enqueue necessary admin scripts
         wp_enqueue_script('epm-master-js');
         wp_enqueue_script('jquery-ui-accordion');
         wp_enqueue_script('jquery-ui-tabs');
-
-
     }
 
+    /**
+     * Enqueues styles and scripts if the current post contains the [epm-register] shortcode.
+     *
+     * @since 1.0.0
+     *
+     * @global WP_Post $post The current post object.
+     */
     public function epm_wp_register_assets()
     {
-        wp_enqueue_style('ep-master-css');
-        // wp_enqueue_script('ep-master-js');
+        global $post;
+
+        // Check if the current post content contains the specific shortcode
+        if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'epm-register')) {
+            wp_enqueue_style('epm-master-css');
+            wp_enqueue_script('epm-master-js');
+        }
     }
 }

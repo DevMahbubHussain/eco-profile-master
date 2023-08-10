@@ -18,16 +18,13 @@ function epm_get_my_pages()
     return $pages_options;
 }
 
+/**
+ * Signup form submission handler 
+ */
+
+function epm_activate_user_signup()
+{
+    // form submission code goes here 
 
 
-
-
-
-
-
-
-
-
-
-
-?>
+}
