@@ -67,5 +67,11 @@ class Epm_Settings
     }
 
 
+    public function epm_form_fields_handler()
+    {
+        epm_admin_form_fields_settings();
+    }
+
+
 
 }

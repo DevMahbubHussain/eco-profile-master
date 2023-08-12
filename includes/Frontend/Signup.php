@@ -2,7 +2,7 @@
 
 namespace EcoProfile\Master\Frontend;
 
-use EcoProfile\Master\Traits\EPM_AutoGeneratePasswordTrait;
+use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 
 
 
@@ -14,7 +14,8 @@ use EcoProfile\Master\Traits\EPM_AutoGeneratePasswordTrait;
  */
 class Signup
 {
-    use EPM_AutoGeneratePasswordTrait;
+    //use EPM_AutoGeneratePasswordTrait;
+    use EPM_Signup_FieldsTrait;
 
 
     /**

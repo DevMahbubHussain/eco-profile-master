@@ -63,8 +63,6 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
 3. Linked in
 4. YouTube 
 
-
-
 ## Working Process of Registration form 
 
 1. Shortcode function 
@@ -75,6 +73,11 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
    2. validation 
    3. Mail functions 
    4. Featuere functions like , automatic login, admin approval,form style, email confirmation 
+
+## Features Implemented 
+   1. form styles 
+   2. Automatically generate password
+   3. Always capitalize default fields
      
 
 

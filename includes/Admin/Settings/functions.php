@@ -7,9 +7,16 @@
  */
 
 /**
- * Admin general settings form handeler function.
+ * Admin general settings function. 
+ *
+ * Process and save the form fields settings submitted by the user.
+ *
+ * This function is triggered when the form is submitted. It verifies the nonce,
+ * checks user capabilities, sanitizes input, and updates the plugin options.
+ * After processing, it redirects the user back to the referring page with a success message.
  *
  * @return void
+ * @since 1.0.0
  */
 function epm_general_settings_form_submission()
 {
@@ -39,13 +46,21 @@ function epm_general_settings_form_submission()
             update_option($option_name, $option_value);
         }
         wp_safe_redirect(add_query_arg('epm_action_result', 'success', wp_get_referer()));
+        exit();
     }
 }
 
 /**
- * Admin general settings form handeler function.
+ * Admin advanved settings function. 
+ *
+ * Process and save the form fields settings submitted by the user.
+ *
+ * This function is triggered when the form is submitted. It verifies the nonce,
+ * checks user capabilities, sanitizes input, and updates the plugin options.
+ * After processing, it redirects the user back to the referring page with a success message.
  *
  * @return void
+ * @since 1.0.0
  */
 function epm_advanced_settings_form_submission()
 {
@@ -74,13 +89,21 @@ function epm_advanced_settings_form_submission()
             update_option($checkbox, ${$checkbox});
         }
         wp_safe_redirect(add_query_arg('epm_action_result', 'success', wp_get_referer()));
+        exit();
     }
 }
 
 /**
- * Admin Bar function
+ * Admin bar settings function. 
+ * 
+ * Process and save the form fields settings submitted by the user.
+ *
+ * This function is triggered when the form is submitted. It verifies the nonce,
+ * checks user capabilities, sanitizes input, and updates the plugin options.
+ * After processing, it redirects the user back to the referring page with a success message.
  *
  * @return void
+ * @since 1.0.0
  */
 function update_epm_display_admin_settings()
 {
@@ -117,9 +140,59 @@ function update_epm_display_admin_settings()
 
 
 /**
- * Admin notice function.
+ * Process and save the form fields settings submitted by the user.
+ *
+ * This function is triggered when the form is submitted. It verifies the nonce,
+ * checks user capabilities, sanitizes input, and updates the plugin options.
+ * After processing, it redirects the user back to the referring page with a success message.
  *
  * @return void
+ * @since 1.0.0
+ */
+function epm_admin_form_fields_settings()
+{
+    if (!isset($_POST['epm_form_settings'])) {
+        return;
+    }
+    if (!isset($_POST['form_fields_settings_nonce']) || !wp_verify_nonce($_POST['form_fields_settings_nonce'], 'form_fields_settings_nonce')) {
+        wp_die('Security check failed.');
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_die('Not allowed.');
+    }
+
+    $sections = array(
+        'name' => 'epm_form_heading_name',
+        'contact_info' => 'epm_form_heading_contact_info',
+        'about_yourself' => 'epm_form_heading_about_yourself',
+        'profile_image' => 'epm_form_heading_profile_image',
+        'social_links' => 'epm_form_heading_social_links',
+    );
+
+    foreach ($sections as $section => $option_name) {
+        $section_value = isset($_POST[$option_name]) ? sanitize_text_field($_POST[$option_name]) : '';
+        $hide_option_name = $option_name . '_hide';
+        $hide_value = isset($_POST[$hide_option_name]) && $_POST[$hide_option_name] === '1' ? '1' : '0';
+
+        update_option($option_name, $section_value);
+        update_option($hide_option_name, $hide_value);
+    }
+
+    wp_safe_redirect(add_query_arg('epm_action_result', 'success', wp_get_referer()));
+    exit();
+}
+
+
+/**
+ * Display admin notice based on the epm_action_result query parameter.
+ *
+ * This function is hooked into the admin_notices action and checks the value of
+ * the epm_action_result query parameter. If the value is 'success', a success message
+ * is displayed. If the value is 'error', an error message is displayed.
+ *
+ * @return void
+ * @since 1.0.0
  */
 function display_admin_notice()
 {
@@ -136,9 +209,13 @@ add_action('admin_notices', 'display_admin_notice');
 
 
 /**
- * General Settings Page active pages.
+ * Get the selected lost password page option for the general settings.
+ *
+ * Retrieves the lost password page option from the plugin settings and generates
+ * a list of options with the currently selected page marked as 'selected'.
  *
  * @return void
+ * @since 1.0.0
  */
 function epm_get_general_settings_active_page()
 {

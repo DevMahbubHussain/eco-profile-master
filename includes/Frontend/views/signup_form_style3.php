@@ -10,5 +10,14 @@
             Automatically generate password
         </label>
     <?php endif; ?>
+
+    <?php if ($this->epm_allow_user_profile_image_upload()) : ?>
+        <label for="password">Profile Image:</label>
+        <input type="file" id="password" name="password">
+    <?php else : ?>
+        <h2>WHat</h2>
+    <?php endif; ?>
+
+    <?php echo $this->display_form_section_heading(); ?>
     <button type="submit">Register</button>
 </form>

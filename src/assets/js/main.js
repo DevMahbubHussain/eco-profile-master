@@ -20,8 +20,40 @@
         // tabs 
         $("#tabs").tabs();
 
+        // $('#epm_form_heading_name').change(function () {
+        //     if (this.checked) {
+        //         $('#name_heading_container').hide();
+        //         $('#name_heading').val('');
+        //     }
+        //     else {
+        //         $('#name_heading_container').show();
+        //     }
+        // })
 
+        // Initialize the visibility based on the initial state of the checkbox
+        // if ($('#epm_form_heading_name').prop('checked')) {
+        //     $('#name_heading_container').hide();
+        // }
 
+        // // Listen for changes to the checkbox
+        // $('#epm_form_heading_name').change(function () {
+        //     if (this.checked) {
+        //         $('#name_heading_container').fadeOut();
+        //     } else {
+        //         $('#name_heading_container').fadeIn();
+        //     }
+        // });
+
+        $('#epm_form_heading_name').change(function () {
+            if (this.checked) {
+                $('#name_heading_container').fadeOut();
+            } else {
+                $('#name_heading_container').fadeIn();
+            }
+        });
+
+        // Trigger the change event on page load if needed
+        $('#epm_form_heading_name').trigger('change');
 
 
     });

@@ -15,7 +15,7 @@
  * Text Domain:       echo-profile-master
  * Domain Path:       /languages
  *
- * @package Eco Profile Master
+ * @package EcoProfileMaster
  */
 
 if (!defined('ABSPATH')) {

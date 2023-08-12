@@ -14,6 +14,8 @@
         require_once __DIR__ . '/admin-bar-settings.php';
     } elseif ($active_tab == 'eco-profile-master-toolbox-settings') {
         require_once __DIR__ . '/advanced-settings.php';
+    } elseif ($active_tab == 'eco-profile-master-form-settings') {
+        require_once __DIR__ . '/form-fields.php';
     } elseif ($active_tab == 'eco-profile-user-email-customizer') {
         require_once __DIR__ . '/user-email-customizer.php';
     }
