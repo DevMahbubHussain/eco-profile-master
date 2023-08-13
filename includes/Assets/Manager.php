@@ -133,7 +133,8 @@ class Manager
             'eco-profile-master',
             'eco-profile-master-settings',
             'eco-profile-master-user-listing',
-            'eco-profile-master-admin-bar'
+            'eco-profile-master-admin-bar',
+            'eco-profile-master-form-labels'
         ];
 
         return is_admin() && isset($_GET['page']) && in_array(sanitize_text_field(wp_unslash($_GET['page'])), $valid_pages);

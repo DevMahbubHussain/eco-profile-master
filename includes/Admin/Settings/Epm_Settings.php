@@ -4,12 +4,13 @@ namespace EcoProfile\Master\Admin\Settings;
 
 /**
  * Eco Profile Master Admin Settings Wrapper Class.
+ * 
+ * @since 1.0.0
  */
 class Epm_Settings
 {
-   
     /**
-     * General Settings Plugin Page Handler function.
+     * Plugin settings page handler.
      *
      * @return void
      */
@@ -22,9 +23,14 @@ class Epm_Settings
             include $template;
         }
 
-       // wp_enqueue_script('epm-accordian-js');
+        // wp_enqueue_script('epm-accordian-js');
     }
 
+    /**
+     * Form fields plugin page handler.
+     *
+     * @return void
+     */
     public function epm_form_fields_plugin_page()
     {
         if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) == 'eco-profile-master-form-fields') {
@@ -36,7 +42,7 @@ class Epm_Settings
     }
 
     /**
-     * General Settings Form Handler Function.
+     * General settings form handler.
      *
      * @return void
      */
@@ -44,20 +50,19 @@ class Epm_Settings
     {
         epm_general_settings_form_submission();
     }
+
     /**
-     * Advanced Settings Form Handler Function.
+     * Advanced settings form handler.
      *
      * @return void
      */
-
     public function epm_advanced_settings_form_handler()
     {
         epm_advanced_settings_form_submission();
     }
 
-
     /**
-     * Admin Bar function.
+     * Admin Bar form handler.
      *
      * @return void
      */
@@ -66,12 +71,13 @@ class Epm_Settings
         update_epm_display_admin_settings();
     }
 
-
+    /**
+     * Form fields handler.
+     *
+     * @return void
+     */
     public function epm_form_fields_handler()
     {
         epm_admin_form_fields_settings();
     }
-
-
-
 }

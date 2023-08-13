@@ -4,8 +4,6 @@ namespace EcoProfile\Master\Frontend;
 
 use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 
-
-
 /**
  * Class Signup.
  *

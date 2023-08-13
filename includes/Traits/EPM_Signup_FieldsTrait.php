@@ -57,13 +57,35 @@ trait EPM_Signup_FieldsTrait
     }
 
 
-    protected function display_form_section_heading()
-    {
-        $form_section_heading_name = sanitize_text_field(get_option('epm_form_heading_name', '1'));
+    // protected function display_form_section_heading()
+    // {
+    //     $epm_form_heading_name = sanitize_text_field(get_option('epm_form_heading_name', 'Name'));
+    //     $epm_form_heading_name_hide = sanitize_text_field(get_option('epm_form_heading_name_hide', '1'));
 
-        if ($form_section_heading_name) {
-            return '<h3>' . esc_html(sanitize_text_field(get_option('epm_form_heading_name_hide', 'Name'))) . '</h3>';
-        }
-        return '';
+    //     return $epm_form_heading_name_hide === '1' ? $epm_form_heading_name : '';
+
+    // }
+
+    protected function display_form_section_heading($option_name, $default_heading = '')
+    {
+        $heading = sanitize_text_field(get_option($option_name, $default_heading));
+        $hide_option_name = $option_name . '_hide';
+        $hide = sanitize_text_field(get_option($hide_option_name, '1'));
+
+        return $hide === '1' ? $heading : '';
     }
+
+    public function generate_section_heading($hide_option, $heading_option, $default_hide_value, $default_heading)
+    {
+        $heading_hide = $this->display_form_section_heading($hide_option, $default_hide_value);
+        $heading = sanitize_text_field(get_option($heading_option, $default_heading));
+
+        if ($heading_hide === '1') {
+            return "<h3>$heading</h3>";
+        } else {
+            return '';
+        }
+    }
+    
+    
 }
