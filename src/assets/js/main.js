@@ -56,6 +56,13 @@
         $('#epm_form_heading_name').trigger('change');
 
 
+        // $("#accordion").accordion({
+        //     collapsible: true, // Allow closing sections
+        //     active: false, // Start with all sections collapsed
+        //     heightStyle: "content" // Adjust height based on content
+        // })
+
+
     });
 
 

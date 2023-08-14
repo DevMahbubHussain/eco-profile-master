@@ -30,3 +30,17 @@ function epm_admin_bar_settings()
         }
     }
 }
+
+
+function label_placeholder()
+{
+    // Retrieve the saved label and placeholder settings
+    $values = get_option('epm_form_label_placeholder', array());
+
+    // Now you can access specific values for each field
+    $firstnameLabel = isset($values['firstname']['label']) ? $values['firstname']['label'] : '';
+    $firstnamePlaceholder = isset($values['firstname']['placeholder']) ? $values['firstname']['placeholder'] : '';
+
+    // Repeat for other fields...
+
+}

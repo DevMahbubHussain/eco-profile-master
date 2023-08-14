@@ -10,6 +10,7 @@ namespace EcoProfile\Master\Admin\Settings;
  */
 class EPM_LabelPlaceholderSettings
 {
+    private $fields; // Declare the class property
     /**
      * Constructor.
      * Hooks into the 'admin_init' action to register settings and fields.
@@ -52,8 +53,13 @@ class EPM_LabelPlaceholderSettings
     public function epm_register_settings()
     {
         add_settings_section('epm_form_label_placeholder_section', '', null, 'eco-profile-master-form-labels');
-
-        $fields = array(
+        //$fields =  $this->fields;
+        $this->fields = array(
+            'username' => array(
+                'label' => __('Username', 'eco-profile-master'),
+                'placeholder' => __('Enter your username', 'eco-profile-master'),
+                'type' => 'text', // Field type: text, textarea, file, radio, checkbox, select
+            ),
             'firstname' => array(
                 'label' => __('First Name', 'eco-profile-master'),
                 'placeholder' => __('Enter your first name', 'eco-profile-master'),
@@ -64,9 +70,9 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Enter your last name', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
-            'phone' => array(
-                'label' => __('Phone', 'eco-profile-master'),
-                'placeholder' => __('Enter your phone', 'eco-profile-master'),
+            'lastname' => array(
+                'label' => __('Nickname', 'eco-profile-master'),
+                'placeholder' => __('Enter your Nickname', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
             'email' => array(
@@ -74,10 +80,60 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Enter your email', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
+            'phone' => array(
+                'label' => __('Phone', 'eco-profile-master'),
+                'placeholder' => __('Enter your phone', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'website' => array(
+                'label' => __('Website', 'eco-profile-master'),
+                'placeholder' => __('Enter your website url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'biographical' => array(
+                'label' => __('Biographical Info', 'eco-profile-master'),
+                'placeholder' => __('Enter your biographical info', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'password' => array(
+                'label' => __('Password', 'eco-profile-master'),
+                'placeholder' => __('Enter your password', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'repassword' => array(
+                'label' => __('Repeat Password', 'eco-profile-master'),
+                'placeholder' => __('Repeat Password', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'image' => array(
+                'label' => __('Profile Image', 'eco-profile-master'),
+                'placeholder' => __('Insert Profile Image', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'facebook' => array(
+                'label' => __('Facebook Url', 'eco-profile-master'),
+                'placeholder' => __('Enter your facebook url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'twitter' => array(
+                'label' => __('Twitter Url', 'eco-profile-master'),
+                'placeholder' => __('Enter your twitter url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'linkedin' => array(
+                'label' => __('LinkedIn Url', 'eco-profile-master'),
+                'placeholder' => __('Enter your linkedin url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'youtube' => array(
+                'label' => __('Youtube Url', 'eco-profile-master'),
+                'placeholder' => __('Enter your youtube url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
             // Add more fields here
         );
 
-        foreach ($fields as $field => $field_data) {
+        foreach ($this->fields as $field => $field_data) {
             add_settings_field(
                 $field . '_field',
                 $field_data['label'],
@@ -106,34 +162,49 @@ class EPM_LabelPlaceholderSettings
     public function epm_render_field($args)
     {
         $field = $args['field'];
-        $type = $args['type'];
         $values = $this->get_label_placeholder_option(); // Retrieve saved label/placeholder values
-        $value = isset($values[$field]['value']) ? $values[$field]['value'] : '';
         $label = isset($values[$field]['label']) ? $values[$field]['label'] : $args['default_label'];
         $placeholder = isset($values[$field]['placeholder']) ? $values[$field]['placeholder'] : $args['default_placeholder'];
 
-        switch ($type) {
-            case 'textarea':
-                echo '<textarea name="' . $field . '_field" rows="5" cols="50">' . esc_textarea($value) . '</textarea>';
-                break;
-            case 'file':
-                echo '<input type="file" name="' . $field . '_field" />';
-                break;
-            case 'radio':
-                // Implement radio input later
-                break;
-            case 'checkbox':
-                // Implement checkbox input later
-                break;
-            case 'select':
-                // Implement select input later
-                break;
-            default:
-                echo '<label for="' . $field . '_label">' . esc_html__('Label:', 'eco-profile-master') . '</label>';
-                echo '<input type="text" id="' . $field . '_label" name="epm_form_label_placeholder[' . $field . '][label]" value="' . esc_attr($label) . '" class="regular-text">';
-                echo '<br>';
-                echo '<label for="' . $field . '_placeholder">' . esc_html__('Placeholder:', 'eco-profile-master') . '</label>';
-                echo '<input type="text" id="' . $field . '_placeholder" name="epm_form_label_placeholder[' . $field . '][placeholder]" value="' . esc_attr($placeholder) . '" class="regular-text">';
+        foreach (array('label', 'placeholder') as $type) {
+            echo '<label for="' . $field . '_' . $type . '">' . esc_html__(ucfirst($type) . ':', 'eco-profile-master') . '</label>';
+            echo '<input type="text" id="' . $field . '_' . $type . '" name="epm_form_label_placeholder[' . $field . '][' . $type . ']" value="' . esc_attr($type === 'label' ? $label : $placeholder) . '" class="regular-text" maxlength="50">';
+            echo '<br>';
         }
+    }
+
+
+
+
+
+
+    /**
+     * Sanitize the label and placeholder settings input.
+     *
+     * @param array $input The input values to be sanitized.
+     *
+     * @return array The sanitized label and placeholder settings.
+     *
+     * @since 1.0.0
+     */
+
+    public function epm_sanitize_label_placeholder_settings($input)
+    {
+        // Initialize an empty array to store the sanitized values
+        $sanitized_values = array();
+
+        // Loop through each input field
+        foreach ($input as $field => $field_data) {
+            // Sanitize label and placeholder values
+            $sanitized_label = sanitize_text_field($field_data['label']);
+            $sanitized_placeholder = sanitize_text_field($field_data['placeholder']);
+
+            // Add sanitized values to the array
+            $sanitized_values[$field]['label'] = $sanitized_label;
+            $sanitized_values[$field]['placeholder'] = $sanitized_placeholder;
+        }
+
+        // Return the sanitized values
+        return $sanitized_values;
     }
 }

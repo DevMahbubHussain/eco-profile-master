@@ -36,15 +36,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="epm_roles_editor_activated"><?php _e('Roles Editor Activated:', 'eco-profile-master'); ?></label></th>
-                    <td>
-                        <select class="epm-select" name="epm_roles_editor_activated" id="epm_roles_editor_activated">
-                            <option value="no" <?php selected('no', get_option('epm_roles_editor_activated')); ?>><?php _e('No'); ?></option>
-                            <option value="yes" <?php selected('yes', get_option('epm_roles_editor_activated')); ?>><?php _e('Yes'); ?></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
                     <th><label for="epm_admin_approval"><?php _e('Admin Approval:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_admin_approval" id="epm_admin_approval">
@@ -66,11 +57,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <th><label for="epm_display_phone_number"><?php _e('Display Phone Number to Users:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_display_phone_number" id="epm_display_phone_number">
+                            <option value="no" <?php selected('no', get_option('epm_display_phone_number')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_display_phone_number')); ?>><?php _e('Yes'); ?></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="epm_image"><?php _e('Allow Users to Upload Profile Image:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_image" id="epm_image">
-                            <option value="yes" <?php selected('yes', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
-                            <option value="no" <?php selected('no', get_option('epm_image')); ?>><?php _e('No'); ?></option>
+                            <option value="no" <?php selected('yes', get_option('epm_image')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('no', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Users can Upload their Profile Image.', 'echo-profile-master'); ?></p>
                     </td>
