@@ -56,6 +56,17 @@
                         <p class="epm-description"><?php _e('Users can Log In with either their Username or their Email or only username or only email.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
+
+                <tr>
+                    <th><label for="epm_display_email"><?php _e('Display Email Address to Users:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_display_email" id="epm_display_email">
+                            <option value="yes" <?php selected('yes', get_option('epm_display_email')); ?>><?php _e('Yes'); ?></option>
+                            <option value="no" <?php selected('no', get_option('epm_display_email')); ?>><?php _e('No'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Select "Yes" email address field will be avilable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
                 <tr>
                     <th><label for="epm_display_phone_number"><?php _e('Display Phone Number to Users:', 'eco-profile-master'); ?></label></th>
                     <td>
@@ -63,6 +74,7 @@
                             <option value="no" <?php selected('no', get_option('epm_display_phone_number')); ?>><?php _e('No'); ?></option>
                             <option value="yes" <?php selected('yes', get_option('epm_display_phone_number')); ?>><?php _e('Yes'); ?></option>
                         </select>
+                        <p class="epm-description"><?php _e('Select "Yes" phone number field will be avilable.', 'eco-profile-master'); ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -73,6 +85,17 @@
                             <option value="yes" <?php selected('no', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Users can Upload their Profile Image.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_display_social_kinks"><?php _e('Display Social Links to Users:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_display_social_kinks" id="epm_display_social_kinks">
+                            <option value="no" <?php selected('no', get_option('epm_display_social_kinks')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_display_social_kinks')); ?>><?php _e('Yes'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Select "Yes" social links fields will be avilable.', 'eco-profile-master'); ?></p>
+
                     </td>
                 </tr>
                 <tr>

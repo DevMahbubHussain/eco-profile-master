@@ -36,7 +36,10 @@ function epm_general_settings_form_submission()
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_admin_approval' => 'epm_admin_approval',
             'epm_loginwith' => 'epm_loginwith',
+            'epm_display_email' => 'epm_display_email',
+            'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
+            'epm_display_social_kinks' => 'epm_display_social_kinks',
             'epm_lost_password_page' => 'epm_lost_password_page'
         );
 

@@ -140,6 +140,84 @@ final class Eco_Profile_Master
 		}
 		update_option('epm_version', EP_MASTER_VERSION);
 
+		// general settings
+		$epm_general_default_options = array(
+			'epm_form_style' => __('Style 1', 'eco-profile-master'),
+			'epm_automatically_login' => __('No', 'eco-profile-master'),
+			'epm_email_confirmation_activated' => __('No', 'eco-profile-master'),
+			'epm_admin_approval' => __('No', 'eco-profile-master'),
+			'epm_loginwith' => __('Username and Email', 'eco-profile-master'),
+			'epm_display_email' => __('Yes', 'eco-profile-master'),
+			'epm_display_phone_number' => __('No', 'eco-profile-master'),
+			'epm_image' => __('No', 'eco-profile-master'),
+			'epm_display_social_kinks' => __('No', 'eco-profile-master')
+		);
+
+		// Loop through the array and add options using add_option
+		foreach ($epm_general_default_options as $option_name => $general_default_value) {
+			add_option($option_name, $general_default_value);
+		}
+
+		// Dynamically create a new page for password recovery
+		$recover_password_page_title = __('Recover Password', 'eco-profile-master');
+		$recover_password_page_content = ''; // You can set content if needed
+		$recover_password_page = array(
+			'post_title' => $recover_password_page_title,
+			'post_content' => $recover_password_page_content,
+			'post_status' => 'publish',
+			'post_type' => 'page'
+		);
+		$recover_password_page_id = wp_insert_post($recover_password_page);
+
+		if (!is_wp_error($recover_password_page_id)) {
+			// Set the page title in the settings option
+			update_option('epm_lost_password_page', $recover_password_page_title);
+		}
+
+		// Default values for advanced settings
+		$epm_default_advanced_settings = array(
+			'epm_email_confirmation' => 1,
+			'epm_remember_me' => 0,
+			'epm_auto_login_pass_reset' => 0,
+			'epm_auto_generate_pass' => 0,
+			'epm_first_lastname_captitilize' => 0
+		);
+
+		// Default values for advanced settings
+		$epm_default_advanced_settings = array(
+			'epm_email_confirmation' => 1,
+			'epm_remember_me' => 0,
+			'epm_auto_login_pass_reset' => 0,
+			'epm_auto_generate_pass' => 0,
+			'epm_first_lastname_captitilize' => 0
+		);
+		foreach ($epm_default_advanced_settings as $option_name => $default_value) {
+			add_option($option_name, $default_value);
+		}
+
+		// Set default values for form headings and show/hide checkboxes
+		$epm_form_sections_headings = array(
+			'name' => __('Name', 'eco-profile-master'),
+			'contact_info' => __('Contact Info', 'eco-profile-master'),
+			'about_yourself' => __('About Yourself', 'eco-profile-master'),
+			'profile_image' => __('Profile Image', 'eco-profile-master'),
+			'social_links' => __('Social Links', 'eco-profile-master'),
+		);
+
+		foreach ($epm_form_sections_headings as $section_key => $section_label) {
+			$option_name = "epm_form_heading_$section_key";
+			$hide_option_name = "epm_form_heading_{$section_key}_hide";
+
+			if (!get_option($option_name)) {
+				add_option($option_name, $section_label);
+			}
+
+			if (!get_option($hide_option_name)) {
+				add_option($hide_option_name, '1'); // Default to "Show"
+			}
+		}
+	
+
 		flush_rewrite_rules();
 	}
 
@@ -154,7 +232,62 @@ final class Eco_Profile_Master
 	 */
 	public function epm_deactice()
 	{
-		// do something in deactivate
+		$epm_general_settings_options_to_delete = array(
+			'epm_form_style',
+			'epm_automatically_login',
+			'epm_email_confirmation_activated',
+			'epm_admin_approval',
+			'epm_loginwith',
+			'epm_display_email',
+			'epm_display_phone_number',
+			'epm_image',
+			'epm_display_social_kinks',
+			'epm_lost_password_page' // Delete the "Select Recover Password Page" option
+		);
+
+		foreach ($epm_general_settings_options_to_delete as $option_name) {
+			delete_option($option_name);
+		}
+
+		// Additional code to delete pages if needed
+		$recover_password_page_id = get_option('epm_lost_password_page');
+		if ($recover_password_page_id) {
+			wp_delete_post($recover_password_page_id, true);
+		}
+
+		// Delete advanced settings options
+		$epm_advanced_settings_options_to_delete = array(
+			'epm_email_confirmation',
+			'epm_remember_me',
+			'epm_auto_login_pass_reset',
+			'epm_auto_generate_pass',
+			'epm_first_lastname_captitilize'
+		);
+
+		foreach ($epm_advanced_settings_options_to_delete as $option_name) {
+			delete_option($option_name);
+		}
+
+
+		// Delete options for form headings and show/hide checkboxes
+		$epm_form_sections_headings = array(
+			'name',
+			'contact_info',
+			'about_yourself',
+			'profile_image',
+			'social_links',
+		);
+
+		foreach ($epm_form_sections_headings as $section_key) {
+			$option_name = "epm_form_heading_$section_key";
+			$hide_option_name = "epm_form_heading_{$section_key}_hide";
+			$epm_form_headings_options_to_delete[] = $option_name;
+			$epm_form_headings_options_to_delete[] = $hide_option_name;
+		}
+
+		foreach ($epm_form_headings_options_to_delete as $option_name) {
+			delete_option($option_name);
+		}
 	}
 
 	/**
