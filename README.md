@@ -45,6 +45,7 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
 
 ## Contact Info
 1. E-mail
+3. Phone
 2. Website
 
 ## About Yourself

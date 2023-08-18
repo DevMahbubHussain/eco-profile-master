@@ -196,3 +196,37 @@ form {
     }
 
 }
+// /* Disable focus styles for form inputs */
+// input:focus,
+// textarea:focus,
+// select:focus,
+// button:focus {
+//     outline: none;
+//     box-shadow: none;
+// }
+
+// /* Disable focus styles for buttons */
+// button:focus {
+//     outline: none;
+//     box-shadow: none;
+// }
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=number]:focus,
+input[type=tel]:focus,
+input[type=date]:focus,
+input[type=month]:focus,
+input[type=week]:focus,
+input[type=time]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=color]:focus,
+.site textarea:focus {
+    color: var(--form--color-text);
+    outline-offset: none;
+    outline: none !important;
+}
