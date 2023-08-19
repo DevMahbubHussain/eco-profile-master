@@ -1,11 +1,14 @@
 <?php
-// $heading_hide = $this->display_form_section_heading('epm_form_heading_name_hide', '1');
-// $heading = sanitize_text_field(get_option('epm_form_heading_name', 'Name'));
-// $heading_contact_info_hide = $this->display_form_section_heading('epm_form_heading_contact_info_hide', '1');
-// $heading_contact_info = sanitize_text_field(get_option('epm_form_heading_contact_info', 'Contact Info'));
+    // $heading_hide = $this->display_form_section_heading('epm_form_heading_name_hide', '1');
+    // $heading = sanitize_text_field(get_option('epm_form_heading_name', 'Name'));
+    // $heading_contact_info_hide = $this->display_form_section_heading('epm_form_heading_contact_info_hide', '1');
+    // $heading_contact_info = sanitize_text_field(get_option('epm_form_heading_contact_info', 'Contact Info'));
 
-$heading_name_section = $this->generate_section_heading('epm_form_heading_name_hide', 'epm_form_heading_name', '1', 'Name');
-$heading_contact_info_section =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
+    $epm_form_heading_name = $this->generate_section_heading('epm_form_heading_name_hide', 'epm_form_heading_name', '1', 'Name');
+    $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
+    $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
+    $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
+    $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
 
 ?>
 <form action="registration-process.php" method="post">

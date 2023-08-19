@@ -39,6 +39,42 @@
                         <p class="epm-description"><?php _e('If you have these fields in your forms, they will be always saved with the first letter as uppercase.', 'eco-profile-master'); ?></p>
                     </td>
                 </tr>
+
+                <tr>
+                    <th><label for="epm_facebook_url"><?php _e('Enable facebook field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_facebook_url" name="epm_facebook_url" value="1" <?php checked(get_option('epm_facebook_url', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, facebook field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_twitter_url"><?php _e('Enable twitter field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_twitter_url" name="epm_twitter_url" value="1" <?php checked(get_option('epm_twitter_url', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, twitter field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_linkedin_url"><?php _e('Enable linkedin field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_linkedin_url" name="epm_linkedin_url" value="1" <?php checked(get_option('epm_linkedin_url', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, linkedin field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_youtube_url"><?php _e('Enable youtube field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_youtube_url" name="epm_youtube_url" value="1" <?php checked(get_option('epm_youtube_url', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, youtube field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_instagram_url"><?php _e('Enable instagram field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_instagram_url" name="epm_instagram_url" value="1" <?php checked(get_option('epm_instagram_url', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, instagram field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p class="submit">

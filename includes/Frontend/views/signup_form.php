@@ -4,6 +4,13 @@ $labelsPlaceholders = $this->epm_label_placeholder();
 // print_r($labelsPlaceholders);
 // echo "<pre>";
 
+
+$epm_form_heading_name = $this->generate_section_heading('epm_form_heading_name_hide', 'epm_form_heading_name', '1', 'Name');
+$epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
+$epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
+$epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
+$epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
+
 ?>
 
 
@@ -12,7 +19,7 @@ $labelsPlaceholders = $this->epm_label_placeholder();
     <div class="flow space-y-4 bg-white shadow-md rounded-lg px-8 py-6">
 
         <!-- name section -->
-        <h2 class="text-xl font-semibold mb-2">Name</h2>
+        <h4 class="text-xl font-semibold mb-2"><?php echo $epm_form_heading_name; ?></h4>
         <div class="flow">
             <label for="epm_user_username" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['username']['label']); ?></label>
             <input type="text" id="epm_user_username" name="epm_user_username" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['username']['placeholder']); ?>">
@@ -31,7 +38,7 @@ $labelsPlaceholders = $this->epm_label_placeholder();
         </div>
         <!-- end of name -->
         <!-- contact info section -->
-        <h2 class="text-xl font-semibold">Contact Info</h2>
+        <h2 class="text-xl font-semibold"><?php echo $epm_form_heading_contact_info; ?></h2>
         <div class="flow">
             <label for="epm_user_email" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['email']['label']); ?></label>
             <input type="email" id="epm_user_email" name="epm_user_email" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['email']['placeholder']); ?>">
@@ -47,7 +54,7 @@ $labelsPlaceholders = $this->epm_label_placeholder();
         <!-- end of contact info section -->
 
         <!-- About yourselft section -->
-        <h2 class="text-xl font-semibold"> About Yourself</h2>
+        <h2 class="text-xl font-semibold"> <?php echo $epm_form_heading_about_yourself; ?></h2>
         <div class="flow">
             <label for="message" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['biographical']['label']); ?></label>
             <textarea id="epm_user_bio" rows="4" name="epm_user_bio" class="input input-bordered w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="<?php echo esc_attr($labelsPlaceholders['biographical']['placeholder']); ?>"></textarea>
@@ -62,14 +69,14 @@ $labelsPlaceholders = $this->epm_label_placeholder();
         </div>
         <!-- end About yourselft section -->
         <!-- profile image section -->
-        <h2 class="text-xl font-semibold"> Profile Image </h2>
+        <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_profile_image; ?> </h4>
         <div class="flow">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar"><?php echo esc_attr($labelsPlaceholders['image']['label']); ?></label>
             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="epm_user_avatar" type="file" name="epm_user_avatar">
         </div>
         <!-- profile image section -->
         <!-- Social Media Inputs -->
-        <h2 class="text-xl font-semibold"> Social Links </h2>
+        <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
         <div class="flow">
             <label for="epm_user_facebook" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['facebook']['label']); ?></label>
             <input type="text" id="epm_user_facebook" name="epm_user_facebook" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['facebook']['placeholder']); ?>">

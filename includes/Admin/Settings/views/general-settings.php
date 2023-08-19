@@ -90,9 +90,9 @@
                 <tr>
                     <th><label for="epm_display_social_kinks"><?php _e('Display Social Links to Users:', 'eco-profile-master'); ?></label></th>
                     <td>
-                        <select class="epm-select" name="epm_display_social_kinks" id="epm_display_social_kinks">
-                            <option value="no" <?php selected('no', get_option('epm_display_social_kinks')); ?>><?php _e('No'); ?></option>
-                            <option value="yes" <?php selected('yes', get_option('epm_display_social_kinks')); ?>><?php _e('Yes'); ?></option>
+                        <select class="epm-select" name="epm_display_social_links" id="epm_display_social_links">
+                            <option value="no" <?php selected('no', get_option('epm_display_social_links')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_display_social_links')); ?>><?php _e('Yes'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Select "Yes" social links fields will be avilable.', 'eco-profile-master'); ?></p>
 

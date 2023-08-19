@@ -81,7 +81,7 @@ trait EPM_Signup_FieldsTrait
         $heading = sanitize_text_field(get_option($heading_option, $default_heading));
 
         if ($heading_hide === '1') {
-            return "<h3>$heading</h3>";
+            return "$heading";
         } else {
             return '';
         }

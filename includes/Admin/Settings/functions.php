@@ -39,7 +39,7 @@ function epm_general_settings_form_submission()
             'epm_display_email' => 'epm_display_email',
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
-            'epm_display_social_kinks' => 'epm_display_social_kinks',
+            'epm_display_social_links' => 'epm_display_social_links',
             'epm_lost_password_page' => 'epm_lost_password_page'
         );
 
@@ -83,7 +83,12 @@ function epm_advanced_settings_form_submission()
             'epm_remember_me',
             'epm_auto_login_pass_reset',
             'epm_auto_generate_pass',
-            'epm_first_lastname_captitilize'
+            'epm_first_lastname_captitilize',
+            'epm_facebook_url',
+            'epm_twitter_url',
+            'epm_linkedin_url',
+            'epm_youtube_url',
+            'epm_instagram_url'
         );
 
         // Loop through the checkboxes and update the options

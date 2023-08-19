@@ -173,6 +173,11 @@ final class Eco_Profile_Master
 			// Set the page title in the settings option
 			update_option('epm_lost_password_page', $recover_password_page_title);
 		}
+		// 'epm_facebook_url',
+		// 'epm_twitter_url',
+		// 'epm_linkedin_url',
+		// 'epm_youtube_url',
+		// 'epm_instagram_url'
 
 		// Default values for advanced settings
 		$epm_default_advanced_settings = array(
@@ -180,17 +185,22 @@ final class Eco_Profile_Master
 			'epm_remember_me' => 0,
 			'epm_auto_login_pass_reset' => 0,
 			'epm_auto_generate_pass' => 0,
-			'epm_first_lastname_captitilize' => 0
+			'epm_first_lastname_captitilize' => 0,
+			'epm_facebook_url' => 1,
+			'epm_twitter_url' => 1,
+			'epm_linkedin_url' => 1,
+			'epm_youtube_url' => 1,
+			'epm_instagram_url' => 1
 		);
 
-		// Default values for advanced settings
-		$epm_default_advanced_settings = array(
-			'epm_email_confirmation' => 1,
-			'epm_remember_me' => 0,
-			'epm_auto_login_pass_reset' => 0,
-			'epm_auto_generate_pass' => 0,
-			'epm_first_lastname_captitilize' => 0
-		);
+		// // Default values for advanced settings
+		// $epm_default_advanced_settings = array(
+		// 	'epm_email_confirmation' => 1,
+		// 	'epm_remember_me' => 0,
+		// 	'epm_auto_login_pass_reset' => 0,
+		// 	'epm_auto_generate_pass' => 0,
+		// 	'epm_first_lastname_captitilize' => 0
+		// );
 		foreach ($epm_default_advanced_settings as $option_name => $default_value) {
 			add_option($option_name, $default_value);
 		}
@@ -289,13 +299,17 @@ final class Eco_Profile_Master
 			'epm_remember_me',
 			'epm_auto_login_pass_reset',
 			'epm_auto_generate_pass',
-			'epm_first_lastname_captitilize'
+			'epm_first_lastname_captitilize',
+			'epm_facebook_url',
+			'epm_twitter_url',
+			'epm_linkedin_url',
+			'epm_youtube_url',
+			'epm_instagram_url'
 		);
 
 		foreach ($epm_advanced_settings_options_to_delete as $option_name) {
 			delete_option($option_name);
 		}
-
 
 		// Delete options for form headings and show/hide checkboxes
 		$epm_form_sections_headings = array(
