@@ -216,7 +216,35 @@ final class Eco_Profile_Master
 				add_option($hide_option_name, '1'); // Default to "Show"
 			}
 		}
-	
+
+		// default value for labels and placeholder
+		$fields = array(
+			'username', 'firstname', 'lastname', 'nickname', 'email',
+			'phone', 'website', 'biographical', 'password', 'repassword',
+			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image'
+		);
+
+		$default_values = array();
+		foreach ($fields as $field) {
+			$default_label = __($field === 'repassword' ? 'Repeat Password' : ucwords(str_replace('_', ' ', $field)), 'eco-profile-master');
+			$default_placeholder = __('Enter your ' . ($field === 'repassword' ? 'password again for confirmation' : str_replace('_', ' ', $field)), 'eco-profile-master');
+			if (in_array($field, array('facebook', 'twitter', 'linkedin', 'youtube', 'instagram'))) {
+				$default_label = __('Enter your ' . ucwords(str_replace('_', ' ', $field)) . ' url', 'eco-profile-master');
+				$default_placeholder = $default_label;
+			}
+
+			$default_values[$field] = array(
+				'label' => $default_label,
+				'placeholder' => $default_placeholder,
+			);
+
+			if ($field === 'image') {
+				$default_values[$field]['label'] = __('Upload your profile image', 'eco-profile-master'); // Change label to 'Image'
+				unset($default_values[$field]['placeholder']);
+			}
+		}
+
+		update_option('epm_form_label_placeholder', $default_values);
 
 		flush_rewrite_rules();
 	}
@@ -288,6 +316,8 @@ final class Eco_Profile_Master
 		foreach ($epm_form_headings_options_to_delete as $option_name) {
 			delete_option($option_name);
 		}
+		// delete default value for labels and placeholder 
+		delete_option('epm_form_label_placeholder');
 	}
 
 	/**

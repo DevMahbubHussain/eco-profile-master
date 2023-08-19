@@ -70,7 +70,7 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Enter your last name', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
-            'lastname' => array(
+            'nickname' => array(
                 'label' => __('Nickname', 'eco-profile-master'),
                 'placeholder' => __('Enter your Nickname', 'eco-profile-master'),
                 'type' => 'text', // Field type
@@ -105,11 +105,6 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Repeat Password', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
-            'image' => array(
-                'label' => __('Profile Image', 'eco-profile-master'),
-                'placeholder' => __('Insert Profile Image', 'eco-profile-master'),
-                'type' => 'text', // Field type
-            ),
             'facebook' => array(
                 'label' => __('Facebook Url', 'eco-profile-master'),
                 'placeholder' => __('Enter your facebook url', 'eco-profile-master'),
@@ -128,6 +123,16 @@ class EPM_LabelPlaceholderSettings
             'youtube' => array(
                 'label' => __('Youtube Url', 'eco-profile-master'),
                 'placeholder' => __('Enter your youtube url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'instagram' => array(
+                'label' => __('Instagram Url', 'eco-profile-master'),
+                'placeholder' => __('Enter your youtube url', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+
+            'image' => array(
+                'label' => __('Profile Image', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
             // Add more fields here
@@ -167,9 +172,13 @@ class EPM_LabelPlaceholderSettings
         $placeholder = isset($values[$field]['placeholder']) ? $values[$field]['placeholder'] : $args['default_placeholder'];
 
         foreach (array('label', 'placeholder') as $type) {
-            echo '<label for="' . $field . '_' . $type . '">' . esc_html__(ucfirst($type) . ':', 'eco-profile-master') . '</label>';
-            echo '<input type="text" id="' . $field . '_' . $type . '" name="epm_form_label_placeholder[' . $field . '][' . $type . ']" value="' . esc_attr($type === 'label' ? $label : $placeholder) . '" class="regular-text" maxlength="50">';
-            echo '<br>';
+            if ($field === 'image' && $type === 'placeholder') {
+                // No need to render a placeholder input for file type
+            } else {
+                echo '<label for="' . $field . '_' . $type . '">' . esc_html__(ucfirst($type) . ':', 'eco-profile-master') . '</label>';
+                echo '<input type="text" id="' . $field . '_' . $type . '" name="epm_form_label_placeholder[' . $field . '][' . $type . ']" value="' . esc_attr($type === 'label' ? $label : $placeholder) . '" class="regular-text" maxlength="50">';
+                echo '<br>';
+            }
         }
     }
 
