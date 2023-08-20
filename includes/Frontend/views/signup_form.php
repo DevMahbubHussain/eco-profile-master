@@ -3,13 +3,19 @@ $labelsPlaceholders = $this->epm_label_placeholder();
 // echo "<pre>";
 // print_r($labelsPlaceholders);
 // echo "<pre>";
-
-
 $epm_form_heading_name = $this->generate_section_heading('epm_form_heading_name_hide', 'epm_form_heading_name', '1', 'Name');
 $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
 $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
 $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
+
+// $allowUserSocialFields = $this->epm_allow_user_social_fields();
+
+// var_dump($allowUserSocialFields);
+
+$enabledSocialFields = $this->getEnabledSocialFields();
+
+//var_dump($enabledSocialFields);
 
 ?>
 
@@ -39,14 +45,18 @@ $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_head
         <!-- end of name -->
         <!-- contact info section -->
         <h2 class="text-xl font-semibold"><?php echo $epm_form_heading_contact_info; ?></h2>
-        <div class="flow">
-            <label for="epm_user_email" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['email']['label']); ?></label>
-            <input type="email" id="epm_user_email" name="epm_user_email" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['email']['placeholder']); ?>">
-        </div>
-        <div class="flow">
-            <label for="epm_user_phone" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['phone']['label']); ?></label>
-            <input type="tel" id="epm_user_phone" name="epm_user_phone" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['phone']['placeholder']); ?>">
-        </div>
+        <?php if ($this->epm_allow_user_common_fields()) : ?>
+            <div class="flow">
+                <label for="epm_user_email" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['email']['label']); ?></label>
+                <input type="email" id="epm_user_email" name="epm_user_email" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['email']['placeholder']); ?>">
+            </div>
+        <?php endif; ?>
+        <?php if ($this->epm_allow_user_common_fields()) : ?>
+            <div class="flow">
+                <label for="epm_user_phone" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['phone']['label']); ?></label>
+                <input type="tel" id="epm_user_phone" name="epm_user_phone" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['phone']['placeholder']); ?>">
+            </div>
+        <?php endif; ?>
         <div class="flow">
             <label for="epm_user_website" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['website']['label']); ?></label>
             <input type="url" id="epm_user_website" name="epm_user_website" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['website']['placeholder']); ?>">
@@ -68,36 +78,56 @@ $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_head
             <input type="password" id="epm_user_retype_password" name="epm_user_password" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['repassword']['placeholder']); ?>">
         </div>
         <!-- end About yourselft section -->
+
         <!-- profile image section -->
-        <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_profile_image; ?> </h4>
-        <div class="flow">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar"><?php echo esc_attr($labelsPlaceholders['image']['label']); ?></label>
-            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="epm_user_avatar" type="file" name="epm_user_avatar">
-        </div>
+        <?php if ($this->epm_allow_user_common_fields()) : ?>
+            <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_profile_image; ?> </h4>
+            <div class="flow">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar"><?php echo esc_attr($labelsPlaceholders['image']['label']); ?></label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="epm_user_avatar" type="file" name="epm_user_avatar">
+            </div>
+        <?php endif; ?>
         <!-- profile image section -->
-        <!-- Social Media Inputs -->
-        <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
-        <div class="flow">
-            <label for="epm_user_facebook" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['facebook']['label']); ?></label>
-            <input type="text" id="epm_user_facebook" name="epm_user_facebook" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['facebook']['placeholder']); ?>">
-        </div>
-        <div class="flow">
-            <label for="epm_user_twitter" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['twitter']['label']); ?></label>
-            <input type="text" id="epm_user_twitter" name="epm_user_twitter" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['twitter']['placeholder']); ?>">
-        </div>
-        <div class="flow">
-            <label for="epm_user_linkedin" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['linkedin']['label']); ?></label>
-            <input type="text" id="epm_user_linkedin" name="epm_user_linkedin" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['linkedin']['placeholder']); ?>L">
-        </div>
-        <div class="flow">
-            <label for="epm_user_youtube" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['youtube']['label']); ?></label>
-            <input type="text" id="epm_user_youtube" name="epm_user_youtube" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['youtube']['placeholder']); ?>">
-        </div>
-        <div class="flow">
-            <label for="epm_user_instagram" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['youtube']['instagram']); ?></label>
-            <input type="text" id="epm_user_instagram" name="epm_user_instagram" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['youtube']['placeholder']); ?>">
-        </div>
-        <!-- Social Media Inputs -->
+
+        <?php if ($this->epm_allow_user_common_fields()) : ?>
+            <!-- Social Media Inputs -->
+            <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
+            <?php if ($this->getEnabledSocialFields()) : ?>
+
+                <?php if ($enabledSocialFields['facebook']) : ?>
+                    <div class="flow">
+                        <label for="epm_user_facebook" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['facebook']['label']); ?></label>
+                        <input type="text" id="epm_user_facebook" name="epm_user_facebook" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['facebook']['placeholder']); ?>">
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($enabledSocialFields['twitter']) : ?>
+                    <div class="flow">
+                        <label for="epm_user_twitter" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['twitter']['label']); ?></label>
+                        <input type="text" id="epm_user_twitter" name="epm_user_twitter" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['twitter']['placeholder']); ?>">
+                    </div>
+                <?php endif; ?>
+                <?php if ($enabledSocialFields['linkedin']) : ?>
+                    <div class="flow">
+                        <label for="epm_user_linkedin" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['linkedin']['label']); ?></label>
+                        <input type="text" id="epm_user_linkedin" name="epm_user_linkedin" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['linkedin']['placeholder']); ?>L">
+                    </div>
+                <?php endif; ?>
+                <?php if ($enabledSocialFields['youtube']) : ?>
+                    <div class="flow">
+                        <label for="epm_user_youtube" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['youtube']['label']); ?></label>
+                        <input type="text" id="epm_user_youtube" name="epm_user_youtube" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['youtube']['placeholder']); ?>">
+                    </div>
+                <?php endif; ?>
+                <?php if ($enabledSocialFields['instagram']) : ?>
+                    <div class="flow">
+                        <label for="epm_user_instagram" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['instagram']['label']); ?></label>
+                        <input type="text" id="epm_user_instagram" name="epm_user_instagram" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['instagram']['placeholder']); ?>">
+                    </div>
+                <?php endif; ?>
+                <!-- Social Media Inputs -->
+            <?php endif; ?>
+        <?php endif; ?>
         <div class="flow">
             <button type="submit" class="btn btn-primary mt-10">Submit</button>
         </div>

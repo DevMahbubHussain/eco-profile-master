@@ -81,8 +81,8 @@
                     <th><label for="epm_image"><?php _e('Allow Users to Upload Profile Image:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_image" id="epm_image">
-                            <option value="no" <?php selected('yes', get_option('epm_image')); ?>><?php _e('No'); ?></option>
-                            <option value="yes" <?php selected('no', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
+                            <option value="no" <?php selected('no', get_option('epm_image')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Users can Upload their Profile Image.', 'echo-profile-master'); ?></p>
                     </td>

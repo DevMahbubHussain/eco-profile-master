@@ -143,14 +143,14 @@ final class Eco_Profile_Master
 		// general settings
 		$epm_general_default_options = array(
 			'epm_form_style' => __('Style 1', 'eco-profile-master'),
-			'epm_automatically_login' => __('No', 'eco-profile-master'),
-			'epm_email_confirmation_activated' => __('No', 'eco-profile-master'),
-			'epm_admin_approval' => __('No', 'eco-profile-master'),
+			'epm_automatically_login' => __('no', 'eco-profile-master'),
+			'epm_email_confirmation_activated' => __('no', 'eco-profile-master'),
+			'epm_admin_approval' => __('no', 'eco-profile-master'),
 			'epm_loginwith' => __('Username and Email', 'eco-profile-master'),
-			'epm_display_email' => __('Yes', 'eco-profile-master'),
-			'epm_display_phone_number' => __('No', 'eco-profile-master'),
-			'epm_image' => __('No', 'eco-profile-master'),
-			'epm_display_social_kinks' => __('No', 'eco-profile-master')
+			'epm_display_email' => __('yes', 'eco-profile-master'),
+			'epm_display_phone_number' => __('no', 'eco-profile-master'),
+			'epm_image' => __('no', 'eco-profile-master'),
+			'epm_display_social_links' => __('no', 'eco-profile-master')
 		);
 
 		// Loop through the array and add options using add_option

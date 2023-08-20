@@ -4,6 +4,7 @@ namespace EcoProfile\Master\Frontend;
 
 use EcoProfile\Master\Traits\EPM_Labels_PlaceholdersTrait;
 use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
+use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
 
 /**
  * Class Signup.
@@ -16,6 +17,9 @@ class Signup
     //use EPM_AutoGeneratePasswordTrait;
     use EPM_Signup_FieldsTrait;
     use EPM_Labels_PlaceholdersTrait;
+    use EPM_Social_FieldsTrait;
+
+   // use EPM_So
 
 
     /**

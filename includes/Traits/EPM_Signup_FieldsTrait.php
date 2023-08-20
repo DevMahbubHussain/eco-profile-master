@@ -15,13 +15,51 @@ trait EPM_Signup_FieldsTrait
      * @return bool Whether allow-user-upload-profile-image should be enabled.
      */
 
-    protected function epm_allow_user_profile_image_upload()
+    // protected function epm_allow_user_profile_image_upload()
+    // {
+    //     $allow_user_profile_image = get_option('epm_image', 'yes');
+    //     $allow_user_profile_image = sanitize_text_field($allow_user_profile_image);
+    //     //var_dump($allow_user_profile_image);
+    //     return $allow_user_profile_image === 'yes';
+    // }
+
+    protected function epm_allow_user_common_fields()
     {
         $allow_user_profile_image = get_option('epm_image', 'yes');
         $allow_user_profile_image = sanitize_text_field($allow_user_profile_image);
-        //var_dump($allow_user_profile_image);
-        return $allow_user_profile_image === 'yes';
+
+        $allow_user_profile_phone = get_option('epm_phone', 'yes');
+        $allow_user_profile_phone = sanitize_text_field($allow_user_profile_phone);
+
+        $allow_user_profile_email = get_option('epm_email', 'yes');
+        $allow_user_profile_email = sanitize_text_field($allow_user_profile_email);
+
+        $allow_user_social_links = get_option('epm_display_social_links', 'no');
+        $allow_user_social_links = sanitize_text_field($allow_user_social_links);
+
+        return $allow_user_profile_image === 'yes' && $allow_user_profile_phone === 'yes' && $allow_user_profile_email === 'yes' && $allow_user_social_links === 'yes';
     }
+
+    // protected function epm_allow_user_social_fields()
+    // {
+    //     $enable_fb_field = get_option('epm_facebook_url', '1');
+    //     $enable_fb_field = sanitize_text_field($enable_fb_field);
+
+    //     $enable_twitter_field = get_option('epm_twitter_url', '1');
+    //     $enable_twitter_field = sanitize_text_field($enable_twitter_field);
+
+    //     $enable_linkedin_field = get_option('epm_linkedin_url', '1');
+    //     $enable_linkedin_field = sanitize_text_field($enable_linkedin_field);
+
+    //     $enable_youtube_field = get_option('epm_youtube_url', '1');
+    //     $enable_youtube_field = sanitize_text_field($enable_youtube_field);
+
+    //     $enable_instagram_field = get_option('epm_instagram_url', '1');
+    //     $enable_instagram_field = sanitize_text_field($enable_instagram_field);
+
+    //     return $enable_fb_field  === '1' && $enable_twitter_field  === '1' && $enable_linkedin_field === '1' &&  $enable_youtube_field === '1' &&  $enable_instagram_field === '1';
+    // }
+
 
     /**
      * Checks if auto-generation of passwords should be enabled.
@@ -86,7 +124,4 @@ trait EPM_Signup_FieldsTrait
             return '';
         }
     }
-
-
-
 }
