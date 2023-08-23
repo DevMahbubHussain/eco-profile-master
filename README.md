@@ -79,6 +79,23 @@ Plugin information will go here as plugin name,  version, shortcodes, layout opt
    1. form styles 
    2. Automatically generate password
    3. Always capitalize default fields
+
+
+
+## process to registration 
+
+1. user_register : 
+This hook is crucial for your user registration process. It fires after a user has been registered. You can use it to handle additional actions after successful registration, such as sending welcome emails, setting user roles, or other custom actions.
+
+2. registration_errors:
+
+If you want to validate user input before the registration process completes, you can use this hook to add custom error messages. This can help you provide better feedback to users when their inputs are incorrect or incomplete.
+
+3. wp_insert_user:
+
+If you need to modify or validate user data before it's inserted into the database during registration, you can use this hook.
+
+
      
 
 

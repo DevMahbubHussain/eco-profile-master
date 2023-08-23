@@ -5,6 +5,7 @@ namespace EcoProfile\Master\Frontend;
 use EcoProfile\Master\Traits\EPM_Labels_PlaceholdersTrait;
 use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
+use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
 
 /**
  * Class Signup.
@@ -18,6 +19,7 @@ class Signup
     use EPM_Signup_FieldsTrait;
     use EPM_Labels_PlaceholdersTrait;
     use EPM_Social_FieldsTrait;
+    use EPM_Form_ValidationTrait;
 
    // use EPM_So
 
@@ -147,8 +149,44 @@ class Signup
      */
     private function epm_process_signup()
     {
-        ob_start();
-        epm_activate_user_signup(); // calling 
-        return ob_get_clean();
+        //  ob_start();
+        //epm_activate_user_signup(); // calling 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register'])) {
+
+            // Validate user capability
+            ///$this->validateUserCapability();
+
+            // Verify hidden field value
+            if ($_POST['user_registration'] !== 'user_registration') {
+                wp_die(__('Security check failed. Please try again.', 'eco-profile-master'));
+            }
+
+            // Verify nonce field value
+            $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
+
+            // Validate form fields and get errors
+
+            $validation_data = $_POST; // You can modify this to get only the required fields
+            $errors = $this->epm_validate_registration_fields($validation_data);
+
+            if (empty($errors)) {
+                // All validation passed, proceed with registration
+                // ... your registration logic ...
+            }
+            // else {
+            //     // Display error messages
+            //     foreach ($errors as $error) {
+            //         echo '<p>' . esc_html($error) . '</p>';
+            //     }
+            // }
+
+
+            // print_r($_POST);
+            // exit();
+        }
+
+
+
+       // return ob_get_clean();
     }
 }

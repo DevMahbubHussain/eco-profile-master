@@ -19,6 +19,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <th><label for="epm_send_credentials"><?php _e('Send Credentials after registration', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_send_credentials" name="epm_send_credentials" value="1" <?php checked(get_option('epm_send_credentials'), 1); ?>>
+                        <p class="epm-description"><?php _e('If checked users will get credentilas after registration via email.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="epm_auto_login_pass_reset"><?php _e('Automatically log in users after password reset', 'eco-profile-master'); ?></label></th>
                     <td>
                         <input type="checkbox" id="epm_auto_login_pass_reset" name="epm_auto_login_pass_reset" value="1" <?php checked(get_option('epm_auto_login_pass_reset'), 1); ?>>

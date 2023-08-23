@@ -33,7 +33,7 @@ function epm_general_settings_form_submission()
             'epm_form_style' => 'epm_form_style',
             'epm_automatically_login' => 'epm_automatically_login',
             'epm_email_confirmation_activated' => 'epm_email_confirmation_activated',
-            'epm_display_phone_number' => 'epm_display_phone_number',
+            // 'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_admin_approval' => 'epm_admin_approval',
             'epm_loginwith' => 'epm_loginwith',
             'epm_display_email' => 'epm_display_email',
@@ -81,6 +81,7 @@ function epm_advanced_settings_form_submission()
         $checkboxes = array(
             'epm_email_confirmation',
             'epm_remember_me',
+            'epm_send_credentials',
             'epm_auto_login_pass_reset',
             'epm_auto_generate_pass',
             'epm_first_lastname_captitilize',

@@ -183,6 +183,7 @@ final class Eco_Profile_Master
 		$epm_default_advanced_settings = array(
 			'epm_email_confirmation' => 1,
 			'epm_remember_me' => 0,
+			'epm_send_credentials' => 1,
 			'epm_auto_login_pass_reset' => 0,
 			'epm_auto_generate_pass' => 0,
 			'epm_first_lastname_captitilize' => 0,

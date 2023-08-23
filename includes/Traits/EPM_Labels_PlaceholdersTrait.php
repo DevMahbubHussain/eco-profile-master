@@ -168,13 +168,13 @@ trait EPM_Labels_PlaceholdersTrait
         }
         // contact info
 
-        if (isset($values['nickname']['label'])) {
-            $formattedFields['nickname']['label'] = $values['nickname']['label'];
-        }
+        // if (isset($values['nickname']['label'])) {
+        //     $formattedFields['nickname']['label'] = $values['nickname']['label'];
+        // }
 
-        if (isset($values['nickname']['placeholder'])) {
-            $formattedFields['nickname']['placeholder'] = $values['nickname']['placeholder'];
-        }
+        // if (isset($values['nickname']['placeholder'])) {
+        //     $formattedFields['nickname']['placeholder'] = $values['nickname']['placeholder'];
+        // }
 
         // contact info
 
@@ -197,6 +197,10 @@ trait EPM_Labels_PlaceholdersTrait
 
         if (isset($values['website']['label'])) {
             $formattedFields['website']['label'] = $values['website']['label'];
+        }
+
+        if (isset($values['website']['label'])) {
+            $formattedFields['website']['placeholder'] = $values['website']['placeholder'];
         }
         // bio section
 
@@ -262,9 +266,6 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['image']['label'])) {
             $formattedFields['image']['label'] = $values['image']['label'];
         }
-
-
-
 
         return $formattedFields;
     }
