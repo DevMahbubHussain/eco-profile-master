@@ -19,6 +19,107 @@ function epm_get_my_pages()
 }
 
 
+// function render_uploaded_image()
+// {
+//     // Initialize variables
+//     $uploaded_image_src = '';
+//     $uploaded_image_alt = '';
+//     $uploaded_image_style = 'display: none;'; // Hide the image by default
+
+//     // Check if an image has been uploaded
+//     if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
+//         $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
+
+//         // Get the uploaded image's name
+//         $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
+
+//         $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
+//         //$uploaded_image_style = 'display: block;'; // Show the image
+//         $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
+//     }
+
+//     echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" alt="' . $uploaded_image_alt . '" style="' . $uploaded_image_style . '">';
+// }
+
+
+
+function render_uploaded_image()
+{
+    // Initialize variables
+    // $uploaded_image_src = '';
+    // $uploaded_image_alt = __('profile image', 'eco-profile-master');
+    // $uploaded_image_style = 'display: none;'; // Hide the image by default
+    // $uploaded_image_width = '300';
+    // $uploaded_image_height = '300';
+
+    $uploaded_image_src = '';
+    $uploaded_image_style = 'display: none;'; // Hide the image by default
+
+    // if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
+    //     $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
+
+    //     // Get the uploaded image's name
+    //     $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
+
+    //     $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
+    //     $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
+
+    //     // Get the dimensions of the uploaded image
+    //     $attachment_id = media_handle_upload('epm_user_avatar', 0);
+    //     $image_metadata = wp_get_attachment_metadata($attachment_id);
+
+    //     if ($image_metadata) {
+    //         $uploaded_image_width = $image_metadata['width'];
+    //         $uploaded_image_height = $image_metadata['height'];
+    //     }
+    // }
+
+
+    // Check if an image has been uploaded
+    if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
+        $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
+        //$uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
+        $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
+    }
+
+    // echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" alt="' . $uploaded_image_alt . '" style="' . $uploaded_image_style . '" width="' . $uploaded_image_width . '" height="' . $uploaded_image_height . '">';
+    // JavaScript for image preview
+
+    echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" style="' . $uploaded_image_style . '">';
+    // echo '<img id="uploaded-image" src="' . $uploaded_image_src . '"  style="' . $uploaded_image_style . '" width="' . $uploaded_image_width . '" height="' . $uploaded_image_height . '">';
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('epm_user_avatar');
+            const preview = document.getElementById('uploaded-image');
+
+            input.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = '';
+                    preview.style.display = 'none';
+                }
+            });
+        });
+    </script>
+<?php
+}
+
+
+
+
+
+
+
+
+
 // function epm_merge_options_with_defaults()
 // {
 //     $default_options = array(
@@ -71,6 +172,4 @@ function epm_activate_user_signup()
         print_r($_POST);
         exit();
     }
-
-
 }

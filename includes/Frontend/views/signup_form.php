@@ -14,6 +14,9 @@ $enabledSocialFields = $this->getEnabledSocialFields();
 
 ?>
 
+<?php if ($this->registrationSuccess) : ?>
+    <p class="success">Registration successful! You can now log in with your credentials.</p>
+<?php endif; ?>
 <form class="flow flow-vertical" method="post" enctype="multipart/form-data" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="user_registration" value="user_registration" />
     <?php wp_nonce_field('user_registration_nonce', 'user_registration_nonce'); ?>

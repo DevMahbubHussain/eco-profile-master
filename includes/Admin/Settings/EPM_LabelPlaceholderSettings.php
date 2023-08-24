@@ -149,7 +149,7 @@ class EPM_LabelPlaceholderSettings
                     'field' => $field,
                     'type' => $field_data['type'],
                     'default_label' => $field_data['label'], // Pass default label value
-                    'default_placeholder' => $field_data['placeholder'], // Pass default placeholder value
+                    'default_placeholder' => isset($field_data['placeholder']) ? $field_data['placeholder'] : '', // Pass default placeholder value
                     'values' => $this->get_label_placeholder_option() // Retrieve saved label/placeholder values
                 )
             );

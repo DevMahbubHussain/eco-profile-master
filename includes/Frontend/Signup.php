@@ -6,6 +6,7 @@ use EcoProfile\Master\Traits\EPM_Labels_PlaceholdersTrait;
 use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
+use EcoProfile\Master\Traits\EPM_UserAccountManagementTrait;
 
 /**
  * Class Signup.
@@ -20,9 +21,10 @@ class Signup
     use EPM_Labels_PlaceholdersTrait;
     use EPM_Social_FieldsTrait;
     use EPM_Form_ValidationTrait;
+    use EPM_UserAccountManagementTrait;
 
-   // use EPM_So
-
+    // use EPM_So
+    private $registrationSuccess = false;
 
     /**
      * Constructor.
@@ -32,6 +34,7 @@ class Signup
      */
     public function __construct()
     {
+      //  add_action('init', array($this, 'init'));
         add_shortcode('epm-register', array($this, 'epm_render_activate_user_signup'));
     }
 
@@ -139,7 +142,14 @@ class Signup
      */
     public function epm_handle_form_submission()
     {
-        $this->epm_process_signup();
+        $this->init_hook();
+    }
+
+    public function init_hook()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register'])) {
+            $this->epm_process_signup();
+        }
     }
 
     /**
@@ -149,44 +159,60 @@ class Signup
      */
     private function epm_process_signup()
     {
-        //  ob_start();
-        //epm_activate_user_signup(); // calling 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register'])) {
 
-            // Validate user capability
-            ///$this->validateUserCapability();
+        // Validate user capability
+        // $this->validateUserCapability();
 
-            // Verify hidden field value
-            if ($_POST['user_registration'] !== 'user_registration') {
-                wp_die(__('Security check failed. Please try again.', 'eco-profile-master'));
+        if ($_POST['user_registration'] !== 'user_registration') {
+            wp_die(__('Security check failed. Please try again.', 'eco-profile-master'));
+        }
+        // Verify nonce field value
+        $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
+
+        // Validate form fields and get errors
+
+        $validation_data = $_POST;
+        // var_dump($validation_data);
+        // exit();
+        // $errors = $this->epm_validate_registration_fields($validation_data);
+        $validation_result = $this->epm_validate_registration_fields($validation_data);
+        // var_dump($validation_result);
+        //var_dump($validation_result);
+        add_filter('pre_option_users_can_register', '__return_true');
+        if (empty($validation_result)) {
+            $user_id = $this->create_user($validation_data);
+            // var_dump($user_id);
+            if ($user_id) {
+                // echo "success";
+                // // Other actions like sending emails, logging in, etc.
+                $this->set_user_role($user_id);
+                // $this->registrationSuccess = true;
+                echo 'User registration successful!';
+            } else {
+                // echo '<p class="error">' . esc_html($user_id['error']) . '</p>';
+                // echo "error";
+
+                echo 'User registration failed. Please try again.';
             }
-
-            // Verify nonce field value
-            $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
-
-            // Validate form fields and get errors
-
-            $validation_data = $_POST; // You can modify this to get only the required fields
-            $errors = $this->epm_validate_registration_fields($validation_data);
-
-            if (empty($errors)) {
-                // All validation passed, proceed with registration
-                // ... your registration logic ...
-            }
-            // else {
-            //     // Display error messages
-            //     foreach ($errors as $error) {
-            //         echo '<p>' . esc_html($error) . '</p>';
-            //     }
-            // }
-
-
-            // print_r($_POST);
-            // exit();
+        } else {
+            // Handle validation errors
         }
 
 
+        // else {
+        //     // Display error messages
+        //     foreach ($errors as $error) {
+        //         echo '<p>' . esc_html($error) . '</p>';
+        //     }
+        // }
 
-       // return ob_get_clean();
+
+        // print_r($_POST);
+        // exit();
+
+
+
+
+        // return ob_get_clean();
     }
 }

@@ -24,8 +24,10 @@ trait EPM_Form_ValidationTrait
         //$errors = array();
         $epm_user_username = sanitize_text_field($data['epm_user_username']);
         $epm_user_email = sanitize_email($data['epm_user_email']);
-        $epm_user_password = $data['epm_user_password'];
-        $epm_user_retype_password = $data['epm_user_retype_password'];
+        // $epm_user_password = $data['epm_user_password'];
+        // $epm_user_retype_password = $data['epm_user_retype_password'];
+        $epm_user_password = trim($data['epm_user_password']);
+        $epm_user_retype_password = trim($data['epm_user_password']);
         $epm_user_bio =  isset($data['epm_user_bio']) ? sanitize_textarea_field($data['epm_user_bio']) : '';
 
         // Validate firstname if provided and not purely numeric
@@ -87,16 +89,18 @@ trait EPM_Form_ValidationTrait
         // phone
         $phoneUtil = PhoneNumberUtil::getInstance();
         $epm_user_phone = isset($data['epm_user_phone']) ? sanitize_text_field($data['epm_user_phone']) : '';
-        try {
-            $phoneNumber = $phoneUtil->parse($epm_user_phone, null);
 
-            if (!$phoneUtil->isValidNumber($phoneNumber)) {
+        if (!empty($epm_user_phone)) { // Check if the phone number field is not empty
+            try {
+                $phoneNumber = $phoneUtil->parse($epm_user_phone, null);
+
+                if (!$phoneUtil->isValidNumber($phoneNumber)) {
+                    $this->errors['epm_user_phone'][] = __('Please enter a valid phone number.', 'eco-profile-master');
+                }
+            } catch (\libphonenumber\NumberParseException $e) {
                 $this->errors['epm_user_phone'][] = __('Please enter a valid phone number.', 'eco-profile-master');
             }
-        } catch (\libphonenumber\NumberParseException $e) {
-            $this->errors['epm_user_phone'][] = __('Please enter a valid phone number.', 'eco-profile-master');
         }
-
 
 
         // Validate password length
@@ -104,7 +108,6 @@ trait EPM_Form_ValidationTrait
             $this->errors['epm_user_password_length'] = __('Password must be at least 6 characters long.', 'eco-profile-master');
         }
 
-        // Validate password match
         if ($epm_user_password !== $epm_user_retype_password) {
             $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
         }
@@ -116,23 +119,6 @@ trait EPM_Form_ValidationTrait
         }
 
         // Validate other optional fields as full-length URLs if provided
-
-        // $epm_social_fields = array(
-        //     'epm_user_facebook' => __('Facebook', 'eco-profile-master'),
-        //     'epm_user_twitter' => __('Twitter', 'eco-profile-master'),
-        //     'epm_user_linkedin' => __('LinkedIn', 'eco-profile-master'),
-        //     'epm_user_youtube' => __('YouTube', 'eco-profile-master'),
-        //     'epm_user_instagram' => __('Instagram', 'eco-profile-master'),
-        //     // Add more fields here
-        // );
-
-        // foreach ($epm_social_fields as $field_name => $field_label) {
-        //     if (isset($data[$field_name]) && !empty($data[$field_name]) && !filter_var($data[$field_name], FILTER_VALIDATE_URL)) {
-        //         $this->errors[$field_name] = sprintf(__('Please enter a valid %s URL.', 'eco-profile-master'), $field_label);
-        //     }
-        // }
-
-
         $epm_social_fields = array(
             'epm_user_facebook' => __('Facebook', 'eco-profile-master'),
             'epm_user_twitter' => __('Twitter', 'eco-profile-master'),
@@ -152,8 +138,6 @@ trait EPM_Form_ValidationTrait
 
         // Merge the field-specific errors with the main errors array
         $this->errors = array_merge($this->errors, $field_errors);
-
-
 
 
         // Initialize an array to store image upload errors

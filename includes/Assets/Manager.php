@@ -69,13 +69,12 @@ class Manager
                 'version'   => $dependency['version'],
                 'deps'      => $dependency['dependencies'],
                 'in_footer' => true,
-            ]
-            // 'epm-ace-js' => [
-            //     'src'       => EP_MASTER_ASSETS . '/lib/ace/ace.js',
-            //     'version' => filemtime(EP_MASTER_PATH . '/lib/ace/ace.js'),
-            //     'deps'      => ['jquery'],
-            //     'in_footer' => true,
-            // ],
+            ],
+            'epm-front-end-js' => [
+                'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
+                'deps'      => ['jquery'],
+                'in_footer' => true,
+            ],
             // 'epm-ace-js-rules' => [
             //     'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
             //     'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
@@ -175,6 +174,8 @@ class Manager
         if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'epm-register')) {
             wp_enqueue_style('epm-master-css');
             wp_enqueue_script('epm-master-js');
+            wp_enqueue_script('epm-front-end-js');
+            
         }
     }
 }
