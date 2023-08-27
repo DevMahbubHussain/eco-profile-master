@@ -3,7 +3,7 @@
         'name' => 'epm/eco-profile-master',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e1e1b2374f2c387402c58b98b3f20f230a58d6f4',
+        'reference' => 'ae50a6dc7927fceb18436118c56e2a6fb95d9156',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'epm/eco-profile-master' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e1e1b2374f2c387402c58b98b3f20f230a58d6f4',
+            'reference' => 'ae50a6dc7927fceb18436118c56e2a6fb95d9156',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -49,12 +49,14 @@
             'dev_requirement' => false,
         ),
         'squizlabs/php_codesniffer' => array(
-            'pretty_version' => '3.7.2',
-            'version' => '3.7.2.0',
-            'reference' => 'ed8e00df0a83aa96acf703f8c2979ff33341f879',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'a813c38729aef0034ff7b0f5f0ac54e94ea76804',
             'type' => 'library',
             'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '3.x-dev',
+            ),
             'dev_requirement' => true,
         ),
         'symfony/polyfill-mbstring' => array(

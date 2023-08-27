@@ -72,6 +72,7 @@ class Manager
             ],
             'epm-front-end-js' => [
                 'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
+                'version'   => $dependency['version'],
                 'deps'      => ['jquery'],
                 'in_footer' => true,
             ],

@@ -14,8 +14,9 @@ $enabledSocialFields = $this->getEnabledSocialFields();
 
 ?>
 
-<?php if ($this->registrationSuccess) : ?>
-    <p class="success">Registration successful! You can now log in with your credentials.</p>
+<?php if ($this->display_registration_messages()) : ?>
+    <p class="success"><?php $this->display_registration_messages(); ?></p>
+
 <?php endif; ?>
 <form class="flow flow-vertical" method="post" enctype="multipart/form-data" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="user_registration" value="user_registration" />

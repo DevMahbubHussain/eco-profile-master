@@ -7,6 +7,7 @@ use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
 use EcoProfile\Master\Traits\EPM_UserAccountManagementTrait;
+use EcoProfile\Master\Traits\EPM_MessageTrait;
 
 /**
  * Class Signup.
@@ -22,6 +23,8 @@ class Signup
     use EPM_Social_FieldsTrait;
     use EPM_Form_ValidationTrait;
     use EPM_UserAccountManagementTrait;
+    use EPM_MessageTrait;
+    
 
     // use EPM_So
     private $registrationSuccess = false;
@@ -34,9 +37,66 @@ class Signup
      */
     public function __construct()
     {
-      //  add_action('init', array($this, 'init'));
+        //  add_action('init', array($this, 'init'));
         add_shortcode('epm-register', array($this, 'epm_render_activate_user_signup'));
+        add_action('init', array($this, 'handle_confirmation_link'));
     }
+
+    public function handle_confirmation_link()
+    {
+        if (isset($_GET['confirmation_key']) && $_GET['confirmation_key'] === 'true') {
+            $user_id = intval($_GET['user_id']);
+            $confirmation_key = sanitize_text_field($_GET['key']);
+
+            if ($this->verify_confirmation_key($user_id, $confirmation_key)) {
+
+                // $is_user_approved_by_admin = get_option('your_plugin_user_approved', true);
+
+                // if ($is_user_approved_by_admin &&  $this->is_user_approved($user_id)) {
+                //     // Check if auto-login is enabled from admin panel
+                //     $auto_login_enabled = get_option('your_plugin_auto_login', true);
+                //     if ($auto_login_enabled) {
+                //         // Auto-login the user
+                //         $this->auto_login($user_id);
+                //     }
+                // } else {
+                //     // do others 
+                //     // wait for admin approval 
+                //     // Optionally, notify admin about successful confirmation
+                //     $this->notify_admin_confirmation($user_id);
+                // }
+                wp_redirect(home_url('/'));
+            } else {
+                // Redirect to an error page
+                // wp_redirect(home_url('/confirmation-error'));
+                // exit;
+                echo 'please check your email for email vaerifications';
+            }
+        }
+    }
+
+    private function verify_confirmation_key($user_id, $key)
+    {
+        // Get the stored verification key for the user
+        $stored_key = get_user_meta(
+            $user_id,
+            'email_verification_key',
+            true
+        );
+
+        // Compare the provided key with the stored key
+        if ($key === $stored_key) {
+            // Keys match, update user meta to mark email as verified
+            update_user_meta($user_id, 'email_verified', true);
+            // Remove the verification key
+            delete_user_meta($user_id, 'email_verification_key');
+            return true;
+        } else {
+            // Keys don't match
+            return false;
+        }
+    }
+    
 
     public function get_epm_form_styles()
     {
@@ -168,51 +228,53 @@ class Signup
         }
         // Verify nonce field value
         $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
-
-        // Validate form fields and get errors
-
         $validation_data = $_POST;
-        // var_dump($validation_data);
-        // exit();
-        // $errors = $this->epm_validate_registration_fields($validation_data);
         $validation_result = $this->epm_validate_registration_fields($validation_data);
-        // var_dump($validation_result);
-        //var_dump($validation_result);
         add_filter('pre_option_users_can_register', '__return_true');
         if (empty($validation_result)) {
             $user_id = $this->create_user($validation_data);
-            // var_dump($user_id);
             if ($user_id) {
-                // echo "success";
-                // // Other actions like sending emails, logging in, etc.
+                 // Other actions like sending emails, logging in, etc.
                 $this->set_user_role($user_id);
-                // $this->registrationSuccess = true;
-                echo 'User registration successful!';
-            } else {
-                // echo '<p class="error">' . esc_html($user_id['error']) . '</p>';
-                // echo "error";
+                $send_confirmation = get_option('epm_email_confirmation_activated', 'yes');
+                //  $is_admin_aproved = get_option('your_plugin_send_confirmation', true);
 
-                echo 'User registration failed. Please try again.';
+                if ($send_confirmation) {
+                    $this->send_confirmation_email($user_id, $validation_data);
+                    $this->add_message(__('Confirmation email sent. Please check your inbox.', 'eco-profile-master'));
+                } else {
+                    $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
+                }
+
+                // next check 
+                // if ($is_admin_aproved) {
+                //     $this->notify_admin_for_approval($user_id, $validation_data);
+                //     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
+                // }
+
+                // Check if automatic login is enabled
+                // $auto_login_enabled = get_option('your_plugin_auto_login', true);
+                // if ($auto_login_enabled) {
+                //     // Auto-login the user
+                //     $this->auto_login($user_id);
+                //     // Redirect to user's profile or dashboard
+                //     wp_redirect(home_url('/user-profile'));
+                //     exit();
+                // } else {
+                //     // Display login form
+                //     wp_redirect(home_url('/login'));
+                //     exit();
+                // }
             }
         } else {
             // Handle validation errors
         }
 
-
-        // else {
-        //     // Display error messages
-        //     foreach ($errors as $error) {
-        //         echo '<p>' . esc_html($error) . '</p>';
-        //     }
-        // }
-
-
-        // print_r($_POST);
-        // exit();
-
-
-
-
         // return ob_get_clean();
+    }
+
+    public function display_registration_messages()
+    {
+        $this->display_messages();
     }
 }

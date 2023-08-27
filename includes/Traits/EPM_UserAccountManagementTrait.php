@@ -17,7 +17,7 @@ trait EPM_UserAccountManagementTrait
         if (is_wp_error($user_id)) {
             // Log the error for debugging purposes
             // error_log('User creation error: ' . $user_id->get_error_message());
-            //wp_die(__('User registration failed. Please try again later.', 'your-text-domain'));
+            //wp_die(__('User registration failed. Please try again later.', 'eco-profile-master'));
             // return array('error' => 'User registration failed');
 
             // Return a custom error response
@@ -25,12 +25,14 @@ trait EPM_UserAccountManagementTrait
             //return false;
             echo 'User creation failed: ' . $user_id->get_error_message();
         } else {
+            update_user_meta($user_id, 'epm_admin_approval', __('unapproved', 'eco-profile-master'));
             wp_update_user(array(
                 'ID' => $user_id,
                 'first_name' => sanitize_text_field($data['epm_user_firstname']),
                 'last_name' => sanitize_text_field($data['epm_user_lastname']),
                 'user_url' => esc_url($data['epm_user_website']),
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
+                
             ));
 
             // Handle image upload
@@ -67,8 +69,8 @@ trait EPM_UserAccountManagementTrait
         // Set user role
         $this->set_user_role($user_id);
 
-        // // Send confirmation email
-        // $this->send_confirmation_email($user_id, $data);
+        // Send confirmation email
+        $this->send_confirmation_email($user_id);
 
         // // Auto-login the user
         // $this->auto_login($user_id);
@@ -79,8 +81,44 @@ trait EPM_UserAccountManagementTrait
 
     private function send_confirmation_email($user_id)
     {
-        // Logic to send confirmation email
+        $user = get_user_by('ID', $user_id);
+        $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', true));
+
+        if (!$send_confirmation) {
+            return;
+        }
+
+        $confirmation_key = wp_generate_password(20, false);
+        update_user_meta($user_id, 'confirmation_key', $confirmation_key);
+
+        $site_name = get_bloginfo('name'); // Get the site name
+        $subject = __('Account Confirmation', 'eco-profile-master');
+
+        // Build the HTML email message
+        $message = '<html>';
+        $message .= '<body>';
+        $message .= sprintf(
+            __('Hello %s,', 'eco-profile-master'), // Customize the greeting as needed
+            $user->display_name
+        ) . '<br><br>';
+        $message .= sprintf(
+            __('Click the following link to confirm your account on %s:', 'eco-profile-master'),
+            $site_name
+        ) . '<br><br>';
+        $confirmation_link = add_query_arg('confirmation_key', $confirmation_key, home_url('/'));
+        $message .= '<a href="' . esc_url($confirmation_link) . '">' . __('Confirm Account', 'eco-profile-master') . '</a><br><br>';
+        $message .= __('If you did not request this, please disregard this email.', 'eco-profile-master') . '<br><br>';
+        $message .= '</body>';
+        $message .= '</html>';
+
+        // Set headers for HTML email
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        // Send the email
+        wp_mail($user->user_email, $subject, $message, $headers);
     }
+    
+    
 
     private function notify_admin_for_approval($user_id)
     {
@@ -107,5 +145,15 @@ trait EPM_UserAccountManagementTrait
             // Log the error for debugging purposes
             error_log('Error setting user role: ' . $result->get_error_message());
         }
+    }
+
+    private function notify_admin_confirmation()
+    {
+        // notify_admin_confirmation logic goes here
+    }
+
+    private function is_user_approved()
+    {
+        // logic goes here 
     }
 }
