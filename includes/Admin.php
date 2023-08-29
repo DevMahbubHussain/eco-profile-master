@@ -22,6 +22,7 @@ class Admin
 
     public function dispatchAction($epm_admin_settings)
     {
+        add_action('admin_init', [$epm_admin_settings, 'epm_general_settings_form_handler']);
         add_action('admin_init', [$epm_admin_settings, 'epm_advanced_settings_form_handler']);
         add_action('admin_init', [$epm_admin_settings, 'epm_admin_bar_form_handler']);
         add_action('admin_init', [$epm_admin_settings, 'epm_form_fields_handler']);
