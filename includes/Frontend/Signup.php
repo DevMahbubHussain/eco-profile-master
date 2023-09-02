@@ -44,7 +44,7 @@ class Signup
 
     public function handle_confirmation_link()
     {
-        if (isset($_GET['confirmation_key']) && $_GET['confirmation_key'] === 'true') {
+        if (isset($_GET['key'])) {
             $user_id = intval($_GET['user_id']);
             $confirmation_key = sanitize_text_field($_GET['key']);
 
@@ -65,12 +65,16 @@ class Signup
                 //     // Optionally, notify admin about successful confirmation
                 //     $this->notify_admin_confirmation($user_id);
                 // }
-                wp_redirect(home_url('/'));
+                update_user_meta($user_id, 'email_verified', true);
+                delete_user_meta($user_id, 'confirmation_key');
+                wp_redirect(home_url('/auto-draft/'));
+                echo "Verification done";
+                exit;
             } else {
                 // Redirect to an error page
                 // wp_redirect(home_url('/confirmation-error'));
                 // exit;
-                echo 'please check your email for email vaerifications';
+                echo 'Email verification failed. Please try again.';
             }
         }
     }
@@ -78,22 +82,17 @@ class Signup
     private function verify_confirmation_key($user_id, $key)
     {
         // Get the stored verification key for the user
-        $stored_key = get_user_meta(
-            $user_id,
-            'email_verification_key',
-            true
-        );
+        $stored_key = get_user_meta($user_id, 'confirmation_key', true);
 
         // Compare the provided key with the stored key
         if ($key === $stored_key) {
-            // Keys match, update user meta to mark email as verified
-            update_user_meta($user_id, 'email_verified', true);
             // Remove the verification key
-            delete_user_meta($user_id, 'email_verification_key');
+            delete_user_meta($user_id, 'confirmation_key');
             return true;
         } else {
             // Keys don't match
             return false;
+            echo 'Email verification failed. Please try again.';
         }
     }
     
@@ -116,6 +115,7 @@ class Signup
         ob_start();
         $this->epm_render_form_based_on_style();
         echo $this->epm_handle_form_submission(); // Call the form processing function here
+        error_log('can called 2 times?Debug message: This is a test. EPM TRAIT METHODS ');
         return ob_get_clean();
     }
 
@@ -236,11 +236,14 @@ class Signup
             if ($user_id) {
                  // Other actions like sending emails, logging in, etc.
                 $this->set_user_role($user_id);
-                $send_confirmation = get_option('epm_email_confirmation_activated', 'yes');
+                $send_confirmation = get_option('epm_email_confirmation_activated', 'no');
+                // var_dump($send_confirmation);
                 //  $is_admin_aproved = get_option('your_plugin_send_confirmation', true);
 
-                if ($send_confirmation) {
+                if ($send_confirmation === 'yes') {
                     $this->send_confirmation_email($user_id, $validation_data);
+                    $this->notify_admin_for_approval($user_id);
+                    error_log('Confirmation email sent.');
                     $this->add_message(__('Confirmation email sent. Please check your inbox.', 'eco-profile-master'));
                 } else {
                     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));

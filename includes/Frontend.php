@@ -12,6 +12,7 @@ class Frontend
     {
         $epm_signup = new Frontend\Signup();
         $this->epm_dispatch_action($epm_signup);
+       // new Frontend\Signup();
         new Frontend\Shortcode();
     }
 

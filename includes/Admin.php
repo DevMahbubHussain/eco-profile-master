@@ -2,11 +2,14 @@
 
 namespace EcoProfile\Master;
 
+// use EcoProfile\Master\Traits\Admin\AdminBarTrait;
+
 /**
  * The admin class
  */
 class Admin
 {
+    //use AdminBarTrait;
 
     /**
      * Constructor.
@@ -26,8 +29,10 @@ class Admin
         add_action('admin_init', [$epm_admin_settings, 'epm_advanced_settings_form_handler']);
         add_action('admin_init', [$epm_admin_settings, 'epm_admin_bar_form_handler']);
         add_action('admin_init', [$epm_admin_settings, 'epm_form_fields_handler']);
-       // add_action('admin_init', [$epm_admin_settings, 'epm_handle_user_actions']);
+        // add_action('admin_init', [$epm_admin_settings, 'epm_handle_user_actions']);
         // add_action('admin_init', [$epm_form_label_placeholder, 'epm_form_labels_placeholder_handler']);
+
+        //$this->handleAdminBar();
 
     }
 }

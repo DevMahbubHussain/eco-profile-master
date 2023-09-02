@@ -2,8 +2,11 @@
 
 namespace EcoProfile\Master\Traits;
 
+use EcoProfile\Master\Traits\EPM_EmailTemplatesTrait;
+
 trait EPM_UserAccountManagementTrait
 {
+    use EPM_EmailTemplatesTrait;
 
     private function create_user($data)
     {
@@ -32,7 +35,7 @@ trait EPM_UserAccountManagementTrait
                 'last_name' => sanitize_text_field($data['epm_user_lastname']),
                 'user_url' => esc_url($data['epm_user_website']),
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
-                
+
             ));
 
             // Handle image upload
@@ -70,7 +73,7 @@ trait EPM_UserAccountManagementTrait
         $this->set_user_role($user_id);
 
         // Send confirmation email
-        $this->send_confirmation_email($user_id);
+        // $this->send_confirmation_email($user_id);
 
         // // Auto-login the user
         // $this->auto_login($user_id);
@@ -83,46 +86,22 @@ trait EPM_UserAccountManagementTrait
     {
         $user = get_user_by('ID', $user_id);
         $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', true));
-
         if (!$send_confirmation) {
             return;
         }
-
-        $confirmation_key = wp_generate_password(20, false);
-        update_user_meta($user_id, 'confirmation_key', $confirmation_key);
-
-        $site_name = get_bloginfo('name'); // Get the site name
-        $subject = __('Account Confirmation', 'eco-profile-master');
-
-        // Build the HTML email message
-        $message = '<html>';
-        $message .= '<body>';
-        $message .= sprintf(
-            __('Hello %s,', 'eco-profile-master'), // Customize the greeting as needed
-            $user->display_name
-        ) . '<br><br>';
-        $message .= sprintf(
-            __('Click the following link to confirm your account on %s:', 'eco-profile-master'),
-            $site_name
-        ) . '<br><br>';
-        $confirmation_link = add_query_arg('confirmation_key', $confirmation_key, home_url('/'));
-        $message .= '<a href="' . esc_url($confirmation_link) . '">' . __('Confirm Account', 'eco-profile-master') . '</a><br><br>';
-        $message .= __('If you did not request this, please disregard this email.', 'eco-profile-master') . '<br><br>';
-        $message .= '</body>';
-        $message .= '</html>';
-
-        // Set headers for HTML email
-        $headers = array('Content-Type: text/html; charset=UTF-8');
-
+        $email_data = $this->generate_confirmation_email($user);
         // Send the email
-        wp_mail($user->user_email, $subject, $message, $headers);
+        wp_mail($user->user_email,  $email_data['subject'], $email_data['message'], $email_data['headers']);
     }
-    
-    
+
+
 
     private function notify_admin_for_approval($user_id)
     {
-        // Logic to notify admin for approval
+        // Get the admin email address
+        $admin_email = get_option('admin_email');
+        $email_data = $this->admin_confirmation_email($user_id);
+        wp_mail($admin_email,  $email_data['subject'], $email_data['message'], $email_data['headers']);
     }
 
     private function auto_login($user_id)
@@ -147,13 +126,13 @@ trait EPM_UserAccountManagementTrait
         }
     }
 
-    private function notify_admin_confirmation()
-    {
-        // notify_admin_confirmation logic goes here
-    }
+    // private function notify_admin_confirmation()
+    // {
+    //     // notify_admin_confirmation logic goes here
+    // }
 
-    private function is_user_approved()
-    {
-        // logic goes here 
-    }
+    // private function is_user_approved()
+    // {
+    //     // logic goes here 
+    // }
 }

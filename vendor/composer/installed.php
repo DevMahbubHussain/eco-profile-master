@@ -3,7 +3,7 @@
         'name' => 'epm/eco-profile-master',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '39d2c07046982bf43f6881da87f82fa87bb1d5d0',
+        'reference' => 'd64d5e7cc331b1f3a5158021bcfe889a9d7175a7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'epm/eco-profile-master' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '39d2c07046982bf43f6881da87f82fa87bb1d5d0',
+            'reference' => 'd64d5e7cc331b1f3a5158021bcfe889a9d7175a7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

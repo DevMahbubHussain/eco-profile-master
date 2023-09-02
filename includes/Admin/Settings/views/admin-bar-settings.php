@@ -6,7 +6,7 @@
         <table class="widefat epm-label">
             <thead>
                 <tr>
-                    <th class="row-title" scope="col"><?php esc_html_e('User-Role', 'profile-builder'); ?></th>
+                    <th class="row-title" scope="col"><?php esc_html_e('User-Role', 'eco-profile-master'); ?></th>
                     <th scope="col"><?php esc_html_e('Visibility', 'eco-profile-master'); ?></th>
                 </tr>
             </thead>
@@ -15,7 +15,7 @@
             $admin_bar_settings = get_option('epm_display_admin_settings');
 
             foreach ($wp_roles->roles as $role) {
-                $key = $role['name'];
+                $key =  strtolower($role['name']);
                 $setting_exists = !empty($admin_bar_settings[$key]);
                 $default_value = ($setting_exists) ? $admin_bar_settings[$key] : 'default';
 

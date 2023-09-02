@@ -173,3 +173,70 @@ function epm_activate_user_signup()
         exit();
     }
 }
+
+
+// hide admin bar
+// function hide_admin_bar_for_subscriber($show)
+// {
+//     $admin_bar_settings = get_option('epm_display_admin_settings');
+//     $current_user = wp_get_current_user();
+
+//     if (in_array('subscriber', $current_user->roles)) {
+//         $subscriber_setting = isset($admin_bar_settings['subscriber']) ? $admin_bar_settings['subscriber'] : 'default';
+
+//         if ($subscriber_setting === 'show') {
+//             // Show the admin bar for subscribers
+//             return $show;
+//         } elseif ($subscriber_setting === 'hide') {
+//             // Hide the admin bar for subscribers
+//             return false;
+//         } else {
+//             // Handle the case of an undefined setting (e.g., show admin bar by default)
+//             return $show;
+//         }
+//     }
+
+//     // For non-subscribers, continue to show the admin bar
+//     return $show;
+// }
+
+// add_filter('show_admin_bar', 'hide_admin_bar_for_subscriber');
+
+
+/**
+ * Filter to hide or show the admin bar based on plugin settings for all user roles.
+ *
+ * This function retrieves the admin bar settings from the plugin's admin panel and applies
+ * the configured settings to determine whether the admin bar should be displayed or hidden
+ * for all user roles defined in the WordPress installation.
+ *
+ * @param bool $show Whether to show or hide the admin bar.
+ *
+ * @return bool Modified value indicating whether to show or hide the admin bar.
+ */
+
+function hide_admin_bar_for_all_roles($show)
+{
+    $admin_bar_settings = get_option('epm_display_admin_settings');
+    $current_user = wp_get_current_user();
+    $user_roles = $current_user->roles;
+
+    foreach ($user_roles as $role) {
+        // Check if there is a setting for the current role, or use a default value
+        $role_setting = isset($admin_bar_settings[$role]) ? $admin_bar_settings[$role] : 'default';
+
+        // Apply the setting for each role
+        if ($role_setting === 'hide') {
+            // Hide the admin bar for this role
+            return false;
+        } elseif ($role_setting === 'show') {
+            // Show the admin bar for this role
+            return $show;
+        }
+    }
+
+    // Handle the case of an undefined setting (e.g., show admin bar by default)
+    return $show;
+}
+
+add_filter('show_admin_bar', 'hide_admin_bar_for_all_roles');
