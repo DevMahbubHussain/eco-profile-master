@@ -181,11 +181,9 @@ trait EPM_Form_ValidationTrait
     public function validateNonce($nonce_field, $nonce_action)
     {
         if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
-            wp_die(__('Security check failed. Please try again nonce.', 'eco-profile-master'));
+            wp_die(__('Security check failed. Please try again.', 'eco-profile-master'));
         }
     }
-
-
 
 
     /**
@@ -216,4 +214,7 @@ trait EPM_Form_ValidationTrait
 
         return false;
     }
+
+
+
 }

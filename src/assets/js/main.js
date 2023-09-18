@@ -18,7 +18,7 @@
         });
 
         // tabs 
-        $("#tabs").tabs();
+        // $("#tabs").tabs();
 
         // $('#epm_form_heading_name').change(function () {
         //     if (this.checked) {

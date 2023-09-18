@@ -13,6 +13,8 @@ trait EPM_UserAccountManagementTrait
         // Logic to create a new user account
         $username = $data['epm_user_username'];
         $email = $data['epm_user_email'];
+        //$password  = wp_hash_password($data['epm_user_password']);
+
         $password  = $data['epm_user_password'];
 
         $user_id = wp_create_user($username, $password, $email);
@@ -85,7 +87,7 @@ trait EPM_UserAccountManagementTrait
     private function send_confirmation_email($user_id)
     {
         $user = get_user_by('ID', $user_id);
-        $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', true));
+        $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
         if (!$send_confirmation) {
             return;
         }
@@ -93,7 +95,6 @@ trait EPM_UserAccountManagementTrait
         // Send the email
         wp_mail($user->user_email,  $email_data['subject'], $email_data['message'], $email_data['headers']);
     }
-
 
 
     private function notify_admin_for_approval($user_id)
@@ -106,7 +107,22 @@ trait EPM_UserAccountManagementTrait
 
     private function auto_login($user_id)
     {
-        // Logic to auto-login the user
+        $user = get_userdata($user_id);
+        $password = sanitize_text_field($_POST['epm_user_password']);
+        $creds = array(
+            'user_login'    => $user->user_login,
+            'user_password' => $password,
+            'remember'      => true,
+        );
+        $user_signin = wp_signon($creds, false);
+
+        if (!is_wp_error($user_signin)) {
+            wp_clear_auth_cookie();
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID, true);
+            wp_redirect(home_url('/custom-dashboard'));
+            exit;
+        }
     }
 
     private function set_user_role($user_id)
@@ -125,14 +141,4 @@ trait EPM_UserAccountManagementTrait
             error_log('Error setting user role: ' . $result->get_error_message());
         }
     }
-
-    // private function notify_admin_confirmation()
-    // {
-    //     // notify_admin_confirmation logic goes here
-    // }
-
-    // private function is_user_approved()
-    // {
-    //     // logic goes here 
-    // }
 }

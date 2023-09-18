@@ -24,7 +24,7 @@ class Signup
     use EPM_Form_ValidationTrait;
     use EPM_UserAccountManagementTrait;
     use EPM_MessageTrait;
-    
+
 
     // use EPM_So
     private $registrationSuccess = false;
@@ -95,7 +95,7 @@ class Signup
             echo 'Email verification failed. Please try again.';
         }
     }
-    
+
 
     public function get_epm_form_styles()
     {
@@ -115,7 +115,7 @@ class Signup
         ob_start();
         $this->epm_render_form_based_on_style();
         echo $this->epm_handle_form_submission(); // Call the form processing function here
-        error_log('can called 2 times?Debug message: This is a test. EPM TRAIT METHODS ');
+        //error_log('can called 2 times?Debug message: This is a test. EPM TRAIT METHODS ');
         return ob_get_clean();
     }
 
@@ -234,29 +234,38 @@ class Signup
         if (empty($validation_result)) {
             $user_id = $this->create_user($validation_data);
             if ($user_id) {
-                 // Other actions like sending emails, logging in, etc.
+                // Other actions like sending emails, logging in, etc.
                 $this->set_user_role($user_id);
-                $send_confirmation = get_option('epm_email_confirmation_activated', 'no');
-                // var_dump($send_confirmation);
-                //  $is_admin_aproved = get_option('your_plugin_send_confirmation', true);
+                $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
+                var_dump($send_confirmation);
 
+                // email confirmation oiptions
                 if ($send_confirmation === 'yes') {
                     $this->send_confirmation_email($user_id, $validation_data);
-                    $this->notify_admin_for_approval($user_id);
-                    error_log('Confirmation email sent.');
                     $this->add_message(__('Confirmation email sent. Please check your inbox.', 'eco-profile-master'));
-                } else {
+                    // exit;
+                }
+                // admin approval options
+                $is_admin_aproved =  sanitize_text_field(get_option('epm_admin_approval', 'no'));
+                if ($is_admin_aproved === 'yes') {
+                    $this->notify_admin_for_approval($user_id);
                     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
                 }
 
-                // next check 
-                // if ($is_admin_aproved) {
-                //     $this->notify_admin_for_approval($user_id, $validation_data);
-                //     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
-                // }
-
                 // Check if automatic login is enabled
-                // $auto_login_enabled = get_option('your_plugin_auto_login', true);
+
+                $automatic_login_option = get_option('epm_automatically_login', 'no');
+                //var_dump($automatic_login_option);
+
+                if ($automatic_login_option === 'yes') {
+                    $this->auto_login($user_id);
+                } else {
+                    // show the login form after registartion 
+                    // wp_login_form();
+                    wp_redirect(home_url('/login'));
+                    exit;
+                }
+
                 // if ($auto_login_enabled) {
                 //     // Auto-login the user
                 //     $this->auto_login($user_id);

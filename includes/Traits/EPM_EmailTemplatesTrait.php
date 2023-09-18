@@ -30,6 +30,7 @@ trait EPM_EmailTemplatesTrait
         $verification_link = add_query_arg(
             array('key' => $confirmation_key, 'user_id' => $user->ID),
             home_url('/')
+           
         );
         $message .= '<a href="' . esc_url($verification_link) . '">' . __('Confirm Account', 'eco-profile-master') . '</a><br><br>';
         $message .= __('If you did not request this, please disregard this email.', 'eco-profile-master') . '<br><br>';
