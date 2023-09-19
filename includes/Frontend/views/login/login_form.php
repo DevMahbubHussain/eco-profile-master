@@ -1,14 +1,13 @@
 <?php
-if ($this->login_has_error('username_or_email')) {
-    error_log('set');
-} else {
-    error_log('not set');
-}
-
-
+// $confirmation_link = $this->EmailConfirmationHandler();
+// var_dump($confirmation_link);
 ?>
 <div class="bg-white p-8 rounded-lg shadow-md w-full">
-    <h2 class="text-2xl font-semibold mb-4"><?php __('Login', 'epm-profile-master') ?></h2>
+    <h2 class="text-2xl font-semibold mb-4"><?php _e('Login', 'epm-profile-master') ?></h2>
+    <?php displayConfirmationMessages(); ?>
+    <?php if ($this->login_has_error('approval_status')) : ?>
+        <span class="error-message"><?php echo $this->login_get_error('approval_status'); ?></span>
+    <?php endif; ?>
     <form method="POST" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
         <input type="hidden" name="epm_user_login_nonce" value="<?php echo wp_create_nonce('epm_user_login_nonce'); ?>">
         <div class="mb-6">

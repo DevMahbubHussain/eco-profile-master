@@ -8,6 +8,7 @@ use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
 use EcoProfile\Master\Traits\EPM_UserAccountManagementTrait;
 use EcoProfile\Master\Traits\EPM_MessageTrait;
+use EcoProfile\Master\Traits\EPM_LoginTrait;
 
 /**
  * Class Signup.
@@ -24,6 +25,7 @@ class Signup
     use EPM_Form_ValidationTrait;
     use EPM_UserAccountManagementTrait;
     use EPM_MessageTrait;
+    use EPM_LoginTrait;
 
 
     // use EPM_So
@@ -42,60 +44,49 @@ class Signup
         add_action('init', array($this, 'handle_confirmation_link'));
     }
 
+
     public function handle_confirmation_link()
     {
-        if (isset($_GET['key'])) {
+        if (isset($_GET['key']) && isset($_GET['user_id'])) {
             $user_id = intval($_GET['user_id']);
             $confirmation_key = sanitize_text_field($_GET['key']);
 
+           // var_dump("confirmation key: ", $confirmation_key);
+    
             if ($this->verify_confirmation_key($user_id, $confirmation_key)) {
-
-                // $is_user_approved_by_admin = get_option('your_plugin_user_approved', true);
-
-                // if ($is_user_approved_by_admin &&  $this->is_user_approved($user_id)) {
-                //     // Check if auto-login is enabled from admin panel
-                //     $auto_login_enabled = get_option('your_plugin_auto_login', true);
-                //     if ($auto_login_enabled) {
-                //         // Auto-login the user
-                //         $this->auto_login($user_id);
-                //     }
-                // } else {
-                //     // do others 
-                //     // wait for admin approval 
-                //     // Optionally, notify admin about successful confirmation
-                //     $this->notify_admin_confirmation($user_id);
-                // }
-                update_user_meta($user_id, 'email_verified', true);
+                // Remove the verification key
                 delete_user_meta($user_id, 'confirmation_key');
-                wp_redirect(home_url('/auto-draft/'));
-                echo "Verification done";
+    
+                // Mark the user as verified
+                update_user_meta($user_id, 'email_verified', true);
+
+                // Redirect the user to the login page
+                wp_redirect(home_url('/login/'));
+                $this->EmailConfirmationHandler();
                 exit;
             } else {
-                // Redirect to an error page
-                // wp_redirect(home_url('/confirmation-error'));
-                // exit;
+                // Redirect to an error page or display an error message
                 echo 'Email verification failed. Please try again.';
             }
         }
     }
 
-    private function verify_confirmation_key($user_id, $key)
+    private function verify_confirmation_key($user_id, $confirmation_key)
     {
         // Get the stored verification key for the user
         $stored_key = get_user_meta($user_id, 'confirmation_key', true);
+        var_dump("Stored key : ", $stored_key);
+        var_dump($confirmation_key);
 
         // Compare the provided key with the stored key
-        if ($key === $stored_key) {
-            // Remove the verification key
-            delete_user_meta($user_id, 'confirmation_key');
+        if ($confirmation_key === $stored_key) {
+            // Keys match
             return true;
         } else {
             // Keys don't match
             return false;
-            echo 'Email verification failed. Please try again.';
         }
     }
-
 
     public function get_epm_form_styles()
     {
@@ -237,34 +228,36 @@ class Signup
                 // Other actions like sending emails, logging in, etc.
                 $this->set_user_role($user_id);
                 $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
-                var_dump($send_confirmation);
+                //var_dump($send_confirmation);
 
-                // email confirmation oiptions
+                // Email Confirmation Options
                 if ($send_confirmation === 'yes') {
                     $this->send_confirmation_email($user_id, $validation_data);
                     $this->add_message(__('Confirmation email sent. Please check your inbox.', 'eco-profile-master'));
-                    // exit;
+                    return;
                 }
-                // admin approval options
-                $is_admin_aproved =  sanitize_text_field(get_option('epm_admin_approval', 'no'));
-                if ($is_admin_aproved === 'yes') {
+
+                // Admin Approval Options
+                $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+                if ($is_admin_approved === 'yes') {
                     $this->notify_admin_for_approval($user_id);
                     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
+                    return;
                 }
 
                 // Check if automatic login is enabled
-
                 $automatic_login_option = get_option('epm_automatically_login', 'no');
-                //var_dump($automatic_login_option);
+                // var_dump($automatic_login_option);
 
                 if ($automatic_login_option === 'yes') {
                     $this->auto_login($user_id);
                 } else {
-                    // show the login form after registartion 
+                    // show the login form after registration
                     // wp_login_form();
                     wp_redirect(home_url('/login'));
                     exit;
                 }
+
 
                 // if ($auto_login_enabled) {
                 //     // Auto-login the user

@@ -12,6 +12,8 @@ trait EPM_EmailTemplatesTrait
 {
     public function generate_confirmation_email($user)
     {
+        //$confirmation_key = get_user_meta($user->ID, 'confirmation_key', true);
+       // var_dump($confirmation_key);
         // Create the HTML content for the confirmation email
         //$user = get_user_by('ID', $user_id);
         $site_name = get_bloginfo('name');
@@ -29,7 +31,7 @@ trait EPM_EmailTemplatesTrait
         $confirmation_key = get_user_meta($user->ID, 'confirmation_key', true);
         $verification_link = add_query_arg(
             array('key' => $confirmation_key, 'user_id' => $user->ID),
-            home_url('/')
+            home_url('/login')
            
         );
         $message .= '<a href="' . esc_url($verification_link) . '">' . __('Confirm Account', 'eco-profile-master') . '</a><br><br>';

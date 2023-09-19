@@ -13,24 +13,19 @@ trait EPM_UserAccountManagementTrait
         // Logic to create a new user account
         $username = $data['epm_user_username'];
         $email = $data['epm_user_email'];
-        //$password  = wp_hash_password($data['epm_user_password']);
-
         $password  = $data['epm_user_password'];
+        $confirmation_key = wp_generate_password(20, false);
 
         $user_id = wp_create_user($username, $password, $email);
         //remove_filter('pre_option_users_can_register', '__return_true');
         if (is_wp_error($user_id)) {
-            // Log the error for debugging purposes
-            // error_log('User creation error: ' . $user_id->get_error_message());
-            //wp_die(__('User registration failed. Please try again later.', 'eco-profile-master'));
-            // return array('error' => 'User registration failed');
-
-            // Return a custom error response
-            //return array('error' => 'User registration failed');
-            //return false;
             echo 'User creation failed: ' . $user_id->get_error_message();
         } else {
-            update_user_meta($user_id, 'epm_admin_approval', __('unapproved', 'eco-profile-master'));
+            $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+            if ($is_admin_approved === 'yes') {
+                update_user_meta($user_id, 'epm_admin_approval', __('unapproved', 'eco-profile-master'));
+            }
+            update_user_meta($user_id, 'confirmation_key', $confirmation_key);
             wp_update_user(array(
                 'ID' => $user_id,
                 'first_name' => sanitize_text_field($data['epm_user_firstname']),

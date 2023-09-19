@@ -27,6 +27,11 @@ trait EPM_LoginTrait
             }
         }
 
+        $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
+        if ($approval_status !== 'approved') {
+            $this->errors['approval_status'] = __('Your account is pending admin approval. Please wait for approval.', 'eco-profile-master');
+        }
+
         return $this->errors;
     }
 
@@ -50,4 +55,61 @@ trait EPM_LoginTrait
 
         return false;
     }
+
+
+    // public function EmailConfirmationHandler()
+    // {
+
+    //     $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+
+    //     if ($is_admin_approved === 'yes') {
+    //         // Display a message and redirect for admin approval
+    //         return __('Your email has been confirmed. Please wait for admin approval.', 'eco-profile-master');
+    //         // $this->redirectToWaitingPage();
+    //     } else {
+    //         // Display a message and provide a login link
+    //         return __('Your email has been confirmed. You can now <a href="' . home_url('/login') . '">log in</a>.', 'eco-profile-master');
+    //     }
+    // }
+
+    public function EmailConfirmationHandler()
+    {
+        $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+        $confirmation_message = '';
+
+        if ($is_admin_approved === 'yes') {
+            // Display a message and redirect for admin approval
+            $confirmation_message = __('Your email has been confirmed. Please wait for admin approval.', 'eco-profile-master');
+        } else {
+            // Display a message and provide a login link
+            $confirmation_message = __('Your email has been confirmed. You can now <a href="' . home_url('/login') . '">log in</a>.', 'eco-profile-master');
+        }
+
+        // Add the confirmation message to the transient
+        $confirmation_messages = get_transient('confirmation_messages');
+        if (!$confirmation_messages || !is_array($confirmation_messages)) {
+            $confirmation_messages = array();
+        }
+        $confirmation_messages[] = $confirmation_message;
+        set_transient('confirmation_messages', $confirmation_messages, 1);
+
+        return $confirmation_message;
+    }
 }
+
+
+
+    // private function validateConfirmationKey($user_id, $key)
+    // {
+    //     // Get the stored confirmation key for the user
+    //     $stored_key = get_user_meta($user_id, 'confirmation_key', true);
+
+    //     // Check if the provided key matches the stored key
+    //     if ($key === $stored_key) {
+    //         // Valid confirmation key
+    //         return true;
+    //     } else {
+    //         // Invalid confirmation key
+    //         return false;
+    //     }
+    // }

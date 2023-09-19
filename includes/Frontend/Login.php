@@ -17,7 +17,7 @@ class Login
         add_shortcode('epm-login', array($this, 'epm_render_login_form'));
         add_action('init', array($this, 'epm_process_login'));
     }
-
+    
     public function epm_render_login_form()
     {
         ob_start();

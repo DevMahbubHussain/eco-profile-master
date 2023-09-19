@@ -240,3 +240,20 @@ function hide_admin_bar_for_all_roles($show)
 }
 
 add_filter('show_admin_bar', 'hide_admin_bar_for_all_roles');
+
+
+
+// displayConfirmationMessages message
+function displayConfirmationMessages()
+{
+    $confirmation_messages = get_transient('confirmation_messages');
+
+    if ($confirmation_messages && is_array($confirmation_messages)) {
+        foreach ($confirmation_messages as $message) {
+            echo '<div class="confirmation-message block text-red-600 text-sm font-medium mb-2">' . $message . '</div>';
+        }
+
+        // Clear the confirmation messages from the transient
+        delete_transient('confirmation_messages');
+    }
+}
