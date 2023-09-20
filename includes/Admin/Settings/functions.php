@@ -40,7 +40,9 @@ function epm_general_settings_form_submission()
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
             'epm_display_social_links' => 'epm_display_social_links',
-            'epm_lost_password_page' => 'epm_lost_password_page'
+            'epm_lost_password_page' => 'epm_lost_password_page',
+            'epm_login_page' => 'epm_login_page',
+            'epm_profile_page' => 'epm_profile_page',
         );
 
         // Loop through the options, sanitize the values, and update the options
@@ -226,13 +228,41 @@ add_action('admin_notices', 'display_admin_notice');
  * @return void
  * @since 1.0.0
  */
-function epm_get_general_settings_active_page()
+function epm_lost_password_page()
 {
     $epm_pages = epm_get_my_pages();
 
     foreach ($epm_pages as $page) :
         $selected = (get_option('epm_lost_password_page') === $page) ? 'selected' : '';
 ?>
+        <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
+            <?php echo esc_html(ucfirst($page)); ?>
+        </option>
+    <?php
+    endforeach;
+}
+
+function epm_login_page()
+{
+    $epm_pages = epm_get_my_pages();
+
+    foreach ($epm_pages as $page) :
+        $selected = (get_option('epm_login_page') === $page) ? 'selected' : '';
+    ?>
+        <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
+            <?php echo esc_html(ucfirst($page)); ?>
+        </option>
+    <?php
+    endforeach;
+}
+
+function epm_profile_page()
+{
+    $epm_pages = epm_get_my_pages();
+
+    foreach ($epm_pages as $page) :
+        $selected = (get_option('epm_profile_page') === $page) ? 'selected' : '';
+    ?>
         <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
             <?php echo esc_html(ucfirst($page)); ?>
         </option>

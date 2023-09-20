@@ -115,7 +115,11 @@ trait EPM_UserAccountManagementTrait
             wp_clear_auth_cookie();
             wp_set_current_user($user->ID);
             wp_set_auth_cookie($user->ID, true);
-            wp_redirect(home_url('/custom-dashboard'));
+            $epm_profile_page = sanitize_text_field(get_option('epm_profile_page', 'Profile'));
+            if (!empty($epm_profile_page)) {
+                wp_redirect(home_url("/$epm_profile_page"));
+            }
+           // wp_redirect(home_url('/custom-dashboard'));
             exit;
         }
     }

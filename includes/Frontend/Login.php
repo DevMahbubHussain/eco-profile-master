@@ -40,10 +40,15 @@ class Login
             $errors = $this->validateLoginForm($username_or_email, $password);
             if (empty($errors)) {
                 $this->epm_user_login(null, $username_or_email, $password);
-
-                // redirect user dashboard page
-                wp_redirect(admin_url());
+                $epm_profile_page = sanitize_text_field(get_option('epm_profile_page', 'Profile'));
+                // redirect user to the dashboard or the profile page
+                if (!empty($epm_profile_page)) {
+                    wp_redirect(home_url("/$epm_profile_page"));
+                } else {
+                    wp_redirect(admin_url());
+                }
                 exit;
+
             }
         }
     }

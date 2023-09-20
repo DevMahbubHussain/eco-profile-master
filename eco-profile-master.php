@@ -55,7 +55,7 @@ final class Eco_Profile_Master
 		require_once __DIR__ . '/vendor/autoload.php';
 		$this->epm_define_constants();
 		register_activation_hook(__FILE__, array($this, 'epm_activate'));
-		register_deactivation_hook(__FILE__, array($this, 'epm_deactice'));
+		register_deactivation_hook(__FILE__, array($this, 'epm_deactive'));
 		$this->epm_add_hooks();
 	}
 
@@ -160,24 +160,24 @@ final class Eco_Profile_Master
 
 		// Dynamically create a new page for password recovery
 		$recover_password_page_title = __('Recover Password', 'eco-profile-master');
-		$recover_password_page_content = ''; // You can set content if needed
+		$login_page_title = __('Login', 'eco-profile-master');
+		$login_profile_title = __('Profile', 'eco-profile-master');
+		$slug = 'recover-password';
 		$recover_password_page = array(
 			'post_title' => $recover_password_page_title,
-			'post_content' => $recover_password_page_content,
+			'post_name'     => $slug,
 			'post_status' => 'publish',
-			'post_type' => 'page'
+			'post_type' => 'page',
+			'post_content'  => "<!-- wp:shortcode -->[epm-pass-recover]<!-- /wp:shortcode -->",
 		);
 		$recover_password_page_id = wp_insert_post($recover_password_page);
 
 		if (!is_wp_error($recover_password_page_id)) {
 			// Set the page title in the settings option
 			update_option('epm_lost_password_page', $recover_password_page_title);
+			update_option('epm_login_page', $login_page_title);
+			update_option('epm_profile_page', $login_profile_title);
 		}
-		// 'epm_facebook_url',
-		// 'epm_twitter_url',
-		// 'epm_linkedin_url',
-		// 'epm_youtube_url',
-		// 'epm_instagram_url'
 
 		// Default values for advanced settings
 		$epm_default_advanced_settings = array(
@@ -194,14 +194,6 @@ final class Eco_Profile_Master
 			'epm_instagram_url' => 1
 		);
 
-		// // Default values for advanced settings
-		// $epm_default_advanced_settings = array(
-		// 	'epm_email_confirmation' => 1,
-		// 	'epm_remember_me' => 0,
-		// 	'epm_auto_login_pass_reset' => 0,
-		// 	'epm_auto_generate_pass' => 0,
-		// 	'epm_first_lastname_captitilize' => 0
-		// );
 		foreach ($epm_default_advanced_settings as $option_name => $default_value) {
 			add_option($option_name, $default_value);
 		}
@@ -257,7 +249,42 @@ final class Eco_Profile_Master
 
 		update_option('epm_form_label_placeholder', $default_values);
 
+
+		// plugin pages 
+		$this->epm_plugin_pages('login', 'Login', 'epm-login');
+		$this->epm_plugin_pages('registration', 'Registration', 'epm-register');
+		$this->epm_plugin_pages('profile', 'Profile', 'epm-profile');
+		$this->epm_plugin_pages('listings', 'User Listings', 'epm-user-listings');
+
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * Plugin pages with shortcodes function.
+	 *
+	 * @param [type] $slug
+	 * @param [type] $title
+	 * @param [type] $shortcode
+	 * @return void
+	 */
+	public function epm_plugin_pages($slug, $title, $shortcode)
+	{
+		global $wpdb;
+		if ($wpdb->get_row("SELECT post_name FROM {$wpdb->prefix}posts WHERE post_name = '$slug'") === null) {
+
+			$current_user = wp_get_current_user();
+
+			$page = array(
+				'post_title'    => __($title, 'echo-profile-master'),
+				'post_name'     => $slug,
+				'post_status'   => 'publish',
+				'post_author'   => $current_user->ID,
+				'post_type'     => 'page',
+				'post_content'  => "<!-- wp:shortcode -->[$shortcode]<!-- /wp:shortcode -->",
+			);
+
+			wp_insert_post($page);
+		}
 	}
 
 	/**
@@ -269,7 +296,7 @@ final class Eco_Profile_Master
 	 *
 	 * @return void
 	 */
-	public function epm_deactice()
+	public function epm_deactive()
 	{
 		$epm_general_settings_options_to_delete = array(
 			'epm_form_style',
@@ -289,9 +316,18 @@ final class Eco_Profile_Master
 		}
 
 		// Additional code to delete pages if needed
-		$recover_password_page_id = get_option('epm_lost_password_page');
-		if ($recover_password_page_id) {
-			wp_delete_post($recover_password_page_id, true);
+		$page_option_names = array(
+			'epm_lost_password_page',
+			'epm_login_page',
+			'epm_profile_page',
+		);
+		foreach ($page_option_names as $option_name) {
+			$page_id = get_option($option_name);
+
+			if ($page_id) {
+				wp_delete_post($page_id, true);
+				delete_option($option_name);
+			}
 		}
 
 		// Delete advanced settings options
@@ -333,6 +369,26 @@ final class Eco_Profile_Master
 		}
 		// delete default value for labels and placeholder 
 		delete_option('epm_form_label_placeholder');
+
+		// delete all plugin pages
+		$this->epm_plugin_deactive_pages();
+
+		//recover page delete
+		$page_id = get_page_by_path('recover-password');
+		if ($page_id) {
+			wp_delete_post($page_id->ID, true);
+		}
+	}
+
+	public function epm_plugin_deactive_pages()
+	{
+		$pages_to_delete = array('login', 'registration', 'profile', 'listings');
+		foreach ($pages_to_delete as $page_slug) {
+			$page_id = get_page_by_path($page_slug);
+			if ($page_id) {
+				wp_delete_post($page_id->ID, true);
+			}
+		}
 	}
 
 	/**

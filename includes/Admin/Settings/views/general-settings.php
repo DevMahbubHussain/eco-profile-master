@@ -101,8 +101,22 @@
                 <tr>
                     <th><label for="epm_lost_password_page"><?php _e('Select Recover Password Page:', 'eco-profile-master'); ?></label></th>
                     <td>
-                        <select class="epm-select" name="epm_lost_password_page" id="epm_lost_password_page"><?php echo esc_attr(epm_get_general_settings_active_page()); ?></select>
+                        <select class="epm-select" name="epm_lost_password_page" id="epm_lost_password_page"><?php echo esc_attr(epm_lost_password_page()); ?></select>
                         <p class="epm-description"><?php _e('Select the page which contains the [epm-recover-password] shortcode.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_login_page"><?php _e('Registration Redirect Page:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_login_page" id="epm_login_page"><?php echo esc_attr(epm_login_page()); ?></select>
+                        <p class="epm-description"><?php _e('Select the page which contains the [epm-login] shortcode.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_profile_page"><?php _e('Login Redirect Page:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_profile_page" id="epm_profile_page"><?php echo esc_attr(epm_profile_page()); ?></select>
+                        <p class="epm-description"><?php _e('Select the page which contains the [epm-profile] shortcode.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
             </tbody>

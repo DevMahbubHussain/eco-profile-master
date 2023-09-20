@@ -247,14 +247,15 @@ class Signup
 
                 // Check if automatic login is enabled
                 $automatic_login_option = get_option('epm_automatically_login', 'no');
-                // var_dump($automatic_login_option);
-
                 if ($automatic_login_option === 'yes') {
                     $this->auto_login($user_id);
                 } else {
-                    // show the login form after registration
-                    // wp_login_form();
-                    wp_redirect(home_url('/login'));
+                    $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
+                    if (!empty($epm_login_page)) {
+                        wp_redirect(home_url("/$epm_login_page"));
+                    } else {
+                        wp_login_form();
+                    }
                     exit;
                 }
 
