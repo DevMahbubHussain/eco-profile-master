@@ -27,11 +27,22 @@ trait EPM_LoginTrait
             }
         }
 
-        $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
-        if ($approval_status !== 'approved') {
-            $this->errors['approval_status'] = __('Your account is pending admin approval. Please wait for approval.', 'eco-profile-master');
-        }
+        // $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
+        // if ($approval_status !== 'approved') {
+        //     $this->errors['approval_status'] = __('Your account is pending admin approval. Please wait for approval.', 'eco-profile-master');
+        // }
 
+        return $this->errors;
+    }
+
+    public function validateResetForm($new_password, $confirm_password)
+    {
+        if ($new_password !== $confirm_password) {
+            $this->errors['password_mismatch'] =  __('Passwords do not match', 'eco-profile-master');
+        }
+        if (strlen($new_password) < 7) {
+            $this->errors['password_length'] = 'Password must be at least 7 characters long.';
+        }
         return $this->errors;
     }
 

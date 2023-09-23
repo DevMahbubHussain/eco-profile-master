@@ -27,7 +27,7 @@
         </div>
         <div class="flex items-center justify-between">
             <button type="submit" class="btn btn-primary mt-10" name="epm_login"><?php _e('Login', 'eco-profile-master'); ?></button>
-            <a href="#" class="text-blue-500 text-sm hover:underline">Forgot Password?</a>
+            <a href="<?php echo esc_url(add_query_arg('action', 'custom_lostpassword')); ?>" class="text-blue-500 text-sm hover:underline">Lost your password?</a>
         </div>
     </form>
     <div class="mt-4">

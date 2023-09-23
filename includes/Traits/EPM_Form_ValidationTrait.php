@@ -104,8 +104,8 @@ trait EPM_Form_ValidationTrait
 
 
         // Validate password length
-        if (strlen($epm_user_password) < 6) {
-            $this->errors['epm_user_password_length'] = __('Password must be at least 6 characters long.', 'eco-profile-master');
+        if (strlen($epm_user_password) < 7) {
+            $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
         }
 
         if ($epm_user_password !== $epm_user_retype_password) {
@@ -185,6 +185,33 @@ trait EPM_Form_ValidationTrait
         }
     }
 
+
+    public function validation($new_password, $confirm_password)
+    {
+        $password_reset_errors = array();
+        // Validate the fields and add errors if necessary
+        if (empty($new_password)) {
+            $password_reset_errors[] = 'Please fill in the new password field.';
+        }
+
+        if (empty($confirm_password)) {
+            $password_reset_errors[] = 'Please fill in the confirm password field.';
+        }
+
+        if ($new_password !== $confirm_password) {
+            $password_reset_errors[] = 'Passwords do not match. Please try again.';
+        }
+
+        if (strlen($new_password) < 7) {
+            $password_reset_errors[] = 'Password must be at least 7 characters long.';
+        }
+
+        if (!empty($password_reset_errors)) {
+            $this->errors['password_reset'] = $password_reset_errors;
+        }
+
+        return $this->errors;
+    }
 
     /**
      * Check if the form has error

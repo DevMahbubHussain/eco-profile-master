@@ -257,3 +257,17 @@ function displayConfirmationMessages()
         delete_transient('confirmation_messages');
     }
 }
+
+
+// password reset Message
+
+function display_confirmation_message()
+{
+    $confirmation_messages = get_transient('password_reset_confirmation_messages');
+
+    if (!empty($confirmation_messages)) {
+        echo '<div class="confirmation-message block text-red-600 text-md font-medium mb-2">';
+        echo esc_html($confirmation_messages);
+        echo '</div>';
+    }
+}
