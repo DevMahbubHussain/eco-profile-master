@@ -62,26 +62,29 @@ class Manager
     public function get_scripts(): array
     {
         $dependency = require_once EP_MASTER_DIR . '/build/index.asset.php';
-
         return [
             'epm-master-js' => [
                 'src'       => EP_MASTER_BUILD . '/index.js',
-                'version'   => $dependency['version'],
-                'deps'      => $dependency['dependencies'],
+                'version'   => 1,
+                'deps'      => 1,
+                // 'version'   => $dependency[1],
+                // 'deps'      => $dependency[1],
+                // 'version' => 1,
+                // 'deps' => 1,
                 'in_footer' => true,
             ],
-            'epm-front-end-js' => [
-                'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
-                'version'   => $dependency['version'],
-                'deps'      => ['jquery'],
-                'in_footer' => true,
-            ],
-            'epm-toaster-js' => [
-                'src'       => EP_MASTER_ASSETS . '/js/toastr.min.js',
-                'version'   => $dependency['version'],
-                'deps'      => ['jquery'],
-                'in_footer' => true,
-            ],
+            // 'epm-front-end-js' => [
+            //     'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
+            //     'version'   => $dependency['version'],
+            //     'deps'      => ['jquery'],
+            //     'in_footer' => true,
+            // ],
+            // 'epm-toaster-js' => [
+            //     'src'       => EP_MASTER_ASSETS . '/js/toastr.min.js',
+            //     'version'   => $dependency['version'],
+            //     'deps'      => ['jquery'],
+            //     'in_footer' => true,
+            // ],
             // 'epm-ace-js-rules' => [
             //     'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
             //     'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
