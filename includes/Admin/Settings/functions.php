@@ -43,6 +43,7 @@ function epm_general_settings_form_submission()
             'epm_lost_password_page' => 'epm_lost_password_page',
             'epm_login_page' => 'epm_login_page',
             'epm_profile_page' => 'epm_profile_page',
+            'epm_pass_reset_page' => 'epm_pass_reset_page'
         );
 
         // Loop through the options, sanitize the values, and update the options
@@ -262,6 +263,21 @@ function epm_profile_page()
 
     foreach ($epm_pages as $page) :
         $selected = (get_option('epm_profile_page') === $page) ? 'selected' : '';
+    ?>
+        <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
+            <?php echo esc_html(ucfirst($page)); ?>
+        </option>
+    <?php
+    endforeach;
+}
+
+
+function epm_password_reset_form()
+{
+    $epm_pages = epm_get_my_pages();
+
+    foreach ($epm_pages as $page) :
+        $selected = (get_option('epm_pass_reset_page') === $page) ? 'selected' : '';
     ?>
         <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
             <?php echo esc_html(ucfirst($page)); ?>

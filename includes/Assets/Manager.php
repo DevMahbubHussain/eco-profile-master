@@ -44,12 +44,12 @@ class Manager
                 'src' => EP_MASTER_BUILD . '/index.css',
                 'version' => EP_MASTER_VERSION,
                 'deps' => []
-            ]
-            // 'epm-codemirror-css' => [
-            //     'src'       => EP_MASTER_ASSETS . '/lib/codemirror.css',
-            //     'version' => filemtime(EP_MASTER_PATH . '/lib/codemirror.css'),
-            //     'deps'      => [],
-            // ],
+            ],
+            'epm-toaster-css' => [
+                'src'       => EP_MASTER_ASSETS . '/css/toastr.min.css',
+                'version' => EP_MASTER_VERSION,
+                'deps'      => [],
+            ],
         ];
     }
 
@@ -72,6 +72,12 @@ class Manager
             ],
             'epm-front-end-js' => [
                 'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
+                'version'   => $dependency['version'],
+                'deps'      => ['jquery'],
+                'in_footer' => true,
+            ],
+            'epm-toaster-js' => [
+                'src'       => EP_MASTER_ASSETS . '/js/toastr.min.js',
                 'version'   => $dependency['version'],
                 'deps'      => ['jquery'],
                 'in_footer' => true,
@@ -108,8 +114,6 @@ class Manager
             wp_register_script($handle, $script['src'], $script['deps'], $script['version'], $script['in_footer']);
         }
     }
-
-
 
     /**
      * Enqueue admin styles and scripts for Eco Profile Master.
@@ -172,8 +176,10 @@ class Manager
         global $post;
 
         // Check if the current post content contains the specific shortcode
-        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'custom-password-reset-form'))) {
+        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form'))) {
             wp_enqueue_style('epm-master-css');
+            wp_enqueue_style('epm-toaster-css');
+            wp_enqueue_script('epm-toaster-js');
             wp_enqueue_script('epm-master-js');
             wp_enqueue_script('epm-front-end-js');
             

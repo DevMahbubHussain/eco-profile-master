@@ -75,8 +75,8 @@ class Signup
     {
         // Get the stored verification key for the user
         $stored_key = get_user_meta($user_id, 'confirmation_key', true);
-        var_dump("Stored key : ", $stored_key);
-        var_dump($confirmation_key);
+        //var_dump("Stored key : ", $stored_key);
+        //var_dump($confirmation_key);
 
         // Compare the provided key with the stored key
         if ($confirmation_key === $stored_key) {

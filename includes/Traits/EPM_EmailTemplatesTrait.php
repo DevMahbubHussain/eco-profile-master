@@ -13,12 +13,8 @@ trait EPM_EmailTemplatesTrait
 
     public function generate_confirmation_email($user)
     {
-        //$confirmation_key = get_user_meta($user->ID, 'confirmation_key', true);
-        // var_dump($confirmation_key);
-        // Create the HTML content for the confirmation email
-        //$user = get_user_by('ID', $user_id);
         $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
-        $epm_login = !empty($epm_login_page) ? get_post_field('post_content', $epm_login_page) : wp_login_form();
+        $epm_login = !empty($epm_login_page) ? $epm_login_page : wp_login_form();
         $site_name = get_bloginfo('name');
         $subject = __('Account Confirmation', 'eco-profile-master');
         $message = '<html>';

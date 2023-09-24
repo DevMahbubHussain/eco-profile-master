@@ -253,6 +253,7 @@ final class Eco_Profile_Master
 		// plugin pages 
 		$this->epm_plugin_pages('login', 'Login', 'epm-login');
 		$this->epm_plugin_pages('registration', 'Registration', 'epm-register');
+		$this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
 		$this->epm_plugin_pages('profile', 'Profile', 'epm-profile');
 		$this->epm_plugin_pages('listings', 'User Listings', 'epm-user-listings');
 
@@ -382,7 +383,8 @@ final class Eco_Profile_Master
 
 	public function epm_plugin_deactive_pages()
 	{
-		$pages_to_delete = array('login', 'registration', 'profile', 'listings');
+		// $this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
+		$pages_to_delete = array('login', 'registration', 'profile', 'listings', 'new-password-form');
 		foreach ($pages_to_delete as $page_slug) {
 			$page_id = get_page_by_path($page_slug);
 			if ($page_id) {

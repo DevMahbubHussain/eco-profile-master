@@ -119,6 +119,13 @@
                         <p class="epm-description"><?php _e('Select the page which contains the [epm-profile] shortcode.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
+                <tr>
+                    <th><label for="epm_profile_page"><?php _e('Password Reset Page:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_pass_reset_page" id="epm_pass_reset_page"><?php echo esc_attr(epm_password_reset_form()); ?></select>
+                        <p class="epm-description"><?php _e('Select the page which contains the [epm-password-reset-form] shortcode.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p class="submit">

@@ -3027,6 +3027,11 @@ function withinMaxClamp(min, value, max) {
     //         reader.readAsDataURL(input.files[0]);
     //     }
     // });
+
+    toastr.options = {
+      "positionClass": "toast-top-right"
+      // Other options...
+    };
   });
 })(jQuery);
 

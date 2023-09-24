@@ -4,6 +4,7 @@
 ?>
 <div class="bg-white p-8 rounded-lg shadow-md w-full">
     <h2 class="text-2xl font-semibold mb-4"><?php _e('Login', 'epm-profile-master') ?></h2>
+    <?php display_password_reset_confirmation_message(); ?>
     <?php displayConfirmationMessages(); ?>
     <?php if ($this->login_has_error('approval_status')) : ?>
         <span class="error-message"><?php echo $this->login_get_error('approval_status'); ?></span>

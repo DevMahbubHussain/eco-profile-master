@@ -18,7 +18,7 @@ class Login
         add_action('template_redirect', array($this, 'epm_process_login'));
         add_shortcode('epm-pass-recover', array($this, 'epm_render_password_reset_form'));
         add_action('template_redirect', array($this, 'epm_process_reset_password'));
-        add_shortcode('custom-password-reset-form', array($this, 'epm_redirect_to_custom_lostpassword'));
+        add_shortcode('epm-password-reset-form', array($this, 'epm_redirect_to_custom_lostpassword'));
         add_action('template_redirect', array($this, 'epm_process_custom_lostpassword'));
     }
 
@@ -53,7 +53,6 @@ class Login
                     wp_redirect(admin_url());
                 }
                 exit;
-
             }
         }
     }
@@ -112,13 +111,13 @@ class Login
             $this->validateNonce('epm_user_password_reset_nonce', 'epm_user_password_reset_action');
             $user_email = sanitize_email($_POST['epm_user_email']);
             $user = get_user_by('email', $user_email);
+            $epm_new_pass_page = lcfirst(sanitize_text_field(get_option('epm_pass_reset_page', 'new-password-form')));
+            $epm_pass_page = !empty($epm_new_pass_page) ? $epm_new_pass_page : 'wp-login.php?action=lostpassword';
             if ($user) {
                 // $redirect_page = home_url('/pass');
                 $token = wp_generate_password(32, false);
                 update_user_meta($user->ID, 'password_reset_token', $token);
-                // $reset_link = home_url("/pass?token=$token");
-                //$reset_link = add_query_arg(array('token' => $token, 'reset_password' => 1), home_url('/'));
-                $reset_link = home_url("/pass?token=$token&reset_password=1");
+                $reset_link = home_url("/$epm_pass_page/?token=$token&reset_password=1");
                 // Create the reset password button with translation support
                 $reset_button_label = __('Reset Password', 'eco-profile-master');
                 $reset_button_url = esc_url($reset_link);
@@ -149,13 +148,9 @@ class Login
             }
         }
 
-        // Get the existing confirmation messages or initialize an empty array
-        // Store the updated array of confirmation messages in the transient
         $confirmation_messages =  set_transient('password_reset_confirmation_messages', $confirmation_message, 1);
-        // Return the confirmation message
         return $confirmation_messages;
     }
-
 
 
     public function epm_redirect_to_custom_lostpassword()
@@ -163,7 +158,6 @@ class Login
 
         ob_start();
         $this->epm_custom_password_reset_form();
-        // echo $this->epm_custom_password_reset_process();
         return ob_get_clean();
     }
 
@@ -185,7 +179,18 @@ class Login
             if ($user) {
                 $this->epm_custom_password_reset_form_validation($user);
             } else {
-                echo 'Invalid or expired token.';
+                $error_token = __('Invalid or expired token.', 'eco-profile-master');
+                $error_token =  set_transient('expired_token', $error_token, 1);
+                return $error_token;
+            }
+        } else {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['epm_password_reset_form'])) {
+                $new_password = sanitize_text_field($_POST['epm_user_password']);
+                $confirm_password = sanitize_text_field($_POST['epm_user_confirm_password']);
+                if ($this->validateResetForm($new_password, $confirm_password)) return false;
+                $error_token = __('Invalid or expired token.', 'eco-profile-master');
+                $error_token =  set_transient('expired_token', $error_token, 1);
+                return $error_token;
             }
         }
     }
@@ -201,30 +206,16 @@ class Login
                 $user_id = $user[0]->ID;
                 wp_set_password($new_password, $user_id);
                 delete_user_meta($user_id, 'password_reset_token');
-                // redirect login page and set message with trainsent to shows in login page
-                echo 'Password reset successful. You can now login with your new password.';
+                $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
+                if (!empty($epm_login_page)) {
+                    wp_redirect(home_url("/$epm_login_page"));
+                } else {
+                    wp_login_form();
+                }
+                $password_reset_message = __('Password reset successful. You can now login with your new password.', 'eco-profile-master');
+                $password_reset_messages =  set_transient('password_reset_success_messages', $password_reset_message, 1);
+                return $password_reset_messages;
             }
         }
     }
-
- 
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-   
-
-
-
-
 }

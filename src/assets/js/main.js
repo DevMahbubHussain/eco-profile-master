@@ -75,6 +75,12 @@
         //     }
         // });
 
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            // Other options...
+        };
+
+
 
     });
 

@@ -96,7 +96,7 @@ trait EPM_LoginTrait
             $confirmation_message = __('Your email has been confirmed. You can now <a href="' . home_url('/login') . '">log in</a>.', 'eco-profile-master');
         }
 
-        // Add the confirmation message to the transient
+        // Add the confirmation message to the epm_login_page
         $confirmation_messages = get_transient('confirmation_messages');
         if (!$confirmation_messages || !is_array($confirmation_messages)) {
             $confirmation_messages = array();
