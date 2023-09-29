@@ -33,7 +33,16 @@ class Login
 
     private function epm_render_login_form_style()
     {
-        require_once  __DIR__ . '/views/login/login_form.php';
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            if (in_array('administrator', $current_user->roles)) {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in as %s. <a href="%s">Log out »</a>', 'eco-profile-master'), $current_user->display_name, wp_logout_url(home_url('/login'))) . '</p>';
+            } else {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in. <a href="%s">Log out »</a>', 'eco-profile-master'), wp_logout_url(home_url('/login'))) . '</p>';
+            }
+        } else {
+            require_once  __DIR__ . '/views/login/login_form.php';
+        }
     }
 
     public function epm_process_login()
@@ -81,9 +90,7 @@ class Login
         }
     }
 
-
     // password reset options 
-
     public function epm_render_password_reset_form()
     {
         ob_start();
@@ -94,7 +101,16 @@ class Login
 
     private function epm_render_password_reset_form_style()
     {
-        require_once  __DIR__ . '/views/login/password_reset_form.php';
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            if (in_array('administrator', $current_user->roles)) {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in as %s. <a href="%s">Log out »</a>', 'eco-profile-master'), $current_user->display_name, wp_logout_url(home_url('/login'))) . '</p>';
+            } else {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in. <a href="%s">Log out »</a>', 'eco-profile-master'), wp_logout_url(home_url('/login'))) . '</p>';
+            }
+        } else {
+            require_once  __DIR__ . '/views/login/password_reset_form.php';
+        }
     }
 
 
@@ -163,7 +179,16 @@ class Login
 
     private function epm_custom_password_reset_form()
     {
-        require_once  __DIR__ . '/views/login/custom-password-reset-form.php';
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            if (in_array('administrator', $current_user->roles)) {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in as %s. <a href="%s">Log out »</a>', 'eco-profile-master'), $current_user->display_name, wp_logout_url(home_url('/login'))) . '</p>';
+            } else {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in. <a href="%s">Log out »</a>', 'eco-profile-master'), wp_logout_url(home_url('/login'))) . '</p>';
+            }
+        } else {
+            require_once  __DIR__ . '/views/login/custom-password-reset-form.php';
+        }
     }
 
     public function epm_process_custom_lostpassword()
@@ -206,12 +231,7 @@ class Login
                 $user_id = $user[0]->ID;
                 wp_set_password($new_password, $user_id);
                 delete_user_meta($user_id, 'password_reset_token');
-                $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
-                if (!empty($epm_login_page)) {
-                    wp_redirect(home_url("/$epm_login_page"));
-                } else {
-                    wp_login_form();
-                }
+                custom_login_redirect();
                 $password_reset_message = __('Password reset successful. You can now login with your new password.', 'eco-profile-master');
                 $password_reset_messages =  set_transient('password_reset_success_messages', $password_reset_message, 1);
                 return $password_reset_messages;

@@ -65,12 +65,18 @@ class Manager
         return [
             'epm-master-js' => [
                 'src'       => EP_MASTER_BUILD . '/index.js',
-                'version'   => 1,
+                'version'   => $dependency,
                 'deps'      => 1,
                 // 'version'   => $dependency[1],
                 // 'deps'      => $dependency[1],
                 // 'version' => 1,
                 // 'deps' => 1,
+                'in_footer' => true,
+            ],
+            'epm-master-main-js' => [
+                'src'       => EP_MASTER_ASSETS . '/js/main.js',
+                'version'   => $dependency,
+                'deps'      => ['jquery'],
                 'in_footer' => true,
             ],
             // 'epm-front-end-js' => [
@@ -179,13 +185,12 @@ class Manager
         global $post;
 
         // Check if the current post content contains the specific shortcode
-        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form'))) {
+        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form') || has_shortcode($post->post_content, 'epm-profile'))) {
             wp_enqueue_style('epm-master-css');
             wp_enqueue_style('epm-toaster-css');
             wp_enqueue_script('epm-toaster-js');
             wp_enqueue_script('epm-master-js');
-            wp_enqueue_script('epm-front-end-js');
-            
+            wp_enqueue_script('epm-master-main-js');
         }
     }
 }

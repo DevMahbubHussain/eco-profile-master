@@ -28,16 +28,26 @@ function epm_get_my_pages()
 
 //     // Check if an image has been uploaded
 //     if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
-//         $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
+//         // Assuming $post_id is set to the user's ID or the appropriate post ID
+//         $post_id = get_current_user_id(); // You may need to adjust this based on your use case
 
-//         // Get the uploaded image's name
-//         $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
+//         // Handle the image upload
+//         $attachment_id = media_handle_upload('epm_user_avatar', $post_id);
 
-//         $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
-//         //$uploaded_image_style = 'display: block;'; // Show the image
-//         $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
+//         if (!is_wp_error($attachment_id)) {
+//             // Get the image URL and name
+//             $uploaded_image_src = esc_url(wp_get_attachment_url($attachment_id));
+//             $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
+
+//             // Set alt text for the image
+//             $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
+
+//             // Show the image with max dimensions
+//             $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;';
+//         }
 //     }
 
+//     // Display the uploaded image
 //     echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" alt="' . $uploaded_image_alt . '" style="' . $uploaded_image_style . '">';
 // }
 
@@ -45,48 +55,35 @@ function epm_get_my_pages()
 
 function render_uploaded_image()
 {
-    // Initialize variables
-    // $uploaded_image_src = '';
-    // $uploaded_image_alt = __('profile image', 'eco-profile-master');
-    // $uploaded_image_style = 'display: none;'; // Hide the image by default
-    // $uploaded_image_width = '300';
-    // $uploaded_image_height = '300';
-
     $uploaded_image_src = '';
     $uploaded_image_style = 'display: none;'; // Hide the image by default
-
-    // if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
-    //     $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
-
-    //     // Get the uploaded image's name
-    //     $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
-
-    //     $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
-    //     $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
-
-    //     // Get the dimensions of the uploaded image
-    //     $attachment_id = media_handle_upload('epm_user_avatar', 0);
-    //     $image_metadata = wp_get_attachment_metadata($attachment_id);
-
-    //     if ($image_metadata) {
-    //         $uploaded_image_width = $image_metadata['width'];
-    //         $uploaded_image_height = $image_metadata['height'];
-    //     }
-    // }
-
+    $image_width = ''; // Initialize the width attribute
+    $image_height = ''; // Initialize the height attribute
 
     // Check if an image has been uploaded
     if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
-        $uploaded_image_src = esc_url(wp_get_attachment_url(media_handle_upload('epm_user_avatar', 0)));
-        //$uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
-        $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;'; // Show the image with max dimensions
+        // Load WordPress core functions
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+
+        // Handle the image upload
+        $attachment_id = media_handle_upload('epm_user_avatar', 0);
+
+        if (!is_wp_error($attachment_id)) {
+            // Get the image URL
+            $uploaded_image_src = wp_get_attachment_url($attachment_id);
+
+            // Set the desired width and height for the image
+            $image_width = 300; // Change this to your desired width
+            $image_height = 300; // Change this to your desired height
+
+            // Show the image with specified dimensions
+            $uploaded_image_style = 'display: block; max-width: ' . $image_width . 'px; max-height: ' . $image_height . 'px;';
+        }
     }
 
-    // echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" alt="' . $uploaded_image_alt . '" style="' . $uploaded_image_style . '" width="' . $uploaded_image_width . '" height="' . $uploaded_image_height . '">';
-    // JavaScript for image preview
-
-    echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" style="' . $uploaded_image_style . '">';
-    // echo '<img id="uploaded-image" src="' . $uploaded_image_src . '"  style="' . $uploaded_image_style . '" width="' . $uploaded_image_width . '" height="' . $uploaded_image_height . '">';
+    echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" style="' . $uploaded_image_style . '" width="' . $image_width . '" height="' . $image_height . '">';
 ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -111,13 +108,6 @@ function render_uploaded_image()
     </script>
     <?php
 }
-
-
-
-
-
-
-
 
 
 // function epm_merge_options_with_defaults()
@@ -250,7 +240,22 @@ function displayConfirmationMessages()
 
     if ($confirmation_messages && is_array($confirmation_messages)) {
         foreach ($confirmation_messages as $message) {
-            echo '<div class="confirmation-message block text-red-600 text-sm font-medium mb-2">' . $message . '</div>';
+    ?>
+            <div id="alert-border-1" class="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800" role="alert">
+                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div class="ml-3 text-lg font-medium">
+                    <?php echo esc_html($message); ?>
+                </div>
+                <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-border-1" aria-label="Close">
+                    <span class="sr-only"><?php _e('Dismiss', 'eco-profile-master'); ?></span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                </button>
+            </div>
+        <?php
         }
 
         // Clear the confirmation messages from the transient
@@ -266,9 +271,22 @@ function display_confirmation_message()
     $confirmation_messages = get_transient('password_reset_confirmation_messages');
 
     if (!empty($confirmation_messages)) {
-        echo '<div class="confirmation-message block text-red-600 text-md font-medium mb-2">';
-        echo esc_html($confirmation_messages);
-        echo '</div>';
+        ?>
+        <div id="alert-border-1" class="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <div class="ml-3 text-lg font-medium">
+                <?php echo esc_html($confirmation_messages); ?>
+            </div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-border-1" aria-label="Close">
+                <span class="sr-only"><?php _e('Dismiss', 'eco-profile-master'); ?></span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    <?php
     }
     delete_transient('password_reset_confirmation_messages');
 }
@@ -286,11 +304,11 @@ function display_password_reset_confirmation_message()
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>
-            <div class="ml-3 text-sm font-medium">
+            <div class="ml-3 text-lg font-medium">
                 <?php echo esc_html($confirmation_messages); ?>
             </div>
             <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-border-1" aria-label="Close">
-                <span class="sr-only">Dismiss</span>
+                <span class="sr-only"><?php _e('Dismiss', 'eco-profile-master'); ?></span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
@@ -304,7 +322,6 @@ function display_password_reset_confirmation_message()
 
 
 
-
 function display_error_token_message()
 {
     $confirmation_messages = get_transient('expired_token');
@@ -315,18 +332,280 @@ function display_error_token_message()
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>
-            <div class="ml-3 text-sm font-medium">
+            <div class="ml-3 text-lg font-medium">
                 <?php echo esc_html($confirmation_messages); ?>
             </div>
             <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-border-1" aria-label="Close">
-                <span class="sr-only">Dismiss</span>
+                <span class="sr-only"><?php _e('Dismiss', 'eco-profile-master'); ?></span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    <?php
+
+    }
+    delete_transient('expired_token');
+}
+
+
+/**
+ * Redirect the user to a custom login page or the WordPress default login page.
+ */
+function custom_login_redirect()
+{
+    $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
+
+    if (!empty($epm_login_page)) {
+        // Redirect to the custom login page
+        wp_redirect(home_url("/$epm_login_page"));
+    } else {
+        // Redirect to the WordPress default login page
+        wp_redirect(wp_login_url());
+    }
+
+    exit; // Add exit to prevent further code execution
+}
+
+
+/**
+ * Generate the confirmation message with a login link.
+ *
+ * @param string $confirmation_message The base confirmation message.
+ * @param string $login_page The slug of the login page.
+ * @return string The formatted confirmation message.
+ */
+function generate_confirmation_message($confirmation_message, $login_page)
+{
+    $login_link = '';
+
+    if (!empty($login_page)) {
+        $login_link = sprintf(
+            __('log in', 'eco-profile-master'),
+            esc_url(home_url("/$login_page"))
+        );
+    }
+
+    if (!empty($login_link)) {
+        $confirmation_message .= ' ' . sprintf(
+            __('You can now <a href="%s">log in</a>.', 'eco-profile-master'),
+            esc_url(home_url("/$login_page"))
+        );
+    }
+
+    return $confirmation_message;
+}
+
+
+
+//  action hooks 
+/**
+ * Redirect to a custom page when the specified action hook is triggered.
+ */
+function custom_redirect_action_hook()
+{
+    if (isset($_GET['action'])) {
+        $action = sanitize_text_field($_GET['action']);
+        if ($action === 'lost_password') {
+            custom_lost_password_page();
+        }
+    }
+}
+add_action('template_redirect', 'custom_redirect_action_hook');
+
+
+function custom_lost_password_page()
+{
+    $epm_lost_password_page = sanitize_text_field(get_option('epm_lost_password_page', 'Recover-Password'));
+    if (!empty($epm_lost_password_page)) {
+        // Redirect to the custom login page
+        wp_redirect(home_url("/$epm_lost_password_page"));
+    }
+    exit; // Add exit to prevent further code execution
+}
+
+
+// signup
+function custom_redirect_signup_hook()
+{
+    if (isset($_GET['action'])) {
+        $action = sanitize_text_field($_GET['action']);
+        if ($action === 'sign_up') {
+            wp_redirect(home_url('/register'));
+            exit;
+        }
+    }
+}
+add_action('template_redirect', 'custom_redirect_signup_hook');
+
+
+
+// signin
+function custom_redirect_login_hook()
+{
+    if (isset($_GET['action'])) {
+        $action = sanitize_text_field($_GET['action']);
+        if ($action === 'login_page') {
+            custom_login_redirect();
+        }
+    }
+}
+add_action('template_redirect', 'custom_redirect_login_hook');
+
+
+
+
+function custom_redirect_login_hook_after_logout()
+{
+    if (isset($_GET['action'])) {
+        $action = sanitize_text_field($_GET['action']);
+        if ($action === 'logout') {
+            custom_login_redirect();
+        }
+    }
+}
+add_action('template_redirect', 'custom_redirect_login_hook_after_logout');
+
+
+
+
+
+
+// function redirect_to_custom_lostpassword()
+// {
+//     if (isset($_GET['action']) && $_GET['action'] === 'login_form_lostpassword') {
+//         error_log("normal function action");
+//         // Check if the user is already logged in
+//         if (is_user_logged_in()) {
+//             // Display an error message using WordPress's error handling
+//             wp_die(__('You are already logged in.', 'your-text-domain'));
+//         }
+
+//         // Redirect to the custom lost password page
+//         wp_redirect(home_url('recover-password'));
+//         exit;
+//     }
+// }
+
+// add_action('login_form_lostpassword', 'redirect_to_custom_lostpassword');
+
+
+
+
+function display_current_user_image()
+{
+    // Get the current user's image URL from user meta
+    $user_id = get_current_user_id();
+    $current_image_url = get_user_meta($user_id, 'epm_user_avatar', true);
+
+    if ($current_image_url) {
+        // Extract the file name from the URL
+        $file_name = basename($current_image_url);
+
+        // Define the desired width and height for the thumbnail
+        $thumbnail_width = 300; // Change this to your desired width
+        $thumbnail_height = 300; // Change this to your desired height
+
+        // Display the image as a thumbnail with the specified width and height, and set the file name as alt text
+        echo '<img id="current-image" src="' . esc_url($current_image_url) . '" alt="' . esc_attr($file_name) . '" width="' . $thumbnail_width . '" height="' . $thumbnail_height . '">';
+    } else {
+        // Display a default image or a translated message if no image is available
+        echo esc_html__('No profile image available', 'eco-profile-master');
+    }
+}
+
+
+// profile message
+function displayConfirmationprofileUpdateMessages()
+{
+    $confirmation_messages = get_transient('profile_update_message');
+    if ($confirmation_messages) {
+    ?>
+        <div id="alert-border-1" class="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <div class="ml-3 text-lg font-medium">
+                <?php echo esc_html($confirmation_messages); ?>
+            </div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-border-1" aria-label="Close">
+                <span class="sr-only"><?php _e('Dismiss', 'eco-profile-master'); ?></span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
             </button>
         </div>
 <?php
-
     }
-    delete_transient('expired_token');
+
+    // Clear the confirmation messages from the transient
+    delete_transient('profile_update_message');
+}
+
+
+// profile details 
+function display_user_profile_details()
+{
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        if ($current_user && $current_user->ID) {
+            $user_avatar = get_user_meta($current_user->ID, 'epm_user_avatar', true);
+            $output = '';
+
+            if (!empty($current_user->first_name)) {
+                $output .= '<li>' . esc_html__('First Name: ', 'eco-profile-master') . esc_attr($current_user->first_name) . '</li>';
+            }
+
+            if (!empty($current_user->last_name)) {
+                $output .= '<li>' . esc_html__('Last Name: ', 'eco-profile-master') . esc_attr($current_user->last_name) . '</li>';
+            }
+
+            if (!empty($current_user->nickname)) {
+                $output .= '<li>' . esc_html__('NickName: ', 'eco-profile-master') . esc_attr($current_user->nickname) . '</li>';
+            }
+
+            if (!empty($current_user->display_name)) {
+                $output .= '<li>' . esc_html__('Display Name: ', 'eco-profile-master') . esc_attr($current_user->display_name) . '</li>';
+            }
+            if (!empty($current_user->user_email)) {
+                $output .= '<li>' . esc_html__('Email: ', 'eco-profile-master') . esc_attr($current_user->user_email) . '</li>';
+            }
+            if (!empty($current_user->epm_user_phone)) {
+                $output .= '<li>' . esc_html__('Phone: ', 'eco-profile-master') . esc_attr($current_user->epm_user_phone) . '</li>';
+            }
+            if (!empty($current_user->user_url)) {
+                $output .= '<li>' . esc_html__('Website: ', 'eco-profile-master') . esc_attr($current_user->user_url) . '</li>';
+            }
+            if (!empty($current_user->description)) {
+                $output .= '<li>' . esc_html__('Biographical: ', 'eco-profile-master') . esc_attr($current_user->description) . '</li>';
+            }
+
+            if (!empty(!empty($user_avatar))) {
+                $output .= '<li>' . esc_html__('Profile Image: ', 'eco-profile-master') . '<img src="' . esc_url($user_avatar) . '" style="max-width: 100px;">' . '</li>';
+            }
+
+            if (!empty($current_user->epm_user_facebook)) {
+                $output .= '<li>' . esc_html__('Facebook Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_facebook) . '</li>';
+            }
+            if (!empty($current_user->epm_user_twitter)) {
+                $output .= '<li>' . esc_html__('Twitter Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_twitter) . '</li>';
+            }
+            if (!empty($current_user->epm_user_linkedin)) {
+                $output .= '<li>' . esc_html__('Linkedin Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_linkedin) . '</li>';
+            }
+            if (!empty($current_user->epm_user_youtube)) {
+                $output .= '<li>' . esc_html__('Youtube Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_youtube) . '</li>';
+            }
+            if (!empty($current_user->epm_user_instagram)) {
+                $output .= '<li>' . esc_html__('Instagram Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_instagram) . '</li>';
+            }
+
+
+
+
+            return $output;
+        }
+    }
+
+    return ''; // Return an empty string if not logged in or no user data available.
 }

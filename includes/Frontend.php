@@ -15,6 +15,7 @@ class Frontend
        // new Frontend\Signup();
         new Frontend\Shortcode();
         new Frontend\Login();
+        new Frontend\Profile();
     }
 
     public function epm_dispatch_action($epm_signup)

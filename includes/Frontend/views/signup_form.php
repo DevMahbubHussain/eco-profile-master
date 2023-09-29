@@ -30,5 +30,8 @@ $enabledSocialFields = $this->getEnabledSocialFields();
         <div class="flow">
             <button type="submit" class="btn btn-primary mt-10" name="user_register"><?php _e('Submit', 'eco-profile-master'); ?></button>
         </div>
+        <div class="mt-4">
+            <p class="text-gray-600 text-sm"><?php _e("Already have an account?", 'echo-profile-master') ?><a href="?action=login_page" class="text-blue-500 hover:underline"> <?php _e('Log In'); ?></a></p>
+        </div>
     </div>
 </form>

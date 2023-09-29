@@ -93,7 +93,10 @@ trait EPM_LoginTrait
             $confirmation_message = __('Your email has been confirmed. Please wait for admin approval.', 'eco-profile-master');
         } else {
             // Display a message and provide a login link
-            $confirmation_message = __('Your email has been confirmed. You can now <a href="' . home_url('/login') . '">log in</a>.', 'eco-profile-master');
+            $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
+            $confirmation_message = __('Your email has been confirmed.', 'eco-profile-master');
+            $confirmation_message = generate_confirmation_message($confirmation_message, $epm_login_page);
+            //$confirmation_message = __('Your email has been confirmed. You can now <a href="' .  $login_link . '">log in</a>.', 'eco-profile-master');
         }
 
         // Add the confirmation message to the epm_login_page

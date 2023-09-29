@@ -51,17 +51,15 @@ class Signup
             $user_id = intval($_GET['user_id']);
             $confirmation_key = sanitize_text_field($_GET['key']);
 
-           // var_dump("confirmation key: ", $confirmation_key);
-    
+            // var_dump("confirmation key: ", $confirmation_key);
+
             if ($this->verify_confirmation_key($user_id, $confirmation_key)) {
                 // Remove the verification key
                 delete_user_meta($user_id, 'confirmation_key');
-    
                 // Mark the user as verified
                 update_user_meta($user_id, 'email_verified', true);
-
                 // Redirect the user to the login page
-                wp_redirect(home_url('/login/'));
+                custom_login_redirect();
                 $this->EmailConfirmationHandler();
                 exit;
             } else {
@@ -75,9 +73,6 @@ class Signup
     {
         // Get the stored verification key for the user
         $stored_key = get_user_meta($user_id, 'confirmation_key', true);
-        //var_dump("Stored key : ", $stored_key);
-        //var_dump($confirmation_key);
-
         // Compare the provided key with the stored key
         if ($confirmation_key === $stored_key) {
             // Keys match
@@ -136,7 +131,17 @@ class Signup
             ? $epm_form_style_renderers[$epm_form_style]
             : $epm_form_style_renderers['style1'];
         // Call the chosen rendering function
-        $this->$epm_form_renderer();
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            if (in_array('administrator', $current_user->roles)) {
+                echo '<p class="text-left">' . __('You are already logged in as a', 'echo-profile-master') . ' ' . $current_user->display_name . '</p>';
+                $this->$epm_form_renderer();
+            } else {
+                echo '<p class="text-left">' . sprintf(__('You are currently logged in. <a href="%s">Log out »</a>', 'eco-profile-master'), wp_logout_url(home_url('/login'))) . '</p>';
+            }
+        } else {
+            $this->$epm_form_renderer();
+        }
     }
 
     /**
@@ -220,6 +225,8 @@ class Signup
         // Verify nonce field value
         $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
         $validation_data = $_POST;
+       // var_dump($validation_data);
+        //exit;
         $validation_result = $this->epm_validate_registration_fields($validation_data);
         add_filter('pre_option_users_can_register', '__return_true');
         if (empty($validation_result)) {
@@ -228,8 +235,6 @@ class Signup
                 // Other actions like sending emails, logging in, etc.
                 $this->set_user_role($user_id);
                 $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
-                //var_dump($send_confirmation);
-
                 // Email Confirmation Options
                 if ($send_confirmation === 'yes') {
                     $this->send_confirmation_email($user_id, $validation_data);
@@ -250,13 +255,8 @@ class Signup
                 if ($automatic_login_option === 'yes') {
                     $this->auto_login($user_id);
                 } else {
-                    $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
-                    if (!empty($epm_login_page)) {
-                        wp_redirect(home_url("/$epm_login_page"));
-                    } else {
-                        wp_login_form();
-                    }
-                    exit;
+                    // Redirect the user to the login page
+                    custom_login_redirect();
                 }
 
 

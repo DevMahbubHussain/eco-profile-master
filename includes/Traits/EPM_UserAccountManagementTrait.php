@@ -15,9 +15,12 @@ trait EPM_UserAccountManagementTrait
         $email = $data['epm_user_email'];
         $password  = $data['epm_user_password'];
         $confirmation_key = wp_generate_password(20, false);
-
+           
         $user_id = wp_create_user($username, $password, $email);
-        //remove_filter('pre_option_users_can_register', '__return_true');
+        remove_filter(
+            'pre_option_users_can_register',
+            '__return_true'
+        );
         if (is_wp_error($user_id)) {
             echo 'User creation failed: ' . $user_id->get_error_message();
         } else {
@@ -26,6 +29,7 @@ trait EPM_UserAccountManagementTrait
                 update_user_meta($user_id, 'epm_admin_approval', __('unapproved', 'eco-profile-master'));
             }
             update_user_meta($user_id, 'confirmation_key', $confirmation_key);
+            update_user_meta($user_id, 'epm_user_phone', sanitize_text_field($data['epm_user_phone']));
             wp_update_user(array(
                 'ID' => $user_id,
                 'first_name' => sanitize_text_field($data['epm_user_firstname']),
@@ -34,35 +38,78 @@ trait EPM_UserAccountManagementTrait
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
 
             ));
-
+            // Handle social media links
+            $this->update_social_media_links($user_id, $data);
             // Handle image upload
-            if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
-                require_once ABSPATH . 'wp-admin/includes/image.php';
-                require_once ABSPATH . 'wp-admin/includes/file.php';
-                require_once ABSPATH . 'wp-admin/includes/media.php';
-
-                $uploaded_image = media_handle_upload('epm_user_avatar', 0); // 0 means no associated post
-                if (is_wp_error($uploaded_image)) {
-                    // Handle image upload error
-                    echo 'Image upload failed: ' . $uploaded_image->get_error_message();
-                } else {
-                    // Resize the uploaded image to 300x300 pixels
-                    $resized_image_id = image_make_intermediate_size($uploaded_image, 300, 300, true);
-                    // Get the URL of the resized image
-                    $resized_image_url = wp_get_attachment_image_url($resized_image_id, 'full');
-
-                    // update_user_meta($user_id, 'epm_user_avatar', $uploaded_image);
-                    // Update user's meta data with the resized image URL
-                    update_user_meta($user_id, 'profile_image', $resized_image_url);
-                }
-            }
+            $this->upload_user_avatar('epm_user_avatar', $user_id);
             echo 'User created successfully with ID: ' . $user_id;
         }
-
         // Handle user creation success
         $this->handle_user_creation_success($user_id, $data);
         return $user_id;
     }
+
+    /**
+     * Uploads a user avatar and updates user meta with the image URL.
+     *
+     * @param string $file_input_name The name attribute of the file input field.
+     * @param int $user_id The user ID to associate with the uploaded avatar.
+     * @return string|WP_Error The image URL on success or a WP_Error object on failure.
+     */
+    function upload_user_avatar($file_input_name, $user_id)
+    {
+        if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] === 0) {
+            // Load necessary WordPress functions
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+
+            $attachment_id = media_handle_upload($file_input_name, 0);
+
+            if (is_wp_error($attachment_id)) {
+                $error_message = $attachment_id->get_error_message();
+                _e('Image upload failed: ', 'eco-profile-master');
+                echo $error_message;
+                return $attachment_id;
+            } else {
+                $image_url = wp_get_attachment_url($attachment_id);
+                update_user_meta($user_id, 'epm_user_avatar', $image_url);
+                return $image_url;
+            }
+        }
+    }
+
+    /**
+     * Update user meta for social media links, handling empty values.
+     *
+     * @param int $user_id The user ID to update user meta for.
+     * @param array $data An array containing social media link data.
+     */
+    function update_social_media_links($user_id, $data)
+    {
+        // Define the social media fields and loop through them
+        $social_media_fields = array(
+            'epm_user_facebook',
+            'epm_user_twitter',
+            'epm_user_linkedin',
+            'epm_user_youtube',
+            'epm_user_instagram',
+        );
+
+        foreach ($social_media_fields as $field) {
+            // Check if the field exists in the data and is not empty
+            if (isset($data[$field]) && !empty($data[$field])) {
+                // Update user meta with the sanitized URL
+                update_user_meta($user_id, $field, esc_url($data[$field]));
+            } else {
+                // Set user meta to an empty string for empty values
+                update_user_meta($user_id, $field, '');
+            }
+        }
+    }
+
+
+
 
     public function handle_user_creation_success($user_id, $data)
     {

@@ -22,7 +22,7 @@ trait EPM_Form_ValidationTrait
     public function epm_validate_registration_fields($data)
     {
         //$errors = array();
-        $epm_user_username = sanitize_text_field($data['epm_user_username']);
+        $epm_user_username = sanitize_user($data['epm_user_username']);
         $epm_user_email = sanitize_email($data['epm_user_email']);
         // $epm_user_password = $data['epm_user_password'];
         // $epm_user_retype_password = $data['epm_user_retype_password'];
@@ -48,15 +48,30 @@ trait EPM_Form_ValidationTrait
             $this->errors['epm_user_nickname'] = __('Nickname  cannot be purely numeric.', 'eco-profile-master');
         }
 
+        $nickname = isset($data['epm_user_display_name']) ? sanitize_text_field($data['epm_user_display_name']) : '';
+        if (!empty($epm_user_nickname) && is_numeric($nickname)) {
+            $this->errors['display_name'] = __('Display Name cannot be purely numeric.', 'eco-profile-master');
+        }
+
         // Initialize an array to store username errors
         $username_errors = array();
+        // if (empty($epm_user_username)) {
+        //     $username_errors[] = __('Username is required.', 'eco-profile-master');
+        // }
+        // if (username_exists($epm_user_username)) {
+        //     $username_errors[] = __('Username already exists. Please choose a different username.', 'eco-profile-master');
+        // }
 
         if (empty($epm_user_username)) {
             $username_errors[] = __('Username is required.', 'eco-profile-master');
+        } else {
+            // Check for duplicate usernames
+            $existing_user = get_user_by('login', $epm_user_username);
+            if ($existing_user && $existing_user->ID != get_current_user_id()) {
+                $username_errors[] = __('Username already exists. Please choose a different username.', 'eco-profile-master');
+            }
         }
-        if (username_exists($epm_user_username)) {
-            $username_errors[] = __('Username already exists. Please choose a different username.', 'eco-profile-master');
-        }
+
         if (is_numeric($epm_user_username)) {
             $username_errors[] = __('Username cannot be purely numeric.', 'eco-profile-master');
         }
@@ -69,17 +84,29 @@ trait EPM_Form_ValidationTrait
         // Initialize an array to store email errors
         $email_errors = array();
 
+        // if (empty($epm_user_email)) {
+        //     $email_errors[] = __('Email is required.', 'eco-profile-master');
+        // }
+
+        // Validate and sanitize the email
+
         if (empty($epm_user_email)) {
             $email_errors[] = __('Email is required.', 'eco-profile-master');
+        } else {
+            $existing_user = email_exists($epm_user_email);
+            if ($existing_user && $existing_user != get_current_user_id()) {
+                $email_errors[] = __('Email already exists. Please use a different email address.', 'eco-profile-master');
+            }
         }
 
         if (!is_email($epm_user_email)) {
             $email_errors[] = __('Invalid email format.', 'eco-profile-master');
         }
 
-        if (email_exists($epm_user_email)) {
-            $email_errors[] = __('Email already exists. Please use a different email address.', 'eco-profile-master');
-        }
+
+        // if (email_exists($epm_user_email)) {
+        //     $email_errors[] = __('Email already exists. Please use a different email address.', 'eco-profile-master');
+        // }
 
         // Store the array of error messages for epm_user_email
         if (!empty($email_errors)) {
@@ -104,13 +131,30 @@ trait EPM_Form_ValidationTrait
 
 
         // Validate password length
-        if (strlen($epm_user_password) < 7) {
-            $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
+        // if (strlen($epm_user_password) < 7) {
+        //     $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
+        // }
+
+        // Check if a new password has been provided
+        if (!empty($epm_user_password)) {
+            if (strlen($epm_user_password) < 7) {
+                $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
+            }
+            if ($epm_user_password !== $epm_user_retype_password) {
+                $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
+            }
         }
 
-        if ($epm_user_password !== $epm_user_retype_password) {
-            $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
-        }
+
+
+        // if (
+        //     $epm_user_password !== $epm_user_retype_password
+        // ) {
+        //     $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
+        // }
+
+
+
 
         // Validate website URL if provided and not empty
         $website = isset($data['epm_user_website']) ? esc_url_raw($data['epm_user_website']) : '';

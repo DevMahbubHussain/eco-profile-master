@@ -28,10 +28,10 @@
         </div>
         <div class="flex items-center justify-between">
             <button type="submit" class="btn btn-primary mt-10" name="epm_login"><?php _e('Login', 'eco-profile-master'); ?></button>
-            <a href="<?php echo esc_url(add_query_arg('action', 'custom_lostpassword')); ?>" class="text-blue-500 text-sm hover:underline">Lost your password?</a>
+            <a href="?action=lost_password" class="text-blue-500 text-sm hover:underline">Lost your password?</a>
         </div>
     </form>
     <div class="mt-4">
-        <p class="text-gray-600 text-sm">Don't have an account? <a href="#" class="text-blue-500 hover:underline">Sign Up</a></p>
+        <p class="text-gray-600 text-sm"><?php _e("Don't have an account?", 'echo-profile-master') ?><a href="?action=sign_up" class="text-blue-500 hover:underline">Sign Up</a></p>
     </div>
 </div>

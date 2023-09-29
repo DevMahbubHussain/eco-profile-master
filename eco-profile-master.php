@@ -159,7 +159,7 @@ final class Eco_Profile_Master
 		}
 
 		// Dynamically create a new page for password recovery
-		$recover_password_page_title = __('Recover Password', 'eco-profile-master');
+		$recover_password_page_title = __('Recover-Password', 'eco-profile-master');
 		$login_page_title = __('Login', 'eco-profile-master');
 		$login_profile_title = __('Profile', 'eco-profile-master');
 		$slug = 'recover-password';
@@ -252,7 +252,7 @@ final class Eco_Profile_Master
 
 		// plugin pages 
 		$this->epm_plugin_pages('login', 'Login', 'epm-login');
-		$this->epm_plugin_pages('registration', 'Registration', 'epm-register');
+		$this->epm_plugin_pages('register', 'Registration', 'epm-register');
 		$this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
 		$this->epm_plugin_pages('profile', 'Profile', 'epm-profile');
 		$this->epm_plugin_pages('listings', 'User Listings', 'epm-user-listings');
