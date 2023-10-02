@@ -1387,6 +1387,10 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
+.bg-teal-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 47 46 / var(--tw-bg-opacity));
+}
 .bg-transparent {
   background-color: transparent;
 }
@@ -1414,6 +1418,9 @@ input:checked + .toggle-bg {
 }
 .p-4 {
   padding: 1rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .p-6 {
   padding: 1.5rem;
@@ -1815,6 +1822,18 @@ input[type=color]:focus,
 
 ul.epm-list li {
   margin: 20px 10px;
+}
+
+.max-w-screen-2xl.mx-auto.px-8.md\:px-16.lg\:px-24.py-5.my-10.w-100-grid {
+  max-width: 100% !important;
+}
+
+.max-w-screen-2xl.mx-auto.px-8.md\:px-16.lg\:px-24.py-5.my-10.w-100-grid select:not([size]) {
+  background-image: none !important;
+}
+
+div#userslist_wrapper {
+  padding: 30px 0 !important;
 }
 
 .hover\:border-gray-300:hover {

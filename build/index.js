@@ -2965,6 +2965,7 @@ function withinMaxClamp(min, value, max) {
         currentImage.show();
       }
     });
+    new DataTable('#userslist');
   });
 })(jQuery);
 

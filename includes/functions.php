@@ -535,7 +535,7 @@ function displayConfirmationprofileUpdateMessages()
                 </svg>
             </button>
         </div>
-<?php
+        <?php
     }
 
     // Clear the confirmation messages from the transient
@@ -599,13 +599,61 @@ function display_user_profile_details()
             if (!empty($current_user->epm_user_instagram)) {
                 $output .= '<li>' . esc_html__('Instagram Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_instagram) . '</li>';
             }
-
-
-
-
             return $output;
         }
     }
 
-    return ''; // Return an empty string if not logged in or no user data available.
+    return '';
+}
+
+// user listings 
+
+function get_epm_user_listings()
+{
+
+    $users = get_users([
+        'role'    => 'subscriber',
+        'orderby' => 'user_nicename',
+    ]);
+
+    if (!empty($users)) {
+        foreach ($users as $user) {
+            $first_name = isset($user->ID) ? get_user_meta($user->ID, 'first_name', true) : '';
+            $last_name = isset($user->ID) ? get_user_meta($user->ID, 'last_name', true) : '';
+            $epm_user_phone = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_phone', true) : '';
+            $epm_user_avatar = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_avatar', true) : '';
+            $epm_user_facebook = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_facebook', true) : '';
+            $epm_user_twitter = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_twitter', true) : '';
+            $epm_user_linkedin = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_linkedin', true) : '';
+            $epm_user_youtube = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_youtube', true) : '';
+            $epm_user_instagram = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_instagram', true) : '';
+            $signup_date = isset($user->user_registered) ? $user->user_registered : '';
+            $epm_user_signup_date = date('F j, Y', strtotime($signup_date));
+        ?>
+            <tr>
+                <td><?php echo esc_attr($first_name); ?></td>
+                <td><?php echo esc_attr($last_name); ?></td>
+                <td><?php echo isset($user->user_nicename) ? $user->user_nicename : ''; ?></td>
+                <td><?php echo isset($user->user_email) ? $user->user_email : ''; ?></td>
+                <td><?php echo esc_attr($epm_user_phone); ?></td>
+                <td>
+                    <a href="<?php echo isset($user->user_url) ? esc_url($user->user_url) : ''; ?>" target="_blank"><?php echo esc_url($user->user_url); ?></a>
+                </td>
+
+                <td><?php echo isset($user->description) ? wpautop(wp_kses_post($user->description)) : ''; ?></td>
+                <td>
+                    <img src="<?php echo esc_url($epm_user_avatar); ?>" alt="<?php echo esc_attr__('User Avatar', 'eco-profile-master'); ?>" width="50" height="50">
+                </td>
+                <!-- <td><a href="<?php echo esc_url($epm_user_facebook); ?>" target="_blank"><?php echo esc_url($epm_user_facebook); ?></a></td>
+                <td><a href="<?php echo esc_url($epm_user_twitter); ?>" target="_blank"><?php echo esc_url($epm_user_twitter); ?></a></td>
+                <td><a href="<?php echo esc_url($epm_user_linkedin); ?>" target="_blank"><?php echo esc_url($epm_user_linkedin); ?></a></td>
+                <td><a href="<?php echo esc_url($epm_user_youtube); ?>" target="_blank"><?php echo esc_url($epm_user_youtube); ?></a></td>
+                <td><a href="<?php echo esc_url($epm_user_instagram); ?>" target="_blank"><?php echo esc_url($epm_user_instagram); ?></a></td> -->
+                <td><?php echo esc_attr($epm_user_signup_date); ?></td>
+            </tr>
+<?php
+        }
+    } else {
+        echo __('No users found', 'echo-profile-master');
+    }
 }

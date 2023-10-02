@@ -45,11 +45,17 @@ class Manager
                 'version' => EP_MASTER_VERSION,
                 'deps' => []
             ],
-            'epm-toaster-css' => [
-                'src'       => EP_MASTER_ASSETS . '/css/toastr.min.css',
+            'epm-datatable-css' => [
+                'src'       => EP_MASTER_ASSETS . '/css/lib/dataTables.min.css',
                 'version' => EP_MASTER_VERSION,
                 'deps'      => [],
             ],
+            'epm-datatable-tailwind-css' => [
+                'src'       => EP_MASTER_ASSETS . '/css/lib/dataTables.tailwindcss.min.css',
+                'version' => EP_MASTER_VERSION,
+                'deps'      => [],
+            ],
+
         ];
     }
 
@@ -79,24 +85,13 @@ class Manager
                 'deps'      => ['jquery'],
                 'in_footer' => true,
             ],
-            // 'epm-front-end-js' => [
-            //     'src'       => EP_MASTER_ASSETS . '/js/front-end.js',
-            //     'version'   => $dependency['version'],
-            //     'deps'      => ['jquery'],
-            //     'in_footer' => true,
-            // ],
-            // 'epm-toaster-js' => [
-            //     'src'       => EP_MASTER_ASSETS . '/js/toastr.min.js',
-            //     'version'   => $dependency['version'],
-            //     'deps'      => ['jquery'],
-            //     'in_footer' => true,
-            // ],
-            // 'epm-ace-js-rules' => [
-            //     'src'       => EP_MASTER_ASSETS . '/js/ace-rules.js',
-            //     'version' => filemtime(EP_MASTER_PATH . '/js/ace-rules.js'),
-            //     'deps'      => ['epm-ace-js'],
-            //     'in_footer' => true,
-            // ],
+            'epm-datatable-js' => [
+                'src'       => EP_MASTER_ASSETS . '/js/lib/dataTables.min.js',
+                'version'   => $dependency,
+                'deps'      => ['jquery'],
+                'in_footer' => true,
+            ],
+           
         ];
     }
 
@@ -187,10 +182,16 @@ class Manager
         // Check if the current post content contains the specific shortcode
         if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form') || has_shortcode($post->post_content, 'epm-profile'))) {
             wp_enqueue_style('epm-master-css');
-            wp_enqueue_style('epm-toaster-css');
-            wp_enqueue_script('epm-toaster-js');
             wp_enqueue_script('epm-master-js');
             wp_enqueue_script('epm-master-main-js');
+        }
+
+        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-user-listings'))) {
+            wp_enqueue_style('epm-datatable-css');
+            // wp_enqueue_style('epm-datatable-tailwind-css');
+            wp_enqueue_style('epm-master-css');
+            wp_enqueue_script('epm-datatable-js');
+            wp_enqueue_script('epm-master-js');
         }
     }
 }
