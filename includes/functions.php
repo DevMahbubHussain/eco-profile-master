@@ -610,7 +610,6 @@ function display_user_profile_details()
 
 function get_epm_user_listings()
 {
-
     $users = get_users([
         'role'    => 'subscriber',
         'orderby' => 'user_nicename',
@@ -622,11 +621,6 @@ function get_epm_user_listings()
             $last_name = isset($user->ID) ? get_user_meta($user->ID, 'last_name', true) : '';
             $epm_user_phone = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_phone', true) : '';
             $epm_user_avatar = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_avatar', true) : '';
-            $epm_user_facebook = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_facebook', true) : '';
-            $epm_user_twitter = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_twitter', true) : '';
-            $epm_user_linkedin = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_linkedin', true) : '';
-            $epm_user_youtube = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_youtube', true) : '';
-            $epm_user_instagram = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_instagram', true) : '';
             $signup_date = isset($user->user_registered) ? $user->user_registered : '';
             $epm_user_signup_date = date('F j, Y', strtotime($signup_date));
         ?>
@@ -644,12 +638,12 @@ function get_epm_user_listings()
                 <td>
                     <img src="<?php echo esc_url($epm_user_avatar); ?>" alt="<?php echo esc_attr__('User Avatar', 'eco-profile-master'); ?>" width="50" height="50">
                 </td>
-                <!-- <td><a href="<?php echo esc_url($epm_user_facebook); ?>" target="_blank"><?php echo esc_url($epm_user_facebook); ?></a></td>
-                <td><a href="<?php echo esc_url($epm_user_twitter); ?>" target="_blank"><?php echo esc_url($epm_user_twitter); ?></a></td>
-                <td><a href="<?php echo esc_url($epm_user_linkedin); ?>" target="_blank"><?php echo esc_url($epm_user_linkedin); ?></a></td>
-                <td><a href="<?php echo esc_url($epm_user_youtube); ?>" target="_blank"><?php echo esc_url($epm_user_youtube); ?></a></td>
-                <td><a href="<?php echo esc_url($epm_user_instagram); ?>" target="_blank"><?php echo esc_url($epm_user_instagram); ?></a></td> -->
                 <td><?php echo esc_attr($epm_user_signup_date); ?></td>
+                <td>
+                    <button data-user-id="<?php echo esc_attr($user->ID); ?>" data-modal-target="userModal" data-modal-toggle="userModal" class="view-profile-btn block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                        <?php _e('View Profile'); ?>
+                    </button>
+                </td>
             </tr>
 <?php
         }
@@ -657,3 +651,42 @@ function get_epm_user_listings()
         echo __('No users found', 'echo-profile-master');
     }
 }
+
+
+
+function user_listing_details()
+{
+    if (isset($_GET['user_id'])) {
+        $user_id = $_GET['user_id'];
+        $user = get_user_by('ID', $user_id);
+        $epm_user_phone = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_phone', true) : '';
+        $epm_user_avatar = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_avatar', true) : '';
+        $epm_user_facebook = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_facebook', true) : '';
+        $epm_user_twitter = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_twitter', true) : '';
+        $epm_user_linkedin = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_linkedin', true) : '';
+        $epm_user_youtube = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_youtube', true) : '';
+        $epm_user_instagram = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_instagram', true) : '';
+        $signup_date = isset($user->user_registered) ? $user->user_registered : '';
+        $epm_user_signup_date = date('F j, Y', strtotime($signup_date));
+        // Output the user details
+
+        echo isset($user->display_name) && !empty($user->display_name) ? '<p>' . esc_html__('Display Name: ', 'echo-profile-master') . esc_html($user->display_name) . '</p>' : '';
+        echo isset($user->first_name) && !empty($user->first_name) ? '<p>' . esc_html__('First Name: ', 'echo-profile-master') . esc_html($user->first_name) . '</p>' : '';
+        echo isset($user->last_name) && !empty($user->last_name) ? '<p>' . esc_html__('Last Name: ', 'echo-profile-master') . esc_html($user->last_name) . '</p>' : '';
+        echo isset($user->user_nicename) && !empty($user->user_nicename) ? '<p>' . esc_html__('User NiceName: ', 'echo-profile-master') . esc_html($user->user_nicename) . '</p>' : '';
+        echo isset($user->user_email) && !empty($user->user_email) ? '<p>' . esc_html__('Email: ', 'echo-profile-master') . esc_html($user->user_email) . '</p>' : '';
+        echo isset($epm_user_phone) && !empty($epm_user_phone) ? '<p>' . esc_html__('Phone: ', 'echo-profile-master') . esc_html($epm_user_phone) . '</p>' : '';
+        echo isset($user->user_url) && !empty($user->user_url) ? '<a href="' . esc_url($user->user_url) . '" target="_blank">' . esc_html__('Website: ', 'echo-profile-master') . esc_url($user->user_url) . '</a>' : '';
+        echo isset($user->description) && !empty($user->description) ? '<p><strong>' . esc_html__('Bio: ', 'echo-profile-master') . '</strong>' . wpautop(wp_kses_post($user->description)) . '</p>' : '';
+        echo isset($epm_user_avatar) && !empty($epm_user_avatar) ? '<p>' . esc_html__('Profile Image: ', 'echo-profile-master') . '<img src="' . esc_url($epm_user_avatar) . '" alt="' . esc_attr__('Profile Image', 'echo-profile-master') . '" width="150" height="150" />' . '</p>' : '';
+        echo isset($epm_user_facebook) && !empty($epm_user_facebook) ? '<p><a href="' . esc_url($epm_user_facebook) . '" target="_blank">' . esc_html__('Facebook Url: ', 'echo-profile-master') . esc_url($epm_user_facebook) . '</a></p>' : '';
+        echo isset($epm_user_twitter) && !empty($epm_user_twitter) ? '<p><a href="' . esc_url($epm_user_twitter) . '" target="_blank">' . esc_html__('Twitter Url: ', 'echo-profile-master') . esc_url($epm_user_twitter) . '</a></p>' : '';
+        echo isset($epm_user_linkedin) && !empty($epm_user_linkedin) ? '<p><a href="' . esc_url($epm_user_linkedin) . '" target="_blank">' . esc_html__('Linkedin Url: ', 'echo-profile-master') . esc_url($epm_user_linkedin) . '</a></p>' : '';
+        echo isset($epm_user_youtube) && !empty($epm_user_youtube) ? '<p><a href="' . esc_url($epm_user_youtube) . '" target="_blank">' . esc_html__('Youtube Url: ', 'echo-profile-master') . esc_url($epm_user_youtube) . '</a></p>' : '';
+        echo isset($epm_user_instagram) && !empty($epm_user_instagram) ? '<p><a href="' . esc_url($epm_user_instagram) . '" target="_blank">' . esc_html__('Instagram Url: ', 'echo-profile-master') . esc_url($epm_user_instagram) . '</a></p>' : '';
+        echo isset($epm_user_signup_date) && !empty($epm_user_signup_date) ? '<p>' . esc_html__('Registration Date: ', 'echo-profile-master') . esc_html($epm_user_signup_date) . '</p>' : '';
+    }
+}
+
+add_action('wp_ajax_epm_ajax_action', 'user_listing_details');
+add_action('wp_ajax_nopriv_epm_ajax_action', 'user_listing_details');

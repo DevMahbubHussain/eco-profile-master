@@ -91,6 +91,12 @@ class Manager
                 'deps'      => ['jquery'],
                 'in_footer' => true,
             ],
+            'epm-userlisting-js' => [
+                'src'       => EP_MASTER_ASSETS . '/js/userlistings.js',
+                'version'   => $dependency,
+                'deps'      => ['jquery'],
+                'in_footer' => true,
+            ],
            
         ];
     }
@@ -192,6 +198,17 @@ class Manager
             wp_enqueue_style('epm-master-css');
             wp_enqueue_script('epm-datatable-js');
             wp_enqueue_script('epm-master-js');
+            wp_enqueue_script('epm-userlisting-js');
+
+            wp_localize_script('epm-userlisting-js', 'epmUsersListing', [
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'error'   => __('Failed to load user details.', 'eco-profile-master'),
+            ]);
         }
+
+
+        
+
+       
     }
 }
