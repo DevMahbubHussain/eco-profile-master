@@ -282,6 +282,56 @@ function epm_password_reset_form()
         <option value="<?php echo esc_attr($page); ?>" <?php echo $selected; ?>>
             <?php echo esc_html(ucfirst($page)); ?>
         </option>
-<?php
+    <?php
     endforeach;
 }
+
+
+
+
+// admin notice after user approved
+
+function epm_approval_success_notice()
+{
+    // Check if the approval was successful
+    if (isset($_GET['approved']) && $_GET['approved'] === '1') {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('The account has been approved, and the email has been sent to the user.', 'eco-profile-master'); ?></p>
+        </div>
+    <?php
+    }
+}
+add_action('admin_notices', 'epm_approval_success_notice');
+
+
+// admin notice after user unapproved
+function epm_unapproved_success_notice()
+{
+    // Check if the unapproval was successful
+    if (isset($_GET['unapproved']) && $_GET['unapproved'] === '1') {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('The account has been unapproved successfully.', 'eco-profile-master'); ?></p>
+        </div>
+    <?php
+    }
+}
+
+add_action('admin_notices', 'epm_unapproved_success_notice');
+
+// for reject user 
+
+function epm_reject_success_notice()
+{
+    // Check if the rejection was successful
+    if (isset($_GET['rejected']) && $_GET['rejected'] === '1') {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('The account has been rejected successfully.', 'eco-profile-master'); ?></p>
+        </div>
+<?php
+    }
+}
+
+add_action('admin_notices', 'epm_reject_success_notice');

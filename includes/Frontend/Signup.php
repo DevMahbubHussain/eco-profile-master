@@ -216,17 +216,11 @@ class Signup
     private function epm_process_signup()
     {
 
-        // Validate user capability
-        // $this->validateUserCapability();
-
         if ($_POST['user_registration'] !== 'user_registration') {
             wp_die(__('Security check failed. Please try again.', 'eco-profile-master'));
         }
-        // Verify nonce field value
         $this->validateNonce('user_registration_nonce', 'user_registration_nonce');
         $validation_data = $_POST;
-       // var_dump($validation_data);
-        //exit;
         $validation_result = $this->epm_validate_registration_fields($validation_data);
         add_filter('pre_option_users_can_register', '__return_true');
         if (empty($validation_result)) {
@@ -241,7 +235,6 @@ class Signup
                     $this->add_message(__('Confirmation email sent. Please check your inbox.', 'eco-profile-master'));
                     return;
                 }
-
                 // Admin Approval Options
                 $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
                 if ($is_admin_approved === 'yes') {
@@ -249,7 +242,6 @@ class Signup
                     $this->add_message(__('Registration successful. Please wait for admin approval.', 'eco-profile-master'));
                     return;
                 }
-
                 // Check if automatic login is enabled
                 $automatic_login_option = get_option('epm_automatically_login', 'no');
                 if ($automatic_login_option === 'yes') {
@@ -258,25 +250,10 @@ class Signup
                     // Redirect the user to the login page
                     custom_login_redirect();
                 }
-
-
-                // if ($auto_login_enabled) {
-                //     // Auto-login the user
-                //     $this->auto_login($user_id);
-                //     // Redirect to user's profile or dashboard
-                //     wp_redirect(home_url('/user-profile'));
-                //     exit();
-                // } else {
-                //     // Display login form
-                //     wp_redirect(home_url('/login'));
-                //     exit();
-                // }
             }
         } else {
-            // Handle validation errors
+            _e('Validation error', 'eco-profile-master');
         }
-
-        // return ob_get_clean();
     }
 
     public function display_registration_messages()

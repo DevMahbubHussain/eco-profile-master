@@ -42,7 +42,8 @@ class EPM_Users_Columns
         $user = get_userdata($user_id);
 
         // Check if the user has the 'subscriber' role
-        if (in_array('subscriber', $user->roles, true)) {
+        $admin_approval = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+        if (in_array('subscriber', $user->roles, true) && $admin_approval == 'yes') {
             if ($column_name === 'approval_status') {
                 // Logic to get the approval status (approved, rejected, unapproved)
                 $approval_status = get_user_meta($user_id, 'epm_admin_approval', true);
@@ -69,20 +70,29 @@ class EPM_Users_Columns
      */
     public function add_user_action_links($actions, $user)
     {
-        if (current_user_can('edit_users')) {
-            $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
+        // Get the admin approval setting
+        $admin_approval = sanitize_text_field(get_option('epm_admin_approval', 'no'));
 
-            if ($approval_status === 'unapproved') {
-                $actions['approved'] = '<a href="' . admin_url("admin-post.php?action=approve_user&user_id={$user->ID}") . '">' . __('Approve', 'eco-profile-master') . '</a>';
-                $actions['reject'] = '<a href="' . admin_url("admin-post.php?action=reject_user&user_id={$user->ID}") . '">' . __('Reject', 'eco-profile-master') . '</a>';
-            } elseif ($approval_status === 'approved') {
-                $actions['unapproved'] = '<a href="' . admin_url("admin-post.php?action=unapprove_user&user_id={$user->ID}") . '">' . __('Unapprove', 'eco-profile-master') . '</a>';
+        if ($admin_approval === 'yes') {
+            // Check if the current user can edit users
+            if (current_user_can('edit_users')) {
+                // Get the user's approval status
+                $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
+
+                if ($approval_status === 'unapproved') {
+                    // If user is unapproved, show approve and reject links
+                    $actions['approved'] = '<a href="' . esc_url(admin_url("admin-post.php?action=approve_user&user_id={$user->ID}")) . '">' . __('Approve', 'eco-profile-master') . '</a>';
+                    $actions['reject'] = '<a href="' . esc_url(admin_url("admin-post.php?action=reject_user&user_id={$user->ID}")) . '">' . __('Reject', 'eco-profile-master') . '</a>';
+                } elseif ($approval_status === 'approved') {
+                    // If user is approved, show unapprove link
+                    $actions['unapproved'] = '<a href="' . esc_url(admin_url("admin-post.php?action=unapprove_user&user_id={$user->ID}")) . '">' . __('Unapprove', 'eco-profile-master') . '</a>';
+                }
             }
         }
-
+    
         return $actions;
     }
-
+    
     /**
      * User Approved function.
      *
@@ -110,32 +120,27 @@ class EPM_Users_Columns
 
         // Send an HTML email to the user with login information
         $site_url = get_site_url();
-        $login_url = wp_login_url();
+        $login_url = home_url('/login');
         $username = $user->user_login;
 
         $subject = __('Account Approved', 'eco-profile-master');
-        $message = sprintf(
-            '<html>
-            <body>
-                <p>Your account has been approved. You can now log in using the following credentials:</p>
-                <p><strong>Site URL:</strong> %s</p>
-                <p><strong>Login Page:</strong> %s</p>
-                <p><strong>Username:</strong> %s</p>
-                <p><strong>Password:</strong> %s</p>
-            </body>
-            </html>',
-            $site_url,
-            $login_url,
-            $username,
-            $new_password
-        );
+        $message = '<html>
+    <body>
+        <p>' . __('Your account has been approved. You can now log in using the following credentials:', 'eco-profile-master') . '</p>
+        <p><strong>' . __('Site URL:', 'eco-profile-master') . '</strong> ' . esc_html($site_url) . '</p>
+        <p><strong>' . __('Username:', 'eco-profile-master') . '</strong> ' . esc_html($username) . '</p>
+        <p><strong>' . __('Password:', 'eco-profile-master') . '</strong> ' . esc_html($new_password) . '</p>
+        <p><a href="' . esc_url($login_url) . '" style="background-color:#0073aa; color:#fff; text-decoration:none; padding:10px 20px; border-radius:4px; display:inline-block;">' . __('Login Now', 'eco-profile-master') .
+            '</a></p>
+    </body>
+</html>';
 
         $headers = array('Content-Type: text/html; charset=UTF-8');
 
         wp_mail($user->user_email, $subject, $message, $headers);
 
-        // Redirect back to the users page
-        wp_redirect(admin_url('users.php'));
+        // Redirect back to the users page with the "approved" query parameter
+        wp_redirect(admin_url('users.php?approved=1'));
         exit;
     }
 
@@ -187,32 +192,8 @@ class EPM_Users_Columns
         $subject = __('Account Unapproved', 'eco-profile-master');
         $message = __('Your account registration has been marked as unapproved.', 'eco-profile-master');
         wp_mail($user->user_email, $subject, $message);
-
         // Redirect back to the users page
-        wp_redirect(admin_url('users.php'));
+        wp_redirect(admin_url('users.php?rejected=1'));
         exit;
-    }
-
-
-    /**
-     * Initializes custom login redirection for subscribers.
-     *
-     * Checks if a user is logged in and has the role of 'subscriber.'
-     * If so, it can be used to redirect subscribers to a custom dashboard page.
-     */
-
-    public function init_custom_login_redirect()
-    {
-        if (is_user_logged_in()) {
-            $current_user = wp_get_current_user();
-
-            // Check if the user is logged in and has a role of 'subscriber'
-            if (in_array('subscriber', $current_user->roles)) {
-                // $redirect_url = home_url('/custom-dashboard'); // Change 'custom-dashboard' to your actual dashboard page slug
-                //wp_safe_redirect($redirect_url);
-                // exit;
-                //    later will work 
-            }
-        }
     }
 }

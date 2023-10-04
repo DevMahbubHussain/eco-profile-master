@@ -29,7 +29,7 @@ trait EPM_UserAccountManagementTrait
                 update_user_meta($user_id, 'epm_admin_approval', __('unapproved', 'eco-profile-master'));
             }
             update_user_meta($user_id, 'confirmation_key', $confirmation_key);
-            update_user_meta($user_id, 'epm_user_phone', sanitize_text_field($data['epm_user_phone']));
+            update_user_meta($user_id, 'epm_user_phone', isset($data['epm_user_phone']) ? sanitize_text_field($data['epm_user_phone']) : '');
             wp_update_user(array(
                 'ID' => $user_id,
                 'first_name' => sanitize_text_field($data['epm_user_firstname']),
@@ -108,22 +108,10 @@ trait EPM_UserAccountManagementTrait
         }
     }
 
-
-
-
     public function handle_user_creation_success($user_id, $data)
     {
         // Set user role
         $this->set_user_role($user_id);
-
-        // Send confirmation email
-        // $this->send_confirmation_email($user_id);
-
-        // // Auto-login the user
-        // $this->auto_login($user_id);
-
-        // // Notify admin for approval
-        // $this->notify_admin_for_approval($user_id);
     }
 
     private function send_confirmation_email($user_id)
@@ -166,7 +154,6 @@ trait EPM_UserAccountManagementTrait
             if (!empty($epm_profile_page)) {
                 wp_redirect(home_url("/$epm_profile_page"));
             }
-           // wp_redirect(home_url('/custom-dashboard'));
             exit;
         }
     }
@@ -183,8 +170,8 @@ trait EPM_UserAccountManagementTrait
         ));
 
         if (is_wp_error($result)) {
-            // Log the error for debugging purposes
-            error_log('Error setting user role: ' . $result->get_error_message());
+            $error_message = __('Error setting user role: ', 'text-domain') . $result->get_error_message();
+            echo esc_html($error_message);
         }
     }
 }
