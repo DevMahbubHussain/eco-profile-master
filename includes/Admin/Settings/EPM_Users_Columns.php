@@ -12,7 +12,7 @@ class EPM_Users_Columns
         add_action('admin_post_approve_user', array($this, 'approve_user'));
         add_action('admin_post_reject_user', array($this, 'reject_user'));
         add_action('admin_post_unapprove_user', array($this, 'unapprove_user'));
-        add_action('init', array($this, 'init_custom_login_redirect'));      
+        // add_action('init', array($this, 'init_custom_login_redirect'));      
     }
 
     // user custom columns for approval options 

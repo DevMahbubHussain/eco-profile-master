@@ -105,6 +105,31 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Repeat Password', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
+            'occupation' => array(
+                'label' => __('Occupation', 'eco-profile-master'),
+                'placeholder' => __('Select your Occupation', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'religion' => array(
+                'label' => __('Religion', 'eco-profile-master'),
+                'placeholder' => __('Select your Religion', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'skin' => array(
+                'label' => __('Skin Color', 'eco-profile-master'),
+                'placeholder' => __('Select your Skin Color', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'gender' => array(
+                'label' => __('Gender', 'eco-profile-master'),
+                'placeholder' => __('Select your Gender', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'blood' => array(
+                'label' => __('Blood Group', 'eco-profile-master'),
+                'placeholder' => __('Select your Blood Group', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
             'facebook' => array(
                 'label' => __('Facebook Url', 'eco-profile-master'),
                 'placeholder' => __('Enter your facebook url', 'eco-profile-master'),
@@ -181,11 +206,6 @@ class EPM_LabelPlaceholderSettings
             }
         }
     }
-
-
-
-
-
 
     /**
      * Sanitize the label and placeholder settings input.

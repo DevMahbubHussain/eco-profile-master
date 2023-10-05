@@ -180,6 +180,11 @@ function epm_admin_form_fields_settings()
         'about_yourself' => 'epm_form_heading_about_yourself',
         'profile_image' => 'epm_form_heading_profile_image',
         'social_links' => 'epm_form_heading_social_links',
+        'occupation' => 'epm_form_heading_occupation',
+        'religion' => 'epm_form_heading_religion',
+        'skin' => 'epm_form_heading_skin',
+        'gender' => 'epm_form_heading_gender',
+        'blood' => 'epm_form_heading_blood',
     );
 
     foreach ($sections as $section => $option_name) {
@@ -285,7 +290,6 @@ function epm_password_reset_form()
     <?php
     endforeach;
 }
-
 
 
 

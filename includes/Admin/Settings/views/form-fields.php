@@ -11,6 +11,11 @@
                     'about_yourself' => __('About Yourself', 'eco-profile-master'),
                     'profile_image' => __('Profile Image', 'eco-profile-master'),
                     'social_links' => __('Social Links', 'eco-profile-master'),
+                    'occupation' => __('Occupation Options', 'eco-profile-master'),
+                    'religion' => __('Religion Options', 'eco-profile-master'),
+                    'skin' => __('Skin Color Options', 'eco-profile-master'),
+                    'gender' => __('Gender Options', 'eco-profile-master'),
+                    'blood' => __('Blood Group Options', 'eco-profile-master'),
                 );
 
                 foreach ($sections as $section_key => $section_label) :

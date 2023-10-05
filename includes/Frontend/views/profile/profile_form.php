@@ -5,6 +5,12 @@ $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_head
 $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
 $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
+$enabledSocialFields = $this->getEnabledSocialFields();
+$epm_form_heading_occupation =  $this->generate_section_heading('epm_form_heading_occupation_hide', 'epm_form_heading_occupation', '1', 'Occupation Options');
+$epm_form_heading_religion =  $this->generate_section_heading('epm_form_heading_religion_hide', 'epm_form_heading_religion', '1', 'Religion Options');
+$epm_form_heading_skin =  $this->generate_section_heading('epm_form_heading_skin_hide', 'epm_form_heading_skin', '1', 'Skin Color Options');
+$epm_form_heading_gender =  $this->generate_section_heading('epm_form_heading_gender_hide', 'epm_form_heading_gender', '1', 'Gender Options');
+$epm_form_heading_blood =  $this->generate_section_heading('epm_form_heading_blood_hide', 'epm_form_heading_blood', '1', 'Blood Group Options');
 ?>
 <?php displayConfirmationprofileUpdateMessages(); ?>
 

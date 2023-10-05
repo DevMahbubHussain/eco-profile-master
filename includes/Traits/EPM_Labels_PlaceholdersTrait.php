@@ -19,11 +19,6 @@ trait EPM_Labels_PlaceholdersTrait
      */
     protected function epm_label_placeholder()
     {
-        // $fields = array(
-        //     'username', 'firstname', 'lastname', 'nickname', 'email',
-        //     'phone', 'website', 'biographical', 'password', 'repassword',
-        //     'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image'
-        // );
         $fieldMappings = array(
             'username' => array('label', 'placeholder'),
             'firstname' => array('label', 'placeholder'),
@@ -35,6 +30,11 @@ trait EPM_Labels_PlaceholdersTrait
             'biographical' => array('label', 'placeholder'),
             'password' => array('label', 'placeholder'),
             'repassword' => array('label', 'placeholder'),
+            'occupation' => array('label', 'placeholder'),
+            'religion' => array('label', 'placeholder'),
+            'skin' => array('label', 'placeholder'),
+            'gender' => array('label', 'placeholder'),
+            'blood' => array('label', 'placeholder'),
             'facebook' => array('label', 'placeholder'),
             'twitter' => array('label', 'placeholder'),
             'linkedin' => array('label', 'placeholder'),
@@ -45,12 +45,6 @@ trait EPM_Labels_PlaceholdersTrait
         );
 
         $values = get_option('epm_form_label_placeholder', array()); // Get the array directly
-
-
-        // echo "<pre>";
-        // print_r($values);
-        // echo "<pre>";
-
         // sanitize the entire array 
         foreach ($fieldMappings as $fieldKey => $fieldLabels) {
             foreach ($fieldLabels as $labelType) {
@@ -59,12 +53,6 @@ trait EPM_Labels_PlaceholdersTrait
                 }
             }
         }
-
-        // $fields = array(
-        //     'username', 'firstname', 'lastname', 'nickname', 'email',
-        //     'phone', 'website', 'biographical', 'password', 'repassword',
-        //     'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image'
-        // );
         $formattedFields = array(
             'username' => array(
                 'label' => '',
@@ -103,6 +91,26 @@ trait EPM_Labels_PlaceholdersTrait
                 'placeholder' => ''
             ),
             'repassword' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'occupation' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'religion' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'skin' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'gender' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'blood' => array(
                 'label' => '',
                 'placeholder' => ''
             ),
@@ -166,15 +174,6 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['nickname']['placeholder'])) {
             $formattedFields['nickname']['placeholder'] = $values['nickname']['placeholder'];
         }
-        // contact info
-
-        // if (isset($values['nickname']['label'])) {
-        //     $formattedFields['nickname']['label'] = $values['nickname']['label'];
-        // }
-
-        // if (isset($values['nickname']['placeholder'])) {
-        //     $formattedFields['nickname']['placeholder'] = $values['nickname']['placeholder'];
-        // }
 
         // contact info
 
@@ -185,7 +184,6 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['email']['placeholder'])) {
             $formattedFields['email']['placeholder'] = $values['email']['placeholder'];
         }
-
 
         if (isset($values['phone']['label'])) {
             $formattedFields['phone']['label'] = $values['phone']['label'];
@@ -224,9 +222,43 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['repassword']['label'])) {
             $formattedFields['repassword']['label'] = $values['repassword']['label'];
         }
-
+        // occupation 
+        if (isset($values['occupation']['placeholder'])) {
+            $formattedFields['occupation']['placeholder'] = $values['occupation']['placeholder'];
+        }
+        if (isset($values['occupation']['label'])) {
+            $formattedFields['occupation']['label'] = $values['occupation']['label'];
+        }
+        // religion 
+        if (isset($values['religion']['placeholder'])) {
+            $formattedFields['religion']['placeholder'] = $values['religion']['placeholder'];
+        }
+        if (isset($values['religion']['label'])) {
+            $formattedFields['religion']['label'] = $values['religion']['label'];
+        }
+        // skin 
+        if (isset($values['skin']['placeholder'])) {
+            $formattedFields['skin']['placeholder'] = $values['skin']['placeholder'];
+        }
+        if (isset($values['skin']['label'])) {
+            $formattedFields['skin']['label'] = $values['skin']['label'];
+        }
+        // gender 
+        if (isset($values['gender']['placeholder'])) {
+            $formattedFields['gender']['placeholder'] = $values['gender']['placeholder'];
+        }
+        if (isset($values['gender']['label'])) {
+            $formattedFields['gender']['label'] = $values['gender']['label'];
+        }
+        // blood 
+        if (isset($values['blood']['placeholder'])) {
+            $formattedFields['blood']['placeholder'] = $values['blood']['placeholder'];
+        }
+        if (isset($values['blood']['label'])) {
+            $formattedFields['blood']['label'] = $values['blood']['label'];
+        }
+                
         // social 
-
         if (isset($values['facebook']['placeholder'])) {
             $formattedFields['facebook']['placeholder'] = $values['facebook']['placeholder'];
         }
@@ -261,12 +293,10 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['instagram']['label'])) {
             $formattedFields['instagram']['label'] = $values['instagram']['label'];
         }
-
         // profile image
         if (isset($values['image']['label'])) {
             $formattedFields['image']['label'] = $values['image']['label'];
         }
-
         return $formattedFields;
     }
 }
