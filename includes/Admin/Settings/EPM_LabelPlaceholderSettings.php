@@ -125,6 +125,11 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Select your Gender', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
+            'birthdate' => array(
+                'label' => __('Date of Birth', 'eco-profile-master'),
+                'placeholder' => __('Date of Birth', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
             'blood' => array(
                 'label' => __('Blood Group', 'eco-profile-master'),
                 'placeholder' => __('Select your Blood Group', 'eco-profile-master'),

@@ -26,27 +26,54 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="epm_auto_login_pass_reset"><?php _e('Automatically log in users after password reset', 'eco-profile-master'); ?></label></th>
-                    <td>
-                        <input type="checkbox" id="epm_auto_login_pass_reset" name="epm_auto_login_pass_reset" value="1" <?php checked(get_option('epm_auto_login_pass_reset'), 1); ?>>
-                        <p class="epm-description"><?php _e('Automatically log in users after they reset their password using the Recover Password form, by default.', 'eco-profile-master'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="epm_auto_generate_pass"><?php _e('Automatically generate password for users', 'eco-profile-master'); ?></label></th>
-                    <td>
-                        <input type="checkbox" id="epm_auto_generate_pass" name="epm_auto_generate_pass" value="1" <?php checked(get_option('epm_auto_generate_pass'), 1); ?>>
-                        <p class="epm-description"><?php _e('By checking this option, the password will be automatically generated and emailed to the user.', 'eco-profile-master'); ?></p>
-                    </td>
-                </tr>
-                <tr>
                     <th><label for="epm_first_lastname_captitilize"><?php _e("Always capitalize 'First Name' and 'Last Name' default fields", 'eco-profile-master'); ?></label></th>
                     <td>
                         <input type="checkbox" id="epm_first_lastname_captitilize" name="epm_first_lastname_captitilize" value="1" <?php checked(get_option('epm_first_lastname_captitilize'), 1); ?>>
                         <p class="epm-description"><?php _e('If you have these fields in your forms, they will be always saved with the first letter as uppercase.', 'eco-profile-master'); ?></p>
                     </td>
                 </tr>
-
+                <tr>
+                    <th><label for="epm_user_gender"><?php _e('Enable gender field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_gender" name="epm_user_gender" value="1" <?php checked(get_option('epm_user_gender', '1'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, gender field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_user_birthdate"><?php _e('Enable birthdate field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_birthdate" name="epm_user_birthdate" value="1" <?php checked(get_option('epm_user_birthdate', '0'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, birthdate field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_user_occupation"><?php _e('Enable occupation field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_occupation" name="epm_user_occupation" value="1" <?php checked(get_option('epm_user_occupation', '0'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, occupation field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_user_religion"><?php _e('Enable religion field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_religion" name="epm_user_religion" value="1" <?php checked(get_option('epm_user_religion', '0'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, religion field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_user_skin_color"><?php _e('Enable skin color field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_skin_color" name="epm_user_skin_color" value="1" <?php checked(get_option('epm_user_skin_color', '0'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, skin color field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_user_blood_group"><?php _e('Enable blood group field', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <input type="checkbox" id="epm_user_blood_group" name="epm_user_blood_group" value="1" <?php checked(get_option('epm_user_blood_group', '0'), 1); ?>>
+                        <p class="epm-description"><?php _e('By checking this option, blood group field will enable.', 'eco-profile-master'); ?></p>
+                    </td>
+                </tr>
                 <tr>
                     <th><label for="epm_facebook_url"><?php _e('Enable facebook field', 'eco-profile-master'); ?></label></th>
                     <td>

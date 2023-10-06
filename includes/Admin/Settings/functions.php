@@ -85,9 +85,13 @@ function epm_advanced_settings_form_submission()
             'epm_email_confirmation',
             'epm_remember_me',
             'epm_send_credentials',
-            'epm_auto_login_pass_reset',
-            'epm_auto_generate_pass',
             'epm_first_lastname_captitilize',
+            'epm_user_gender',
+            'epm_user_birthdate',
+            'epm_user_occupation',
+            'epm_user_religion',
+            'epm_user_skin_color',
+            'epm_user_blood_group',
             'epm_facebook_url',
             'epm_twitter_url',
             'epm_linkedin_url',
@@ -180,11 +184,6 @@ function epm_admin_form_fields_settings()
         'about_yourself' => 'epm_form_heading_about_yourself',
         'profile_image' => 'epm_form_heading_profile_image',
         'social_links' => 'epm_form_heading_social_links',
-        'occupation' => 'epm_form_heading_occupation',
-        'religion' => 'epm_form_heading_religion',
-        'skin' => 'epm_form_heading_skin',
-        'gender' => 'epm_form_heading_gender',
-        'blood' => 'epm_form_heading_blood',
     );
 
     foreach ($sections as $section => $option_name) {

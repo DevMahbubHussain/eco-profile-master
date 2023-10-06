@@ -1,16 +1,23 @@
         <!-- occupation info section -->
-        <div class="pt-4">
-            <h2 class="text-xl font-semibold pb-4"> <?php echo $epm_form_heading_occupation; ?></h2>
+        <?php if ($enabledAdvancedField['occupation']) : ?>
             <div class="flow">
-                <label for="occupation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><?php echo esc_attr($labelsPlaceholders['occupation']['label']); ?></label>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="occupation" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['occupation']['label']); ?></label>
+                <select id="occupation" name="epm_user_occupation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected><?php echo esc_attr($labelsPlaceholders['occupation']['placeholder']); ?></option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    <option value="<?php esc_attr_e('Student', 'eco-profile-master'); ?>"><?php _e('Student', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Doctor', 'eco-profile-master'); ?>"><?php _e('Doctor', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Architect', 'eco-profile-master'); ?>"><?php _e('Architect', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Engineer', 'eco-profile-master'); ?>"><?php _e('Engineer', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Teacher', 'eco-profile-master'); ?>"><?php _e('Teacher', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Govt_Employee', 'eco-profile-master'); ?>"><?php _e('Govt Employee', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Private_Service', 'eco-profile-master'); ?>"><?php _e('Private Service', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Media_Professional', 'eco-profile-master'); ?>"><?php _e('Media Professional', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('IT_Professional', 'eco-profile-master'); ?>"><?php _e('IT Professional', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Businessman', 'eco-profile-master'); ?>"><?php _e('Businessman', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Lawyer', 'eco-profile-master'); ?>"><?php _e('Lawyer', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Banker', 'eco-profile-master'); ?>"><?php _e('Banker', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Other', 'eco-profile-master'); ?>"><?php _e('Other', 'eco-profile-master'); ?></option>
                 </select>
-
             </div>
-        </div>
+        <?php endif; ?>
         <!-- end occupation info section -->

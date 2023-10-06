@@ -34,6 +34,7 @@ trait EPM_Labels_PlaceholdersTrait
             'religion' => array('label', 'placeholder'),
             'skin' => array('label', 'placeholder'),
             'gender' => array('label', 'placeholder'),
+            'birthdate' => array('label', 'placeholder'),
             'blood' => array('label', 'placeholder'),
             'facebook' => array('label', 'placeholder'),
             'twitter' => array('label', 'placeholder'),
@@ -107,6 +108,10 @@ trait EPM_Labels_PlaceholdersTrait
                 'placeholder' => ''
             ),
             'gender' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'birthdate' => array(
                 'label' => '',
                 'placeholder' => ''
             ),
@@ -249,6 +254,13 @@ trait EPM_Labels_PlaceholdersTrait
         }
         if (isset($values['gender']['label'])) {
             $formattedFields['gender']['label'] = $values['gender']['label'];
+        }
+        // birthdate 
+        if (isset($values['birthdate']['placeholder'])) {
+            $formattedFields['birthdate']['placeholder'] = $values['birthdate']['placeholder'];
+        }
+        if (isset($values['birthdate']['label'])) {
+            $formattedFields['birthdate']['label'] = $values['birthdate']['label'];
         }
         // blood 
         if (isset($values['blood']['placeholder'])) {

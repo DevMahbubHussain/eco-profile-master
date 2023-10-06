@@ -60,27 +60,39 @@ trait EPM_Social_FieldsTrait
         return $enabledFields;
     }
 
-    // public function renderSocialFields()
-    // {
-    //     $allowedFields = $this->epm_allow_user_social_fields();
+    /**
+     * Advanced field function.
+     *
+     * @return void
+     */
+    protected function epm_allow_user_advanced_fields()
+    {
+        $enable_fb_gender = get_option('epm_user_gender', '1');
+        $enable_fb_gender = sanitize_text_field($enable_fb_gender);
 
-    //     foreach ($allowedFields as $fieldKey => $isEnabled) {
-    //         if ($isEnabled) {
-    //             $fieldName = 'epm_user_' . $fieldKey;
-    //             $label = ucwords($fieldKey);
+        $enable_birthdate_field = get_option('epm_user_birthdate', '0');
+        $enable_birthdate_field = sanitize_text_field($enable_birthdate_field);
 
-    //             echo sprintf(
-    //                 '<div class="flow">
-    //                     <label for="%s" class="text-gray-700">%s Label</label>
-    //                     <input type="text" id="%s" name="%s" class="input input-bordered w-full" placeholder="%s Placeholder">
-    //                 </div>',
-    //                 esc_attr($fieldName),
-    //                 esc_attr($label),
-    //                 esc_attr($fieldName),
-    //                 esc_attr($fieldName),
-    //                 esc_attr($label)
-    //             );
-    //         }
-    //     }
-    // }
+        $enable_occupation_field = get_option('epm_user_occupation', '0');
+        $enable_occupation_field = sanitize_text_field($enable_occupation_field);
+
+        $enable_religion_field = get_option('epm_user_religion', '0');
+        $enable_religion_field = sanitize_text_field($enable_religion_field);
+
+        $enable_skin_color_field = get_option('epm_user_skin_color', '0');
+        $enable_skin_color_field = sanitize_text_field($enable_skin_color_field);
+
+        $enable_blood_group_field = get_option('epm_user_blood_group', '0');
+        $enable_blood_group_field = sanitize_text_field($enable_blood_group_field);
+
+        return [
+            'gender' => $enable_fb_gender === '1',
+            'birthdate' => $enable_birthdate_field === '1',
+            'occupation' =>  $enable_occupation_field === '1',
+            'religion' => $enable_religion_field === '1',
+            'skin' =>  $enable_skin_color_field === '1',
+            'blood' =>  $enable_blood_group_field === '1',
+        ];
+    }
+
 }

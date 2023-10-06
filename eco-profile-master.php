@@ -184,9 +184,13 @@ final class Eco_Profile_Master
 			'epm_email_confirmation' => 1,
 			'epm_remember_me' => 0,
 			'epm_send_credentials' => 1,
-			'epm_auto_login_pass_reset' => 0,
-			'epm_auto_generate_pass' => 0,
 			'epm_first_lastname_captitilize' => 0,
+			'epm_user_gender' => 1,
+			'epm_user_birthdate' => 0,
+			'epm_user_occupation' => 0,
+			'epm_user_religion' => 0,
+			'epm_user_skin_color' => 0,
+			'epm_user_blood_group' => 0,
 			'epm_facebook_url' => 1,
 			'epm_twitter_url' => 1,
 			'epm_linkedin_url' => 1,
@@ -224,7 +228,8 @@ final class Eco_Profile_Master
 		$fields = array(
 			'username', 'firstname', 'lastname', 'nickname', 'email',
 			'phone', 'website', 'biographical', 'password', 'repassword',
-			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image'
+			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image',
+			'occupation', 'religion', 'skin', 'gender', 'birthdate', 'blood'
 		);
 
 		$default_values = array();
@@ -242,7 +247,7 @@ final class Eco_Profile_Master
 			);
 
 			if ($field === 'image') {
-				$default_values[$field]['label'] = __('Upload your profile image', 'eco-profile-master'); // Change label to 'Image'
+				$default_values[$field]['label'] = __('Upload your profile image', 'eco-profile-master');
 				unset($default_values[$field]['placeholder']);
 			}
 		}
@@ -335,9 +340,13 @@ final class Eco_Profile_Master
 		$epm_advanced_settings_options_to_delete = array(
 			'epm_email_confirmation',
 			'epm_remember_me',
-			'epm_auto_login_pass_reset',
-			'epm_auto_generate_pass',
 			'epm_first_lastname_captitilize',
+			'epm_user_gender',
+			'epm_user_birthdate',
+			'epm_user_occupation',
+			'epm_user_religion',
+			'epm_user_skin_color',
+			'epm_user_blood_group',
 			'epm_facebook_url',
 			'epm_twitter_url',
 			'epm_linkedin_url',
