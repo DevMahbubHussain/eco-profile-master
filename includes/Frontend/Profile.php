@@ -53,6 +53,18 @@ class Profile
         $validation_data = $_POST;
         $validation_result = $this->epm_validate_registration_fields($validation_data);
         if (empty($validation_result)) {
+            update_user_meta($user_id, 'epm_user_phone', isset($_POST['epm_user_phone']) ? sanitize_text_field($_POST['epm_user_phone']) : '');
+            update_user_meta($user_id, 'epm_user_gender', isset($_POST['epm_user_gender']) ? sanitize_text_field($_POST['epm_user_gender']) : '');
+            update_user_meta($user_id, 'epm_user_birthdate', isset($_POST['epm_user_birthdate']) ? sanitize_text_field($_POST['epm_user_birthdate']) : '');
+            update_user_meta($user_id, 'epm_user_occupation', isset($_POST['epm_user_occupation']) ? sanitize_text_field($_POST['epm_user_occupation']) : '');
+            update_user_meta($user_id, 'epm_user_religion', isset($_POST['epm_user_religion']) ? sanitize_text_field($_POST['epm_user_religion']) : '');
+            update_user_meta($user_id, 'epm_user_skin', isset($_POST['epm_user_skin_color']) ? sanitize_text_field($_POST['epm_user_skin_color']) : '');
+            update_user_meta($user_id, 'epm_user_blood', isset($_POST['epm_user_blood_group']) ? sanitize_text_field($_POST['epm_user_blood_group']) : '');
+            update_user_meta($user_id, 'epm_user_facebook', isset($_POST['epm_user_facebook']) ? sanitize_text_field($_POST['epm_user_facebook']) : '');
+            update_user_meta($user_id, 'epm_user_twitter', isset($_POST['epm_user_twitter']) ? sanitize_text_field($_POST['epm_user_twitter']) : '');
+            update_user_meta($user_id, 'epm_user_linkedin', isset($_POST['epm_user_linkedin']) ? sanitize_text_field($_POST['epm_user_linkedin']) : '');
+            update_user_meta($user_id, 'epm_user_youtube', isset($_POST['epm_user_youtube']) ? sanitize_text_field($_POST['epm_user_youtube']) : '');
+            update_user_meta($user_id, 'epm_user_instagram', isset($_POST['epm_user_instagram']) ? sanitize_text_field($_POST['epm_user_instagram']) : '');
             $updated_data = array(
                 'ID'         => $user_id, // Specify the user ID
                 'user_login'     => isset($_POST['epm_user_username']) ? sanitize_user($_POST['epm_user_username']) : '',
@@ -63,14 +75,8 @@ class Profile
                 'display_name'       => isset($_POST['epm_user_display_name']) ? sanitize_text_field($_POST['epm_user_display_name']) : '',
                 'user_url'       => isset($_POST['epm_user_website']) ? esc_url_raw($_POST['epm_user_website']) : '',
                 'description'    => isset($_POST['epm_user_bio']) ? sanitize_textarea_field($_POST['epm_user_bio']) : '',
-                'epm_user_phone' => isset($_POST['epm_user_phone']) ? sanitize_text_field($_POST['epm_user_phone']) : '',
-                // social links
-                'epm_user_facebook' => isset($_POST['epm_user_facebook']) ? esc_url($_POST['epm_user_facebook']) : '',
-                'epm_user_twitter'  => isset($_POST['epm_user_twitter']) ? esc_url($_POST['epm_user_twitter']) : '',
-                'epm_user_linkedin' => isset($_POST['epm_user_linkedin']) ? esc_url($_POST['epm_user_linkedin']) : '',
-                'epm_user_youtube'  => isset($_POST['epm_user_youtube']) ? esc_url($_POST['epm_user_youtube']) : '',
-                'epm_user_instagram' => isset($_POST['epm_user_instagram']) ? esc_url($_POST['epm_user_instagram']) : '',
             );
+
             // Handle image upload
             $this->handle_image_upload_and_update_usermeta($user_id);
             // Update the user's data

@@ -15,7 +15,7 @@ trait EPM_UserAccountManagementTrait
         $email = $data['epm_user_email'];
         $password  = $data['epm_user_password'];
         $confirmation_key = wp_generate_password(20, false);
-           
+
         $user_id = wp_create_user($username, $password, $email);
         remove_filter(
             'pre_option_users_can_register',
@@ -38,6 +38,14 @@ trait EPM_UserAccountManagementTrait
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
 
             ));
+            // Handle the advanced field
+            update_user_meta($user_id, 'epm_user_birthdate', isset($data['epm_user_birthdate']) ? sanitize_text_field($data['epm_user_birthdate']) : '');
+            $labelsPlaceholders = $this->epm_label_placeholder();
+            $this->handle_epm_user_advanced_field($user_id, 'gender', $data['epm_user_gender'], $labelsPlaceholders);
+            $this->handle_epm_user_advanced_field($user_id, 'occupation', $data['epm_user_occupation'], $labelsPlaceholders);
+            $this->handle_epm_user_advanced_field($user_id, 'religion', $data['epm_user_religion'], $labelsPlaceholders);
+            $this->handle_epm_user_advanced_field($user_id, 'skin', $data['epm_user_skin_color'], $labelsPlaceholders);
+            $this->handle_epm_user_advanced_field($user_id, 'blood', $data['epm_user_blood_group'], $labelsPlaceholders);
             // Handle social media links
             $this->update_social_media_links($user_id, $data);
             // Handle image upload
@@ -50,13 +58,39 @@ trait EPM_UserAccountManagementTrait
     }
 
     /**
+     * Handle saving user meta data for various fields.
+     *
+     * @param int    $user_id       The user ID.
+     * @param string $field_name    The name of the field (e.g., 'epm_user_occupation').
+     * @param string $data_value    The value of the field from the form data.
+     * @param array  $labels_placeholders An array of labels and placeholders for the field.
+     */
+    public function handle_epm_user_advanced_field($user_id, $field_name, $data_value, $labels_placeholders)
+    {
+        $sanitized_value = isset($data_value) ? sanitize_text_field($data_value) : '';
+
+        // Retrieve the placeholder value for the specific field
+        $field_placeholder = isset($labels_placeholders[$field_name]['placeholder']) ? $labels_placeholders[$field_name]['placeholder'] : '';
+
+        if ($sanitized_value === $field_placeholder) {
+            $saved_value = ''; // Store an empty value if it matches the placeholder
+        } else {
+            $saved_value = $sanitized_value;
+        }
+        $field_name_with_prefix = 'epm_user_' . $field_name;
+
+        update_user_meta($user_id, $field_name_with_prefix, $saved_value);
+    }
+    
+
+    /**
      * Uploads a user avatar and updates user meta with the image URL.
      *
      * @param string $file_input_name The name attribute of the file input field.
      * @param int $user_id The user ID to associate with the uploaded avatar.
      * @return string|WP_Error The image URL on success or a WP_Error object on failure.
      */
-    function upload_user_avatar($file_input_name, $user_id)
+    public function upload_user_avatar($file_input_name, $user_id)
     {
         if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] === 0) {
             // Load necessary WordPress functions
@@ -85,7 +119,7 @@ trait EPM_UserAccountManagementTrait
      * @param int $user_id The user ID to update user meta for.
      * @param array $data An array containing social media link data.
      */
-    function update_social_media_links($user_id, $data)
+    public function update_social_media_links($user_id, $data)
     {
         // Define the social media fields and loop through them
         $social_media_fields = array(

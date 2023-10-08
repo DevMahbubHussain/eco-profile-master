@@ -7,11 +7,9 @@
             <div class="flow">
                 <label for="epm_user_facebook" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['facebook']['label']); ?></label>
                 <input type="text" id="epm_user_facebook" name="epm_user_facebook" class="input input-bordered w-full <?php echo $this->has_error('epm_user_facebook') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['facebook']['placeholder']); ?>">
-
                 <?php if ($this->has_error('epm_user_facebook')) : ?>
                     <span class="error-message"><?php echo $this->get_error('epm_user_facebook'); ?></span>
                 <?php endif; ?>
-
             </div>
         <?php endif; ?>
 

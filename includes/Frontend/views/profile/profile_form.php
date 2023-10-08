@@ -7,6 +7,66 @@ $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_hea
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
 $enabledSocialFields = $this->getEnabledSocialFields();
 $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
+
+// gender
+$current_gender = !empty($current_user->epm_user_gender) ? $current_user->epm_user_gender : '';
+$options = array(
+    'Male' => __('Male', 'eco-profile-master'),
+    'Female' => __('Female', 'eco-profile-master'),
+    'Other' => __('Other', 'eco-profile-master'),
+);
+
+// occupation
+$current_occupation = !empty($current_user->epm_user_occupation) ? $current_user->epm_user_occupation : '';
+$occupation_options = array(
+    'Student' => __('Student', 'eco-profile-master'),
+    'Doctor' => __('Doctor', 'eco-profile-master'),
+    'Architect' => __('Architect', 'eco-profile-master'),
+    'Engineer' => __('Engineer', 'eco-profile-master'),
+    'Teacher' => __('Teacher', 'eco-profile-master'),
+    'Govt_Employee' => __('Govt Employee', 'eco-profile-master'),
+    'Private_Service' => __('Private Service', 'eco-profile-master'),
+    'Media_Professional' => __('Media Professional', 'eco-profile-master'),
+    'IT_Professional' => __('IT Professional', 'eco-profile-master'),
+    'Businessman' => __('Businessman', 'eco-profile-master'),
+    'Lawyer' => __('Lawyer', 'eco-profile-master'),
+    'Banker' => __('Banker', 'eco-profile-master'),
+    'Other' => __('Other', 'eco-profile-master'),
+);
+
+// religion 
+$current_religion = !empty($current_user->epm_user_religion) ? $current_user->epm_user_religion : '';
+$religion_options = array(
+    'Islam' => __('Islam', 'eco-profile-master'),
+    'Christianity' => __('Christianity', 'eco-profile-master'),
+    'Buddhism' => __('Buddhism', 'eco-profile-master'),
+    'Hinduism' => __('Hinduism', 'eco-profile-master'),
+    'Judaism' => __('Judaism', 'eco-profile-master'),
+    'Jainism' => __('Jainism', 'eco-profile-master'),
+    'Other' => __('Other', 'eco-profile-master'),
+);
+
+// skin color 
+$current_skin_color = !empty($current_user->epm_user_skin) ? $current_user->epm_user_skin : '';
+$skin_options = array(
+    'Fair' => __('Fair', 'eco-profile-master'),
+    'Brown' => __('Brown', 'eco-profile-master'),
+    'Dark' => __('Dark', 'eco-profile-master'),
+    'Black' => __('Black', 'eco-profile-master'),
+);
+
+// blood
+$current_blood = !empty($current_user->epm_user_blood) ? $current_user->epm_user_blood : '';
+$blood_options = array(
+    'A+' => __('A+', 'eco-profile-master'),
+    'A-' => __('A-', 'eco-profile-master'),
+    'B+' => __('B+', 'eco-profile-master'),
+    'B-' => __('B-', 'eco-profile-master'),
+    'O+' => __('O+', 'eco-profile-master'),
+    'O-' => __('O-', 'eco-profile-master'),
+    'AB+' => __('AB+', 'eco-profile-master'),
+);
+
 ?>
 <?php displayConfirmationprofileUpdateMessages(); ?>
 
@@ -108,6 +168,32 @@ $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
     </div>
     <!-- end About yourselft section -->
 
+    <!-- gender option -->
+    <div class="flow py-2">
+        <label for="gender" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['gender']['label']); ?></label>
+        <select id="gender" name="epm_user_gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php generate_common_select_options($current_gender, $options); ?>
+        </select>
+        <?php if ($this->has_error('epm_user_gender')) : ?>
+            <span class="error-message"><?php echo $this->get_error('epm_user_gender'); ?></span>
+        <?php endif; ?>
+    </div>
+    <!-- gender option -->
+
+    <!-- date of birth -->
+    <div class="flow py-2">
+        <label for="birthdate" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['birthdate']['label']); ?></label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                </svg>
+            </div>
+            <input datepicker type="text" value="<?php echo isset($current_user) ? esc_attr($current_user->epm_user_birthdate) : ''; ?>" id="birthdate" name="epm_user_birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="<?php echo esc_attr($labelsPlaceholders['birthdate']['placeholder']); ?>">
+        </div>
+    </div>
+    <!-- date of birth -->
+
     <!-- profile image section -->
     <h4 class="text-xl font-semibold pt-10 pb-3"> <?php echo $epm_form_heading_profile_image; ?> </h4>
     <div class="flow py-2">
@@ -126,6 +212,42 @@ $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
         </div>
     </div>
     <!-- profile image section -->
+
+    <!-- occupation -->
+    <div class="flow py-2">
+        <label for="occupation" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['occupation']['label']); ?></label>
+        <select id="occupation" name="epm_user_occupation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php generate_common_select_options($current_occupation, $occupation_options); ?>
+        </select>
+    </div>
+    <!-- occupation -->
+    <!-- religion -->
+    <div class="flow py-2">
+        <label for="religion" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['religion']['label']); ?></label>
+        <select id="religion" name="epm_user_religion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php generate_common_select_options($current_religion, $religion_options); ?>
+        </select>
+    </div>
+    <!-- religion -->
+
+    <!-- skin color type -->
+    <div class="flow py-2">
+        <label for="skin" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['skin']['label']); ?></label>
+        <select id="skin" name="epm_user_skin_color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php generate_common_select_options($current_skin_color, $skin_options); ?>
+        </select>
+    </div>
+    <!-- skin color type -->
+
+    <!-- blodd type -->
+    <div class="flow">
+        <label for="blood" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['blood']['label']); ?></label>
+        <select id="blood" name="epm_user_blood_group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php generate_common_select_options($current_blood, $blood_options); ?>
+        </select>
+    </div>
+    <!-- blodd type -->
+
     <!-- Social Media Inputs -->
     <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
     <div class="flow py-2">

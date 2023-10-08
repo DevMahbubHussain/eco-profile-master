@@ -18,14 +18,10 @@ trait EPM_Form_ValidationTrait
     public $errors = array();
 
 
-    // Validate form fields
     public function epm_validate_registration_fields($data)
     {
-        //$errors = array();
         $epm_user_username = sanitize_user($data['epm_user_username']);
         $epm_user_email = sanitize_email($data['epm_user_email']);
-        // $epm_user_password = $data['epm_user_password'];
-        // $epm_user_retype_password = $data['epm_user_retype_password'];
         $epm_user_password = trim($data['epm_user_password']);
         $epm_user_retype_password = trim($data['epm_user_password']);
         $epm_user_bio =  isset($data['epm_user_bio']) ? sanitize_textarea_field($data['epm_user_bio']) : '';
@@ -55,13 +51,6 @@ trait EPM_Form_ValidationTrait
 
         // Initialize an array to store username errors
         $username_errors = array();
-        // if (empty($epm_user_username)) {
-        //     $username_errors[] = __('Username is required.', 'eco-profile-master');
-        // }
-        // if (username_exists($epm_user_username)) {
-        //     $username_errors[] = __('Username already exists. Please choose a different username.', 'eco-profile-master');
-        // }
-
         if (empty($epm_user_username)) {
             $username_errors[] = __('Username is required.', 'eco-profile-master');
         } else {
@@ -83,11 +72,6 @@ trait EPM_Form_ValidationTrait
 
         // Initialize an array to store email errors
         $email_errors = array();
-
-        // if (empty($epm_user_email)) {
-        //     $email_errors[] = __('Email is required.', 'eco-profile-master');
-        // }
-
         // Validate and sanitize the email
 
         if (empty($epm_user_email)) {
@@ -102,11 +86,6 @@ trait EPM_Form_ValidationTrait
         if (!is_email($epm_user_email)) {
             $email_errors[] = __('Invalid email format.', 'eco-profile-master');
         }
-
-
-        // if (email_exists($epm_user_email)) {
-        //     $email_errors[] = __('Email already exists. Please use a different email address.', 'eco-profile-master');
-        // }
 
         // Store the array of error messages for epm_user_email
         if (!empty($email_errors)) {
@@ -129,12 +108,6 @@ trait EPM_Form_ValidationTrait
             }
         }
 
-
-        // Validate password length
-        // if (strlen($epm_user_password) < 7) {
-        //     $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
-        // }
-
         // Check if a new password has been provided
         if (!empty($epm_user_password)) {
             if (strlen($epm_user_password) < 7) {
@@ -144,17 +117,6 @@ trait EPM_Form_ValidationTrait
                 $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
             }
         }
-
-
-
-        // if (
-        //     $epm_user_password !== $epm_user_retype_password
-        // ) {
-        //     $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
-        // }
-
-
-
 
         // Validate website URL if provided and not empty
         $website = isset($data['epm_user_website']) ? esc_url_raw($data['epm_user_website']) : '';
@@ -208,8 +170,15 @@ trait EPM_Form_ValidationTrait
             $this->errors['epm_user_avatar'] = $image_errors;
         }
 
+        //gender filed
+        $labelsPlaceholders = $this->epm_label_placeholder();
+        $epm_gender = isset($_POST['epm_user_gender']) ? sanitize_text_field($_POST['epm_user_gender']) : '';
+        if (empty($epm_gender) || $epm_gender === $labelsPlaceholders['gender']['placeholder']) {
+            $this->errors['epm_user_gender'] = __('Please select a valid gender.', 'eco-profile-master');
+        }
+
         return $this->errors;
-        //var_dump($this->errors);
+
     }
 
 

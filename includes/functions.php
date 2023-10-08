@@ -690,3 +690,19 @@ function user_listing_details()
 
 add_action('wp_ajax_epm_ajax_action', 'user_listing_details');
 add_action('wp_ajax_nopriv_epm_ajax_action', 'user_listing_details');
+
+
+
+/**
+ * Generate select options for user gender.
+ *
+ * @param string $current_value The current selected value.
+ * @param array  $options       An associative array of gender options.
+ */
+function generate_common_select_options($current_value, $options)
+{
+    foreach ($options as $value => $label) {
+        $selected = ($current_value === $value) ? 'selected' : '';
+        echo '<option value="' . esc_attr($value) . '" ' . $selected . '>' . esc_html($label) . '</option>';
+    }
+}
