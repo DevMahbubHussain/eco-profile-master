@@ -12,12 +12,7 @@
                 currentImage.show();
             }
         });
-
         new DataTable('#userslist');
-
-
-
-
 
     });
 })(jQuery);

@@ -186,7 +186,7 @@ class Manager
         global $post;
 
         // Check if the current post content contains the specific shortcode
-        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form') || has_shortcode($post->post_content, 'epm-profile'))) {
+        if (is_a($post, 'WP_Post') && (has_shortcode($post->post_content, 'epm-login') || has_shortcode($post->post_content, 'epm-register') || has_shortcode($post->post_content, 'epm-pass-recover') || has_shortcode($post->post_content, 'epm-password-reset-form') || has_shortcode($post->post_content, 'epm-profile-edit') || has_shortcode($post->post_content, 'epm-profile'))) {
             wp_enqueue_style('epm-master-css');
             wp_enqueue_script('epm-master-js');
             wp_enqueue_script('epm-master-main-js');

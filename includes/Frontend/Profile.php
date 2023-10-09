@@ -16,8 +16,10 @@ class Profile
 
     public function __construct()
     {
-        add_shortcode('epm-profile', array($this, 'epm_render_profile_form'));
+        add_shortcode('epm-profile-edit', array($this, 'epm_render_profile_form'));
+        add_shortcode('epm-profile', array($this, 'epm_render_profile_details_form'));
         add_action('init', array($this, 'init'));
+        add_action('wp', array($this, 'epm_profile_details'));
     }
 
 
@@ -33,6 +35,47 @@ class Profile
         $current_user = wp_get_current_user();
         require_once  __DIR__ . '/views/profile/profile_form.php';
     }
+
+    // profile details 
+
+    public function epm_render_profile_details_form()
+    {
+        ob_start();
+        $this->epm_render_profile_details_form_style();
+        return ob_get_clean();
+    }
+
+    public function epm_render_profile_details_form_style()
+    {
+        if (is_user_logged_in()) {
+            require_once  __DIR__ . '/views/profile/profile_details.php';
+        }
+    }
+
+    public function epm_profile_details()
+    {
+        if (isset($_GET['action']) && $_GET['action'] === 'profile') {
+            $profile_page_slug = 'profile';
+            $profile_page = get_page_by_path($profile_page_slug);
+            if ($profile_page && $profile_page->post_status === 'publish') {
+                wp_redirect(get_permalink($profile_page));
+                exit;
+            } else {
+                $error_message = __('Sorry, the page you are looking for is not available.', 'eco-profile-master');
+                $home_link = __('Go to the homepage', 'eco-profile-master');
+                $contact_admin = __('or contact the site administrator for assistance.', 'eco-profile-master');
+                echo '<div class="flex flex-col items-center justify-center h-screen">';
+                echo '<p class="text-2xl">' . esc_html($error_message) . '</p>';
+                echo '<p class="text-lg mt-4"><a href="' . esc_url(home_url()) . '" class="text-blue-500 hover:underline">' . esc_html($home_link) . '</a></p>';
+                echo '<p class="text-lg mt-4">' . esc_html($contact_admin) . '</p>';
+                echo '</div>';
+                exit;
+            }
+        }
+    }
+    
+
+
 
     public function init()
     {

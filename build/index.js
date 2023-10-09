@@ -8827,6 +8827,19 @@ events.init();
 
 /***/ }),
 
+/***/ "./node_modules/@fortawesome/fontawesome-free/css/all.css":
+/*!****************************************************************!*\
+  !*** ./node_modules/@fortawesome/fontawesome-free/css/all.css ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./src/assets/css/main.scss":
 /*!**********************************!*\
   !*** ./src/assets/css/main.scss ***!
@@ -8922,6 +8935,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_js_main__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_js_main__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flowbite_dist_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flowbite/dist/datepicker */ "./node_modules/flowbite/dist/datepicker.js");
 /* harmony import */ var flowbite_dist_datepicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flowbite_dist_datepicker__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/fontawesome-free/css/all.css */ "./node_modules/@fortawesome/fontawesome-free/css/all.css");
+
 
 
 

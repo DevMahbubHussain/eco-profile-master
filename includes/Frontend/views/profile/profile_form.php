@@ -289,10 +289,10 @@ $blood_options = array(
     </div>
     <!-- Social Media Inputs -->
     <div class="flow">
-        <button type="submit" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-10" name="user_profile"><?php _e('Update Profile', 'eco-profile-master'); ?></button>
+        <div class="flex items-center justify-left space-x-4 mt-10">
+            <button type="submit" class="mr-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" name="user_profile"><?php _e('Update Profile', 'eco-profile-master'); ?></button>
+            <a href="<?php echo esc_url(add_query_arg('action', 'profile', home_url())); ?>" class="white-color text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><?php _e('View Profile', 'eco-profile-master'); ?></a>
+        </div>
+
     </div>
 </form>
-<button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    <?php _e('View Profile'); ?>
-</button>
-<?php include_once __DIR__ . '/profile_details.php';  ?>

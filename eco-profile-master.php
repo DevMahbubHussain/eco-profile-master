@@ -161,7 +161,7 @@ final class Eco_Profile_Master
 		// Dynamically create a new page for password recovery
 		$recover_password_page_title = __('Recover-Password', 'eco-profile-master');
 		$login_page_title = __('Login', 'eco-profile-master');
-		$login_profile_title = __('Profile', 'eco-profile-master');
+		$login_profile_title = __('Profile Edit', 'eco-profile-master');
 		$slug = 'recover-password';
 		$recover_password_page = array(
 			'post_title' => $recover_password_page_title,
@@ -259,7 +259,7 @@ final class Eco_Profile_Master
 		$this->epm_plugin_pages('login', 'Login', 'epm-login');
 		$this->epm_plugin_pages('register', 'Registration', 'epm-register');
 		$this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
-		$this->epm_plugin_pages('profile', 'Profile', 'epm-profile');
+		$this->epm_plugin_pages('profile-edit', 'Profile Edit', 'epm-profile-edit');
 		$this->epm_plugin_pages('listings', 'User Listings', 'epm-user-listings');
 
 		flush_rewrite_rules();
@@ -392,8 +392,7 @@ final class Eco_Profile_Master
 
 	public function epm_plugin_deactive_pages()
 	{
-		// $this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
-		$pages_to_delete = array('login', 'registration', 'profile', 'listings', 'new-password-form');
+		$pages_to_delete = array('login', 'register', 'profile-edit', 'listings', 'new-password-form');
 		foreach ($pages_to_delete as $page_slug) {
 			$page_id = get_page_by_path($page_slug);
 			if ($page_id) {

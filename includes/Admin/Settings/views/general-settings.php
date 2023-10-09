@@ -116,7 +116,7 @@
                     <th><label for="epm_profile_page"><?php _e('Login Redirect Page:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_profile_page" id="epm_profile_page"><?php echo esc_attr(epm_profile_page()); ?></select>
-                        <p class="epm-description"><?php _e('Select the page which contains the [epm-profile] shortcode.', 'echo-profile-master'); ?></p>
+                        <p class="epm-description"><?php _e('Select the page which contains the [epm-profile-edit] shortcode.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
                 <tr>

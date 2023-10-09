@@ -247,7 +247,12 @@ ul.epm-list li {
 // }
 
 .max-w-screen-2xl.mx-auto.px-8.md\:px-16.lg\:px-24.py-5.my-10.w-100-grid {
+    width: 100%;
     max-width: 100% !important;
+}
+.container.mx-auto.bg-orange-100.sm\:p-16.override-max-width {
+    width: 100%;
+    max-width: 100%;
 }
 
 .max-w-screen-2xl.mx-auto.px-8.md\:px-16.lg\:px-24.py-5.my-10.w-100-grid select:not([size]) {
@@ -256,4 +261,8 @@ ul.epm-list li {
 
 div#userslist_wrapper {
     padding: 30px 0 !important;
+}
+
+a.white-color {
+    color: #ffffff !important;
 }
