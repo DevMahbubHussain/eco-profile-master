@@ -15,7 +15,6 @@ trait EPM_UserAccountManagementTrait
         $email = $data['epm_user_email'];
         $password  = $data['epm_user_password'];
         $confirmation_key = wp_generate_password(20, false);
-
         $user_id = wp_create_user($username, $password, $email);
         remove_filter(
             'pre_option_users_can_register',
@@ -41,16 +40,33 @@ trait EPM_UserAccountManagementTrait
             // Handle the advanced field
             update_user_meta($user_id, 'epm_user_birthdate', isset($data['epm_user_birthdate']) ? sanitize_text_field($data['epm_user_birthdate']) : '');
             $labelsPlaceholders = $this->epm_label_placeholder();
-            $this->handle_epm_user_advanced_field($user_id, 'gender', $data['epm_user_gender'], $labelsPlaceholders);
-            $this->handle_epm_user_advanced_field($user_id, 'occupation', $data['epm_user_occupation'], $labelsPlaceholders);
-            $this->handle_epm_user_advanced_field($user_id, 'religion', $data['epm_user_religion'], $labelsPlaceholders);
-            $this->handle_epm_user_advanced_field($user_id, 'skin', $data['epm_user_skin_color'], $labelsPlaceholders);
-            $this->handle_epm_user_advanced_field($user_id, 'blood', $data['epm_user_blood_group'], $labelsPlaceholders);
+            $advanced_fields = [
+                'epm_user_gender',
+                'epm_user_occupation',
+                'epm_user_religion',
+                'epm_user_skin_color',
+                'epm_user_blood_group',
+            ];
+            foreach ($advanced_fields as $field) {
+                if (isset($data[$field])) {
+                    $this->handle_epm_user_advanced_field($user_id, $field, $data[$field], $labelsPlaceholders);
+                }
+            }
+            // mailing address 
+            $mailing_fields = [
+                'epm_user_house',
+                'epm_user_road',
+                'epm_user_location',
+            ];
+            foreach ($mailing_fields as $field) {
+                if (isset($data[$field])) {
+                    $this->handle_epm_user_mailing_field($user_id, $field, $data[$field], $labelsPlaceholders);
+                }
+            }
             // Handle social media links
             $this->update_social_media_links($user_id, $data);
             // Handle image upload
             $this->upload_user_avatar('epm_user_avatar', $user_id);
-            echo 'User created successfully with ID: ' . $user_id;
         }
         // Handle user creation success
         $this->handle_user_creation_success($user_id, $data);
@@ -81,8 +97,30 @@ trait EPM_UserAccountManagementTrait
 
         update_user_meta($user_id, $field_name_with_prefix, $saved_value);
     }
-    
 
+    //  mailing address
+    public function handle_epm_user_mailing_field($user_id, $field_name, $data_value, $labels_placeholders)
+    {
+        // Check if the field exists in the data and is not empty
+        if (isset($data_value) && !empty($data_value)) {
+            // Sanitize the data value
+            $sanitized_value = sanitize_text_field($data_value);
+        } else {
+            $sanitized_value = ''; // Set an empty value for empty or undefined data
+        }
+
+        // Retrieve the placeholder value for the specific field
+        $field_placeholder = isset($labels_placeholders[$field_name]['placeholder']) ? $labels_placeholders[$field_name]['placeholder'] : '';
+
+        // Check if the sanitized value matches the placeholder
+        if ($sanitized_value === $field_placeholder) {
+            $saved_value = ''; // Store an empty value if it matches the placeholder
+        } else {
+            $saved_value = $sanitized_value;
+        }
+        update_user_meta($user_id, $field_name, $saved_value);
+    }
+    
     /**
      * Uploads a user avatar and updates user meta with the image URL.
      *

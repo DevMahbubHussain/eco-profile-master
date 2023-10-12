@@ -95,4 +95,16 @@ trait EPM_Social_FieldsTrait
         ];
     }
 
+
+    /**
+     * getEnabledMalingAddressFields function.
+     *
+     * @return void
+     */
+    public function getEnabledMailingAddressFields()
+    {
+        $mailing_address_enable = sanitize_text_field(get_option('epm_mailing_address', 'no'));
+        return $mailing_address_enable === 'yes';
+    }
+
 }

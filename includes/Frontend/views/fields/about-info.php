@@ -13,7 +13,7 @@
         </div>
         <div class="flow">
             <label for="epm_user_retype_password" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['repassword']['label']); ?></label>
-            <input type="password" id="epm_user_retype_password" name="epm_user_password" class="input input-bordered w-full <?php echo $this->has_error('epm_user_password_match') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['repassword']['placeholder']); ?>">
+            <input type="password" id="epm_user_retype_password" name="epm_user_retype_password" class="input input-bordered w-full <?php echo $this->has_error('epm_user_password_match') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['repassword']['placeholder']); ?>">
             <?php if ($this->has_error('epm_user_password_match')) : ?>
                 <span class="error-message"><?php echo $this->get_error('epm_user_password_match'); ?></span>
             <?php endif; ?>

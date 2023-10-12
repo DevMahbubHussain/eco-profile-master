@@ -36,6 +36,9 @@ trait EPM_Labels_PlaceholdersTrait
             'gender' => array('label', 'placeholder'),
             'birthdate' => array('label', 'placeholder'),
             'blood' => array('label', 'placeholder'),
+            'house' => array('label', 'placeholder'),
+            'road' => array('label', 'placeholder'),
+            'location' => array('label', 'placeholder'),
             'facebook' => array('label', 'placeholder'),
             'twitter' => array('label', 'placeholder'),
             'linkedin' => array('label', 'placeholder'),
@@ -119,6 +122,18 @@ trait EPM_Labels_PlaceholdersTrait
                 'label' => '',
                 'placeholder' => ''
             ),
+            'house' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'road' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'location' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
             'facebook' => array(
                 'label' => '',
                 'placeholder' => ''
@@ -154,7 +169,6 @@ trait EPM_Labels_PlaceholdersTrait
         if (isset($values['username']['placeholder'])) {
             $formattedFields['username']['placeholder'] = $values['username']['placeholder'];
         }
-
 
         if (isset($values['firstname']['label'])) {
             $formattedFields['firstname']['label'] = $values['firstname']['label'];
@@ -268,6 +282,29 @@ trait EPM_Labels_PlaceholdersTrait
         }
         if (isset($values['blood']['label'])) {
             $formattedFields['blood']['label'] = $values['blood']['label'];
+        }
+
+        // Mailing Address
+
+        if (isset($values['house']['placeholder'])) {
+            $formattedFields['house']['placeholder'] = $values['house']['placeholder'];
+        }
+        if (isset($values['house']['label'])) {
+            $formattedFields['house']['label'] = $values['house']['label'];
+        }
+
+        if (isset($values['road']['placeholder'])) {
+            $formattedFields['road']['placeholder'] = $values['road']['placeholder'];
+        }
+        if (isset($values['road']['label'])) {
+            $formattedFields['road']['label'] = $values['road']['label'];
+        }
+
+        if (isset($values['location']['placeholder'])) {
+            $formattedFields['location']['placeholder'] = $values['location']['placeholder'];
+        }
+        if (isset($values['location']['label'])) {
+            $formattedFields['location']['label'] = $values['location']['label'];
         }
                 
         // social 

@@ -11,6 +11,7 @@
                     'about_yourself' => __('About Yourself', 'eco-profile-master'),
                     'profile_image' => __('Profile Image', 'eco-profile-master'),
                     'social_links' => __('Social Links', 'eco-profile-master'),
+                    'mailing_address' => __('Mailing Address', 'eco-profile-master'),
                 );
 
                 foreach ($sections as $section_key => $section_label) :

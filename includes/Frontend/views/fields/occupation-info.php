@@ -9,10 +9,10 @@
                     <option value="<?php esc_attr_e('Architect', 'eco-profile-master'); ?>"><?php _e('Architect', 'eco-profile-master'); ?></option>
                     <option value="<?php esc_attr_e('Engineer', 'eco-profile-master'); ?>"><?php _e('Engineer', 'eco-profile-master'); ?></option>
                     <option value="<?php esc_attr_e('Teacher', 'eco-profile-master'); ?>"><?php _e('Teacher', 'eco-profile-master'); ?></option>
-                    <option value="<?php esc_attr_e('Govt_Employee', 'eco-profile-master'); ?>"><?php _e('Govt Employee', 'eco-profile-master'); ?></option>
-                    <option value="<?php esc_attr_e('Private_Service', 'eco-profile-master'); ?>"><?php _e('Private Service', 'eco-profile-master'); ?></option>
-                    <option value="<?php esc_attr_e('Media_Professional', 'eco-profile-master'); ?>"><?php _e('Media Professional', 'eco-profile-master'); ?></option>
-                    <option value="<?php esc_attr_e('IT_Professional', 'eco-profile-master'); ?>"><?php _e('IT Professional', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Govt Employee', 'eco-profile-master'); ?>"><?php _e('Govt Employee', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Private Service', 'eco-profile-master'); ?>"><?php _e('Private Service', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('Media Professional', 'eco-profile-master'); ?>"><?php _e('Media Professional', 'eco-profile-master'); ?></option>
+                    <option value="<?php esc_attr_e('IT Professional', 'eco-profile-master'); ?>"><?php _e('IT Professional', 'eco-profile-master'); ?></option>
                     <option value="<?php esc_attr_e('Businessman', 'eco-profile-master'); ?>"><?php _e('Businessman', 'eco-profile-master'); ?></option>
                     <option value="<?php esc_attr_e('Lawyer', 'eco-profile-master'); ?>"><?php _e('Lawyer', 'eco-profile-master'); ?></option>
                     <option value="<?php esc_attr_e('Banker', 'eco-profile-master'); ?>"><?php _e('Banker', 'eco-profile-master'); ?></option>

@@ -33,19 +33,17 @@ function epm_general_settings_form_submission()
             'epm_form_style' => 'epm_form_style',
             'epm_automatically_login' => 'epm_automatically_login',
             'epm_email_confirmation_activated' => 'epm_email_confirmation_activated',
-            // 'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_admin_approval' => 'epm_admin_approval',
-            'epm_loginwith' => 'epm_loginwith',
             'epm_display_email' => 'epm_display_email',
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
+            'epm_mailing_address' => 'epm_mailing_address',
             'epm_display_social_links' => 'epm_display_social_links',
             'epm_lost_password_page' => 'epm_lost_password_page',
             'epm_login_page' => 'epm_login_page',
             'epm_profile_page' => 'epm_profile_page',
             'epm_pass_reset_page' => 'epm_pass_reset_page'
         );
-
         // Loop through the options, sanitize the values, and update the options
         foreach ($options as $option_name => $post_key) {
             $option_value = isset($_POST[$post_key]) ? sanitize_text_field($_POST[$post_key]) : '';
@@ -184,6 +182,7 @@ function epm_admin_form_fields_settings()
         'about_yourself' => 'epm_form_heading_about_yourself',
         'profile_image' => 'epm_form_heading_profile_image',
         'social_links' => 'epm_form_heading_social_links',
+        'mailing_address' => 'epm_form_heading_ mailing_address'
     );
 
     foreach ($sections as $section => $option_name) {

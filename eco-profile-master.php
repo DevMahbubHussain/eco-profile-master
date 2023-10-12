@@ -146,10 +146,10 @@ final class Eco_Profile_Master
 			'epm_automatically_login' => __('no', 'eco-profile-master'),
 			'epm_email_confirmation_activated' => __('no', 'eco-profile-master'),
 			'epm_admin_approval' => __('no', 'eco-profile-master'),
-			'epm_loginwith' => __('Username and Email', 'eco-profile-master'),
 			'epm_display_email' => __('yes', 'eco-profile-master'),
 			'epm_display_phone_number' => __('no', 'eco-profile-master'),
 			'epm_image' => __('no', 'eco-profile-master'),
+			'epm_mailing_address' => __('no', 'eco-profile-master'),
 			'epm_display_social_links' => __('no', 'eco-profile-master')
 		);
 
@@ -209,6 +209,7 @@ final class Eco_Profile_Master
 			'about_yourself' => __('About Yourself', 'eco-profile-master'),
 			'profile_image' => __('Profile Image', 'eco-profile-master'),
 			'social_links' => __('Social Links', 'eco-profile-master'),
+			'mailing_address' => __('Mailing Address', 'eco-profile-master'),
 		);
 
 		foreach ($epm_form_sections_headings as $section_key => $section_label) {
@@ -229,7 +230,8 @@ final class Eco_Profile_Master
 			'username', 'firstname', 'lastname', 'nickname', 'email',
 			'phone', 'website', 'biographical', 'password', 'repassword',
 			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image',
-			'occupation', 'religion', 'skin', 'gender', 'birthdate', 'blood'
+			'occupation', 'religion', 'skin', 'gender', 'birthdate', 'blood', 'house',
+			'road', 'location'
 		);
 
 		$default_values = array();
@@ -309,10 +311,10 @@ final class Eco_Profile_Master
 			'epm_automatically_login',
 			'epm_email_confirmation_activated',
 			'epm_admin_approval',
-			'epm_loginwith',
 			'epm_display_email',
 			'epm_display_phone_number',
 			'epm_image',
+			'epm_mailing_address',
 			'epm_display_social_kinks',
 			'epm_lost_password_page' // Delete the "Select Recover Password Page" option
 		);
@@ -365,6 +367,8 @@ final class Eco_Profile_Master
 			'about_yourself',
 			'profile_image',
 			'social_links',
+			'mailing_address',
+
 		);
 
 		foreach ($epm_form_sections_headings as $section_key) {

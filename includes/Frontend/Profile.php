@@ -76,7 +76,6 @@ class Profile
     
 
 
-
     public function init()
     {
         if (is_user_logged_in()) {
@@ -100,6 +99,9 @@ class Profile
             update_user_meta($user_id, 'epm_user_gender', isset($_POST['epm_user_gender']) ? sanitize_text_field($_POST['epm_user_gender']) : '');
             update_user_meta($user_id, 'epm_user_birthdate', isset($_POST['epm_user_birthdate']) ? sanitize_text_field($_POST['epm_user_birthdate']) : '');
             update_user_meta($user_id, 'epm_user_occupation', isset($_POST['epm_user_occupation']) ? sanitize_text_field($_POST['epm_user_occupation']) : '');
+            update_user_meta($user_id, 'epm_user_house', isset($_POST['epm_user_house']) ? sanitize_text_field($_POST['epm_user_house']) : '');
+            update_user_meta($user_id, 'epm_user_road', isset($_POST['epm_user_road']) ? sanitize_text_field($_POST['epm_user_road']) : '');
+            update_user_meta($user_id, 'epm_user_location', isset($_POST['epm_user_location']) ? sanitize_text_field($_POST['epm_user_location']) : '');
             update_user_meta($user_id, 'epm_user_religion', isset($_POST['epm_user_religion']) ? sanitize_text_field($_POST['epm_user_religion']) : '');
             update_user_meta($user_id, 'epm_user_skin', isset($_POST['epm_user_skin_color']) ? sanitize_text_field($_POST['epm_user_skin_color']) : '');
             update_user_meta($user_id, 'epm_user_blood', isset($_POST['epm_user_blood_group']) ? sanitize_text_field($_POST['epm_user_blood_group']) : '');
@@ -119,7 +121,10 @@ class Profile
                 'user_url'       => isset($_POST['epm_user_website']) ? esc_url_raw($_POST['epm_user_website']) : '',
                 'description'    => isset($_POST['epm_user_bio']) ? sanitize_textarea_field($_POST['epm_user_bio']) : '',
             );
-
+            if (isset($_POST['epm_user_password']) && !empty($_POST['epm_user_password'])) {
+                $password = sanitize_text_field($_POST['epm_user_password']);
+                wp_set_password($password, $user_id);
+            }
             // Handle image upload
             $this->handle_image_upload_and_update_usermeta($user_id);
             // Update the user's data

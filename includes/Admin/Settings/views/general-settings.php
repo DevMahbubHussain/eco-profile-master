@@ -46,18 +46,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="epm_loginwith"><?php _e('Allow Users to Log in With:', 'eco-profile-master'); ?></label></th>
-                    <td>
-                        <select class="epm-select" name="epm_loginwith" id="epm_loginwith">
-                            <option value="usernameemail" <?php selected('usernameemail', get_option('epm_loginwith')); ?>><?php _e('Username and Email'); ?></option>
-                            <option value="username" <?php selected('username', get_option('epm_loginwith')); ?>><?php _e('Username'); ?></option>
-                            <option value="email" <?php selected('email', get_option('epm_loginwith')); ?>><?php _e('Email'); ?></option>
-                        </select>
-                        <p class="epm-description"><?php _e('Users can Log In with either their Username or their Email or only username or only email.', 'echo-profile-master'); ?></p>
-                    </td>
-                </tr>
-
-                <tr>
                     <th><label for="epm_display_email"><?php _e('Display Email Address to Users:', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_display_email" id="epm_display_email">
@@ -85,6 +73,16 @@
                             <option value="yes" <?php selected('yes', get_option('epm_image')); ?>><?php _e('Yes'); ?></option>
                         </select>
                         <p class="epm-description"><?php _e('Users can Upload their Profile Image.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="epm_mailing_address"><?php _e('Display Mailing Address to Users:.', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_mailing_address" id="epm_mailing_address">
+                            <option value="no" <?php selected('no', get_option('epm_mailing_address')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_mailing_address')); ?>><?php _e('Yes'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Select "Yes" mailing address fields will be avilable.', 'echo-profile-master'); ?></p>
                     </td>
                 </tr>
                 <tr>

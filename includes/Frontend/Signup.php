@@ -100,8 +100,7 @@ class Signup
     {
         ob_start();
         $this->epm_render_form_based_on_style();
-        echo $this->epm_handle_form_submission(); // Call the form processing function here
-        //error_log('can called 2 times?Debug message: This is a test. EPM TRAIT METHODS ');
+        echo $this->epm_handle_form_submission();
         return ob_get_clean();
     }
 
@@ -244,16 +243,23 @@ class Signup
                 }
                 // Check if automatic login is enabled
                 $automatic_login_option = get_option('epm_automatically_login', 'no');
+
                 if ($automatic_login_option === 'yes') {
-                    $this->auto_login($user_id);
+                    if (!current_user_can('administrator')) {
+                        $this->auto_login($user_id);
+                    }
                 } else {
                     // Redirect the user to the login page
-                    custom_login_redirect();
+                    if (!current_user_can('administrator')) {
+                        custom_login_redirect();
+                    }
+                }
+                if (current_user_can('administrator')) {
+                    // Set a transient for the success message
+                    set_transient('registration_success_message', 'User registration successful!', 10); // Transient expires after 10 seconds
                 }
             }
-        } else {
-            _e('Validation error', 'eco-profile-master');
-        }
+        } 
     }
 
     public function display_registration_messages()

@@ -22,8 +22,8 @@ trait EPM_Form_ValidationTrait
     {
         $epm_user_username = sanitize_user($data['epm_user_username']);
         $epm_user_email = sanitize_email($data['epm_user_email']);
-        $epm_user_password = trim($data['epm_user_password']);
-        $epm_user_retype_password = trim($data['epm_user_password']);
+        $epm_user_password = sanitize_text_field($_POST['epm_user_password']);
+        $epm_user_retype_password = sanitize_text_field($_POST['epm_user_retype_password']);
         $epm_user_bio =  isset($data['epm_user_bio']) ? sanitize_textarea_field($data['epm_user_bio']) : '';
 
         // Validate firstname if provided and not purely numeric
@@ -108,15 +108,25 @@ trait EPM_Form_ValidationTrait
             }
         }
 
-        // Check if a new password has been provided
-        if (!empty($epm_user_password)) {
-            if (strlen($epm_user_password) < 7) {
+        // for registration & profile
+        if (isset($_POST['user_register'])) {
+            if (empty($epm_user_password) || strlen($epm_user_password) < 7) {
                 $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
             }
-            if ($epm_user_password !== $epm_user_retype_password) {
+            if (empty($epm_user_password) || empty($epm_user_retype_password) || $epm_user_password !== $epm_user_retype_password) {
                 $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
             }
+        } elseif (isset($_POST['user_profile'])) {
+            if (!empty($epm_user_password)) {
+                if (strlen($epm_user_password) < 7) {
+                    $this->errors['epm_user_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
+                }
+                if ($epm_user_password !== $epm_user_retype_password) {
+                    $this->errors['epm_user_password_match'] = __('Passwords do not match.', 'eco-profile-master');
+                }
+            }
         }
+
 
         // Validate website URL if provided and not empty
         $website = isset($data['epm_user_website']) ? esc_url_raw($data['epm_user_website']) : '';
@@ -199,6 +209,13 @@ trait EPM_Form_ValidationTrait
     }
 
 
+    /**
+     * validation password reset function.
+     *
+     * @param [type] $new_password
+     * @param [type] $confirm_password
+     * @return void
+     */
     public function validation($new_password, $confirm_password)
     {
         $password_reset_errors = array();
@@ -225,6 +242,29 @@ trait EPM_Form_ValidationTrait
 
         return $this->errors;
     }
+
+    /**
+     * validate_password_update function
+     *
+     * @param [type] $password
+     * @param [type] $confirm_password
+     * @return void
+     */
+    private function validate_password_update($password, $confirm_password)
+    {
+        $errors = array();
+
+        if (strlen($password) < 7) {
+            $errors['profile_password_length'] = __('Password must be at least 7 characters long.', 'eco-profile-master');
+        }
+
+        if ($password !== $confirm_password) {
+            $errors['profile_password_retype'] = __('Passwords do not match.', 'eco-profile-master');
+        }
+
+        return $errors;
+    }
+    
 
     /**
      * Check if the form has error

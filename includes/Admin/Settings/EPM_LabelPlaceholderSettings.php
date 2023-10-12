@@ -135,6 +135,21 @@ class EPM_LabelPlaceholderSettings
                 'placeholder' => __('Select your Blood Group', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
+            'house' => array(
+                'label' => __('House', 'eco-profile-master'),
+                'placeholder' => __('Enter your House Number', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'road' => array(
+                'label' => __('Road', 'eco-profile-master'),
+                'placeholder' => __('Enter your Road Number', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
+            'location' => array(
+                'label' => __('Location', 'eco-profile-master'),
+                'placeholder' => __('Enter your Location', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
             'facebook' => array(
                 'label' => __('Facebook Url', 'eco-profile-master'),
                 'placeholder' => __('Enter your facebook url', 'eco-profile-master'),

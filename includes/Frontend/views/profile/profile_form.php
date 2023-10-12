@@ -5,6 +5,7 @@ $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_head
 $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
 $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
+$epm_form_heading_mailing_address =  $this->generate_section_heading('epm_form_heading_mailing_address_hide', 'epm_form_heading_mailing_address', '1', 'Mailing Address');
 $enabledSocialFields = $this->getEnabledSocialFields();
 $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
 
@@ -73,7 +74,7 @@ $blood_options = array(
 <form class="flow py-2 flow py-2-vertical" method="POST" enctype="multipart/form-data" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="epm_user_profile_nonce" value="<?php echo wp_create_nonce('epm_user_profile_action'); ?>">
     <!-- name section -->
-    <h4 class="text-xl font-semibold pb-3"><?php echo $epm_form_heading_name; ?></h4>
+    <h4 class="text-xl font-semibold pb-2"><?php echo $epm_form_heading_name; ?></h4>
     <div class="flow py-2">
         <label for="epm_user_username" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['username']['label']); ?></label>
         <input type="text" id="epm_user_username" name="epm_user_username" value="<?php echo isset($current_user) ? esc_attr($current_user->user_login) : ''; ?>" class="input input-bordered w-full <?php echo $this->has_error('epm_user_username') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['username']['placeholder']); ?>">
@@ -116,7 +117,7 @@ $blood_options = array(
     <!-- end of name -->
 
     <!-- contact info section -->
-    <h2 class="text-xl font-semibold pt-10 pb-3"><?php echo $epm_form_heading_contact_info; ?></h2>
+    <h2 class="text-xl font-semibold pt-10 pb-2"><?php echo $epm_form_heading_contact_info; ?></h2>
     <div class="flow py-2">
         <label for="epm_user_email" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['email']['label']); ?></label>
         <input type="email" id="epm_user_email" name="epm_user_email" value="<?php echo isset($current_user) ? esc_attr($current_user->user_email) : ''; ?>" class="input input-bordered w-full <?php echo $this->has_error('epm_user_email') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['email']['placeholder']); ?>">
@@ -147,7 +148,7 @@ $blood_options = array(
     <!-- end of contact info section -->
 
     <!-- About yourselft section -->
-    <h2 class="text-xl font-semibold pt-10 pb-3"> <?php echo $epm_form_heading_about_yourself; ?></h2>
+    <h2 class="text-xl font-semibold pt-10 pb-2"> <?php echo $epm_form_heading_about_yourself; ?></h2>
     <div class="flow py-2">
         <label for="message" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['biographical']['label']); ?></label>
         <textarea id="epm_user_bio" rows="4" name="epm_user_bio" class="input input-bordered w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="<?php echo esc_attr($labelsPlaceholders['biographical']['placeholder']); ?>"><?php echo isset($current_user) ? esc_attr($current_user->description) : ''; ?></textarea>
@@ -161,7 +162,7 @@ $blood_options = array(
     </div>
     <div class="flow py-2">
         <label for="epm_user_retype_password" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['repassword']['label']); ?></label>
-        <input type="password" id="epm_user_retype_password" name="epm_user_password" class="input input-bordered w-full <?php echo $this->has_error('epm_user_password_match') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['repassword']['placeholder']); ?>">
+        <input type="password" id="epm_user_retype_password" name="epm_user_retype_password" class="input input-bordered w-full <?php echo $this->has_error('epm_user_password_match') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['repassword']['placeholder']); ?>">
         <?php if ($this->has_error('epm_user_password_match')) : ?>
             <span class="error-message"><?php echo $this->get_error('epm_user_password_match'); ?></span>
         <?php endif; ?>
@@ -221,6 +222,24 @@ $blood_options = array(
         </select>
     </div>
     <!-- occupation -->
+
+    <!-- Mailing Address -->
+    <h4 class="text-xl font-semibold mb-2 mt-2"><?php echo $epm_form_heading_mailing_address; ?></h4>
+    <div class="flow py-2">
+        <label for="epm_user_house" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['house']['label']); ?></label>
+        <input type="text" id="epm_user_house" name="epm_user_house" value="<?php echo isset($current_user) ? esc_attr($current_user->epm_user_house) : ''; ?>" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['house']['placeholder']); ?>">
+    </div>
+    <div class="flow py-2">
+        <label for="epm_user_road" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['road']['label']); ?></label>
+        <input type="text" id="epm_user_road" name="epm_user_road" value="<?php echo isset($current_user) ? esc_attr($current_user->epm_user_road) : ''; ?>" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['road']['placeholder']); ?>">
+    </div>
+
+    <div class="flow py-2">
+        <label for="epm_user_location" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['location']['label']); ?></label>
+        <input type="text" id="epm_user_location" name="epm_user_location" value="<?php echo isset($current_user) ? esc_attr($current_user->epm_user_location) : ''; ?>" class="input input-bordered w-full" placeholder="<?php echo esc_attr($labelsPlaceholders['location']['placeholder']); ?>">
+    </div>
+    <!-- Mailing Address -->
+
     <!-- religion -->
     <div class="flow py-2">
         <label for="religion" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['religion']['label']); ?></label>
@@ -239,17 +258,17 @@ $blood_options = array(
     </div>
     <!-- skin color type -->
 
-    <!-- blodd type -->
+    <!-- blood type -->
     <div class="flow">
         <label for="blood" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['blood']['label']); ?></label>
         <select id="blood" name="epm_user_blood_group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <?php generate_common_select_options($current_blood, $blood_options); ?>
         </select>
     </div>
-    <!-- blodd type -->
+    <!-- blood type -->
 
     <!-- Social Media Inputs -->
-    <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
+    <h4 class="text-xl py-2 mt-2 font-semibold"> <?php echo $epm_form_heading_social_links; ?> </h4>
     <div class="flow py-2">
         <label for="epm_user_facebook" class="text-gray-700"><?php echo esc_attr($labelsPlaceholders['facebook']['label']); ?></label>
         <input type="text" id="epm_user_facebook" name="epm_user_facebook" value="<?php echo isset($current_user) ? esc_attr($current_user->epm_user_facebook) : ''; ?>" class="input input-bordered w-full <?php echo $this->has_error('epm_user_facebook') ? 'error-field' : ''; ?>" class="input input-bordered w-full <?php echo $this->has_error('epm_user_website') ? 'error-field' : ''; ?>" class="input input-bordered w-full <?php echo $this->has_error('epm_user_facebook') ? 'error-field' : ''; ?>" placeholder="<?php echo esc_attr($labelsPlaceholders['facebook']['placeholder']); ?>">

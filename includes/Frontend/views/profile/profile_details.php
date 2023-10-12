@@ -9,7 +9,7 @@ if (is_user_logged_in()) {
         <div class="container mx-auto bg-orange-100 sm:p-16 override-max-width">
             <div class="profile-head relative bg-teal-500 p-4 rounded-t-3xl">
                 <?php if (!empty($current_user->epm_user_avatar)) : ?>
-                    <div class="profile-picture absolute left-9 -bottom-6 w-36 h-36 p-2 bg-orange-300 border-8 border-white rounded-full">
+                    <div class="profile-picture overflow-hidden absolute left-9 -bottom-6 w-36 h-36 p-2 bg-orange-300 border-8 border-white rounded-full">
                         <img class="rounded-t-3xl overflow-hidden object-cover" src="<?php echo esc_url($current_user->epm_user_avatar); ?>" alt="<?php echo esc_attr($current_user->display_name); ?>">
                     </div>
                 <?php endif; ?>
@@ -35,7 +35,6 @@ if (is_user_logged_in()) {
                             ?>
                                 <strong><?php echo esc_html($age); ?></strong> <?php _e('Years Old', 'eco-pprofile-master'); ?>
                             <?php } ?>
-
                             <?php if (!empty($current_user->epm_user_gender)) : ?>
                                 <span class="gender mr-1"><strong><?php echo esc_html($current_user->epm_user_gender); ?></strong></span>
                             <?php endif; ?>
@@ -43,7 +42,6 @@ if (is_user_logged_in()) {
                             <?php if (!empty($current_user->epm_user_occupation)) : ?>
                                 <span class="gender"><strong><?php echo esc_html($current_user->epm_user_occupation); ?></strong></span>
                             <?php endif; ?>
-
                     </h3>
                 </div>
                 <div class="additional-info absolute right-4 top-4 bg-teal-500 bg-opacity-60 shadow-xl border-b-[6px] border-l-4 border-white rounded-bl-[60px] rounded-tl-[100px] p-3 flex flex-col items-end">
@@ -74,33 +72,32 @@ if (is_user_logged_in()) {
                             </a>
                         </h4>
                     <?php endif; ?>
-
                 </div>
             </div>
             <div class="profile-body py-4 flex flex-col space-y-3 md:flex md:flex-row md:space-x-6">
                 <div class="left-sec my-6 md:w-1/4">
                     <div class="info-card bg-teal-300 rounded-xl border-l-8 border-white my-3 p-6 space-y-3">
-                        <h4 class="text-xl lg:text-2xl text-white font-medium bg-orange-300 rounded-full px-4 py-[4px] inline-block">Biological Info</h4>
-                        <h5 class="text-md text-orange-500 font-bold ml-6">Height: <strong class="text-slate-900 font-semibold">5'6"</strong></h5>
+                        <h4 class="text-xl lg:text-2xl text-white font-medium bg-orange-300 rounded-full px-4 py-[4px] inline-block"><?php _e('Biological Info', 'eco-profile-master'); ?></h4>
                         <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Skin:', 'eco-pprofile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_html($current_user->epm_user_skin); ?></strong></h5>
-
                         <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Blood Group:', 'eco-pprofile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_html($current_user->epm_user_blood); ?></strong></h5>
-
                     </div>
                     <div class="info-card bg-teal-300 rounded-xl border-l-8 border-white my-3 p-6 space-y-3">
-                        <h4 class="text-xl lg:text-2xl text-white font-medium bg-orange-300 rounded-full px-4 py-[4px] inline-block">Mailing Address</h4>
-                        <h5 class="text-md text-orange-500 font-bold ml-6">House: <strong class="text-slate-900 font-semibold">19/3 Blue Castle</strong></h5>
-                        <h5 class="text-md text-orange-500 font-bold ml-6">Road: <strong class="text-slate-900 font-semibold">Rajargoli</strong></h5>
-                        <h5 class="text-md text-orange-500 font-bold ml-6">Location: <strong class="text-slate-900 font-semibold">Ambarkhana, Sylhet</strong></h5>
+                        <h4 class="text-xl lg:text-2xl text-white font-medium bg-orange-300 rounded-full px-4 py-[4px] inline-block"><?php _e('Mailing Address', 'eco-profile-master') ?></h4>
+                        <?php if (!empty($current_user->epm_user_house)) : ?>
+                            <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('House:', 'eco-profile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_attr($current_user->epm_user_house); ?></strong></h5>
+                        <?php endif; ?>
+                        <?php if (!empty($current_user->epm_user_road)) : ?>
+                            <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Road:', 'eco-profile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_attr($current_user->epm_user_road); ?></strong></h5>
+                        <?php endif; ?>
+                        <?php if (!empty($current_user->epm_user_location)) : ?>
+                            <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Location:', 'eco-profile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_attr($current_user->epm_user_location); ?></strong></h5>
+                        <?php endif; ?>
                     </div>
                     <div class="info-card bg-teal-300 rounded-xl border-l-8 border-white my-3 p-6 space-y-3">
                         <h4 class="text-xl lg:text-2xl text-white font-medium bg-orange-300 rounded-full px-4 py-[4px] inline-block"><?php _e('Other Info', 'eco-profile-master'); ?></h4>
                         <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('First Name:', 'eco-pprofile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_html($current_user->first_name); ?></strong></h5>
-
                         <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Last Name:', 'eco-pprofile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_html($current_user->last_name); ?></strong></h5>
-
                         <h5 class="text-md text-orange-500 font-bold ml-6"><?php _e('Religion:', 'eco-pprofile-master'); ?> <strong class="text-slate-900 font-semibold"><?php echo esc_html($current_user->epm_user_religion); ?></strong></h5>
-
                     </div>
                 </div>
                 <?php if (!empty($current_user->description)) : ?>
@@ -159,11 +156,10 @@ if (is_user_logged_in()) {
                 </ul>
             </div>
         </div>
-
 <?php
     }
 } else {
-    echo "you are not loged in";
+    _e('You are not logged in', 'eco-profile-master');
 }
 
 ?>
