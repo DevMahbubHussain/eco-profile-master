@@ -51,7 +51,6 @@ class Menu
         add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
         add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->epm_admin_settings, 'epm_plugin_settings_page']);
         add_submenu_page($this->slug, esc_attr__('Form Labels', 'eco-profile-master'), esc_attr__('Form Labels', 'eco-profile-master'), $capability, 'eco-profile-master-form-labels', [$this->epm_form_label_placeholder, 'epm_form_fields_label_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('User Listing', 'eco-profile-master'), esc_attr__('User Listing', 'eco-profile-master'), $capability, 'eco-profile-master-user-listing', [$this, 'user_listings_plugin_page']);
     }
 
 
@@ -65,41 +64,12 @@ class Menu
         require_once EP_MASTER_TEMPLATE_PATH . '/features/general-settings/general.php';
     }
 
-    /**
-     * Plugin Settings callback function
-     */
-    public function plugin_settings_page()
-    {
-        echo "i am email customizer callback";
-    }
 
 
-    public function admin_bar_plugin_page()
-    {
-        echo "Admin Bar cb";
-    }
 
+  
+   
+  
 
-    public function user_listings_plugin_page()
-    {
-        echo '<div class="wrap">';
-        echo '<h1>My Custom Page</h1>';
-        echo '<p>This is my custom admin page content.</p>';
-        echo '</div>';
-    }
-
-    public function email_customizer_plugin_page()
-    {
-        echo "Email CB";
-    }
-
-    public function epm_form_fields_plugin_page()
-    {
-        echo "Working on Later";
-    }
-
-    public function epm_form_fields_label_plugin_page()
-    {
-        echo "I am for label & Placeholder";
-    }
+    
 }

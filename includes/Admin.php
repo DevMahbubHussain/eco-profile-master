@@ -2,7 +2,7 @@
 
 namespace EcoProfile\Master;
 
-// use EcoProfile\Master\Traits\Admin\AdminBarTrait;
+
 
 /**
  * The admin class

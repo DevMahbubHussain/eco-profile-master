@@ -7,7 +7,6 @@ namespace EcoProfile\Master\Assets;
  *
  * Responsible for managing all of the assets (CSS, JS, Images, Locales).
  */
-
 class Manager
 {
     /**
@@ -205,10 +204,5 @@ class Manager
                 'error'   => __('Failed to load user details.', 'eco-profile-master'),
             ]);
         }
-
-
-        
-
-       
     }
 }

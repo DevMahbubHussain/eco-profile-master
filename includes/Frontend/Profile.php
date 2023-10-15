@@ -37,7 +37,6 @@ class Profile
     }
 
     // profile details 
-
     public function epm_render_profile_details_form()
     {
         ob_start();

@@ -232,6 +232,7 @@ $blood_options = array(
             <?php display_current_user_cover_image(); ?>
         </div>
     </div>
+
     <!-- cover image section -->
 
     <!-- occupation -->
@@ -330,7 +331,7 @@ $blood_options = array(
     <div class="flow">
         <div class="flex items-center justify-left space-x-4 mt-10">
             <button type="submit" class="mr-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" name="user_profile"><?php _e('Update Profile', 'eco-profile-master'); ?></button>
-            <a href="<?php echo esc_url(add_query_arg('action', 'profile', home_url())); ?>" class="white-color text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><?php _e('View Profile', 'eco-profile-master'); ?></a>
+            <a href="<?php echo esc_url(add_query_arg(array('view_profile' => $current_user->ID), home_url('/profile'))); ?>" class="white-color text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover-bg-blue-700 dark:focus:ring-blue-800"><?php _e('View Profile', 'eco-profile-master'); ?></a>
         </div>
 
     </div>

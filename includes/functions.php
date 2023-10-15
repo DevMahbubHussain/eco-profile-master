@@ -18,40 +18,6 @@ function epm_get_my_pages()
     return $pages_options;
 }
 
-
-// function render_uploaded_image()
-// {
-//     // Initialize variables
-//     $uploaded_image_src = '';
-//     $uploaded_image_alt = '';
-//     $uploaded_image_style = 'display: none;'; // Hide the image by default
-
-//     // Check if an image has been uploaded
-//     if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
-//         // Assuming $post_id is set to the user's ID or the appropriate post ID
-//         $post_id = get_current_user_id(); // You may need to adjust this based on your use case
-
-//         // Handle the image upload
-//         $attachment_id = media_handle_upload('epm_user_avatar', $post_id);
-
-//         if (!is_wp_error($attachment_id)) {
-//             // Get the image URL and name
-//             $uploaded_image_src = esc_url(wp_get_attachment_url($attachment_id));
-//             $uploaded_image_name = sanitize_file_name($_FILES['epm_user_avatar']['name']);
-
-//             // Set alt text for the image
-//             $uploaded_image_alt = sprintf(esc_attr__('Image: %s', 'eco-profile-master'), $uploaded_image_name);
-
-//             // Show the image with max dimensions
-//             $uploaded_image_style = 'display: block; max-width: 300px; max-height: 300px;';
-//         }
-//     }
-
-//     // Display the uploaded image
-//     echo '<img id="uploaded-image" src="' . $uploaded_image_src . '" alt="' . $uploaded_image_alt . '" style="' . $uploaded_image_style . '">';
-// }
-
-
 /**
  * Profile iamge function.
  *
@@ -60,9 +26,9 @@ function epm_get_my_pages()
 function render_uploaded_image()
 {
     $uploaded_image_src = '';
-    $uploaded_image_style = 'display: none;'; // Hide the image by default
-    $image_width = ''; // Initialize the width attribute
-    $image_height = ''; // Initialize the height attribute
+    $uploaded_image_style = 'display: none;';
+    $image_width = '';
+    $image_height = '';
 
     // Check if an image has been uploaded
     if (isset($_FILES['epm_user_avatar']) && $_FILES['epm_user_avatar']['error'] === 0) {
@@ -77,10 +43,8 @@ function render_uploaded_image()
         if (!is_wp_error($attachment_id)) {
             // Get the image URL
             $uploaded_image_src = wp_get_attachment_url($attachment_id);
-
-            // Set the desired width and height for the image
-            $image_width = 300; // Change this to your desired width
-            $image_height = 300; // Change this to your desired height
+            $image_width = 300;
+            $image_height = 300;
 
             // Show the image with specified dimensions
             $uploaded_image_style = 'display: block; max-width: ' . $image_width . 'px; max-height: ' . $image_height . 'px;';
@@ -121,9 +85,9 @@ function render_uploaded_image()
 function render_cover_image()
 {
     $uploaded_image_src = '';
-    $uploaded_image_style = 'display: none;'; // Hide the image by default
-    $image_width = ''; // Initialize the width attribute
-    $image_height = ''; // Initialize the height attribute
+    $uploaded_image_style = 'display: none;';
+    $image_width = '';
+    $image_height = '';
 
     // Check if an image has been uploaded
     if (isset($_FILES['epm_user_cover_image']) && $_FILES['epm_user_cover_image']['error'] === 0) {
@@ -138,10 +102,8 @@ function render_cover_image()
         if (!is_wp_error($attachment_id)) {
             // Get the image URL
             $uploaded_image_src = wp_get_attachment_url($attachment_id);
-
-            // Set the desired width and height for the image
-            $image_width = 300; // Change this to your desired width
-            $image_height = 300; // Change this to your desired height
+            $image_width = 300;
+            $image_height = 300;
 
             // Show the image with specified dimensions
             $uploaded_image_style = 'display: block; max-width: ' . $image_width . 'px; max-height: ' . $image_height . 'px;';
@@ -174,28 +136,6 @@ function render_cover_image()
     <?php
 }
 
-
-// function epm_merge_options_with_defaults()
-// {
-//     $default_options = array(
-//         'form_style' => 'style1',
-//         'automatically_login' => 'no',
-//         'email_confirmation_activated' => 'no',
-//         'admin_approval' => 'no',
-//         'loginwith' => 'usernameemail',
-//         'display_email' => 'yes',
-//         'display_phone_number' => 'no',
-//         'image' => 'yes',
-//         'display_social_links' => 'no',
-//         //'lost_password_page' => 0, // Default page ID for "Select Recover Password Page"
-//     );
-
-//     $saved_options = get_option('epm_general_settings', array());
-
-//     return wp_parse_args($saved_options, $default_options);
-// }
-
-
 /**
  * Signup form submission handler 
  */
@@ -210,15 +150,6 @@ function epm_activate_user_signup()
         if ($_POST['user_registration'] !== 'user_registration') {
             wp_die(__('Security check failed. Please try again hidden.', 'eco-profile-master'));
         }
-
-
-        // Verify nonce
-        // if (!isset($_POST['user_registration_nonce']) || !wp_verify_nonce($_POST['user_registration_nonce'], 'user_registration_nonce')) {
-        //     wp_die(__('Security check failed. Please try again nonce.', 'eco-profile-master'));
-        // }
-
-        //$this->validateNonce();
-
         // Verify user capability
         if (!current_user_can('manage_options')) {
             wp_die(__('Unauthorized access. Please contact the site administrator.', 'eco-profile-master'));
@@ -228,35 +159,6 @@ function epm_activate_user_signup()
         exit();
     }
 }
-
-
-// hide admin bar
-// function hide_admin_bar_for_subscriber($show)
-// {
-//     $admin_bar_settings = get_option('epm_display_admin_settings');
-//     $current_user = wp_get_current_user();
-
-//     if (in_array('subscriber', $current_user->roles)) {
-//         $subscriber_setting = isset($admin_bar_settings['subscriber']) ? $admin_bar_settings['subscriber'] : 'default';
-
-//         if ($subscriber_setting === 'show') {
-//             // Show the admin bar for subscribers
-//             return $show;
-//         } elseif ($subscriber_setting === 'hide') {
-//             // Hide the admin bar for subscribers
-//             return false;
-//         } else {
-//             // Handle the case of an undefined setting (e.g., show admin bar by default)
-//             return $show;
-//         }
-//     }
-
-//     // For non-subscribers, continue to show the admin bar
-//     return $show;
-// }
-
-// add_filter('show_admin_bar', 'hide_admin_bar_for_subscriber');
-
 
 /**
  * Filter to hide or show the admin bar based on plugin settings for all user roles.
@@ -297,7 +199,6 @@ function hide_admin_bar_for_all_roles($show)
 add_filter('show_admin_bar', 'hide_admin_bar_for_all_roles');
 
 
-
 // displayConfirmationMessages message
 function displayConfirmationMessages()
 {
@@ -330,7 +231,6 @@ function displayConfirmationMessages()
 
 
 // password reset Message
-
 function display_confirmation_message()
 {
     $confirmation_messages = get_transient('password_reset_confirmation_messages');
@@ -358,7 +258,6 @@ function display_confirmation_message()
 
 
 // password reset successfully
-
 function display_password_reset_confirmation_message()
 {
     $confirmation_messages = get_transient('password_reset_success_messages');
@@ -384,7 +283,6 @@ function display_password_reset_confirmation_message()
     }
     delete_transient('password_reset_success_messages');
 }
-
 
 
 function display_error_token_message()
@@ -413,7 +311,6 @@ function display_error_token_message()
     delete_transient('expired_token');
 }
 
-
 /**
  * Redirect the user to a custom login page or the WordPress default login page.
  */
@@ -429,9 +326,8 @@ function custom_login_redirect()
         wp_redirect(wp_login_url());
     }
 
-    exit; // Add exit to prevent further code execution
+    exit;
 }
-
 
 /**
  * Generate the confirmation message with a login link.
@@ -463,7 +359,6 @@ function generate_confirmation_message($confirmation_message, $login_page)
 
 
 
-//  action hooks 
 /**
  * Redirect to a custom page when the specified action hook is triggered.
  */
@@ -531,32 +426,6 @@ function custom_redirect_login_hook_after_logout()
 }
 add_action('template_redirect', 'custom_redirect_login_hook_after_logout');
 
-
-
-
-
-
-// function redirect_to_custom_lostpassword()
-// {
-//     if (isset($_GET['action']) && $_GET['action'] === 'login_form_lostpassword') {
-//         error_log("normal function action");
-//         // Check if the user is already logged in
-//         if (is_user_logged_in()) {
-//             // Display an error message using WordPress's error handling
-//             wp_die(__('You are already logged in.', 'your-text-domain'));
-//         }
-
-//         // Redirect to the custom lost password page
-//         wp_redirect(home_url('recover-password'));
-//         exit;
-//     }
-// }
-
-// add_action('login_form_lostpassword', 'redirect_to_custom_lostpassword');
-
-
-
-
 function display_current_user_image()
 {
     // Get the current user's image URL from user meta
@@ -594,9 +463,8 @@ function display_current_user_cover_image()
         // Extract the file name from the URL
         $file_name = basename($current_image_url);
 
-        // Define the desired width and height for the thumbnail
-        $thumbnail_width = 300; // Change this to your desired width
-        $thumbnail_height = 300; // Change this to your desired height
+        $thumbnail_width = 300;
+        $thumbnail_height = 300;
 
         // Display the image as a thumbnail with the specified width and height, and set the file name as alt text
         echo '<img id="current-cimage" src="' . esc_url($current_image_url) . '" alt="' . esc_attr($file_name) . '" width="' . $thumbnail_width . '" height="' . $thumbnail_height . '">';
@@ -605,7 +473,6 @@ function display_current_user_cover_image()
         echo esc_html__('No Cover image available', 'eco-profile-master');
     }
 }
-
 
 // profile message
 function displayConfirmationprofileUpdateMessages()
@@ -634,9 +501,7 @@ function displayConfirmationprofileUpdateMessages()
     delete_transient('profile_update_message');
 }
 
-
 // administration message 
-
 function displayUserRegistrationMessage()
 {
     $success_message = get_transient('registration_success_message');
@@ -662,76 +527,7 @@ function displayUserRegistrationMessage()
 }
 
 
-
-
-
-
-
-// profile details 
-function display_user_profile_details()
-{
-    if (is_user_logged_in()) {
-        $current_user = wp_get_current_user();
-        if ($current_user && $current_user->ID) {
-            $user_avatar = get_user_meta($current_user->ID, 'epm_user_avatar', true);
-            $output = '';
-
-            if (!empty($current_user->first_name)) {
-                $output .= '<li>' . esc_html__('First Name: ', 'eco-profile-master') . esc_attr($current_user->first_name) . '</li>';
-            }
-
-            if (!empty($current_user->last_name)) {
-                $output .= '<li>' . esc_html__('Last Name: ', 'eco-profile-master') . esc_attr($current_user->last_name) . '</li>';
-            }
-
-            if (!empty($current_user->nickname)) {
-                $output .= '<li>' . esc_html__('NickName: ', 'eco-profile-master') . esc_attr($current_user->nickname) . '</li>';
-            }
-
-            if (!empty($current_user->display_name)) {
-                $output .= '<li>' . esc_html__('Display Name: ', 'eco-profile-master') . esc_attr($current_user->display_name) . '</li>';
-            }
-            if (!empty($current_user->user_email)) {
-                $output .= '<li>' . esc_html__('Email: ', 'eco-profile-master') . esc_attr($current_user->user_email) . '</li>';
-            }
-            if (!empty($current_user->epm_user_phone)) {
-                $output .= '<li>' . esc_html__('Phone: ', 'eco-profile-master') . esc_attr($current_user->epm_user_phone) . '</li>';
-            }
-            if (!empty($current_user->user_url)) {
-                $output .= '<li>' . esc_html__('Website: ', 'eco-profile-master') . esc_attr($current_user->user_url) . '</li>';
-            }
-            if (!empty($current_user->description)) {
-                $output .= '<li>' . esc_html__('Biographical: ', 'eco-profile-master') . esc_attr($current_user->description) . '</li>';
-            }
-
-            if (!empty(!empty($user_avatar))) {
-                $output .= '<li>' . esc_html__('Profile Image: ', 'eco-profile-master') . '<img src="' . esc_url($user_avatar) . '" style="max-width: 100px;">' . '</li>';
-            }
-
-            if (!empty($current_user->epm_user_facebook)) {
-                $output .= '<li>' . esc_html__('Facebook Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_facebook) . '</li>';
-            }
-            if (!empty($current_user->epm_user_twitter)) {
-                $output .= '<li>' . esc_html__('Twitter Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_twitter) . '</li>';
-            }
-            if (!empty($current_user->epm_user_linkedin)) {
-                $output .= '<li>' . esc_html__('Linkedin Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_linkedin) . '</li>';
-            }
-            if (!empty($current_user->epm_user_youtube)) {
-                $output .= '<li>' . esc_html__('Youtube Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_youtube) . '</li>';
-            }
-            if (!empty($current_user->epm_user_instagram)) {
-                $output .= '<li>' . esc_html__('Instagram Url: ', 'eco-profile-master') . esc_attr($current_user->epm_user_instagram) . '</li>';
-            }
-            return $output;
-        }
-    }
-
-    return '';
-}
-
 // user listings 
-
 function get_epm_user_listings()
 {
     $users = get_users([
@@ -743,30 +539,27 @@ function get_epm_user_listings()
         foreach ($users as $user) {
             $first_name = isset($user->ID) ? get_user_meta($user->ID, 'first_name', true) : '';
             $last_name = isset($user->ID) ? get_user_meta($user->ID, 'last_name', true) : '';
-            $epm_user_phone = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_phone', true) : '';
+            $full_name = trim($first_name . ' ' .  $last_name);
             $epm_user_avatar = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_avatar', true) : '';
             $signup_date = isset($user->user_registered) ? $user->user_registered : '';
             $epm_user_signup_date = date('F j, Y', strtotime($signup_date));
         ?>
             <tr>
-                <td><?php echo esc_attr($first_name); ?></td>
-                <td><?php echo esc_attr($last_name); ?></td>
-                <td><?php echo isset($user->user_nicename) ? $user->user_nicename : ''; ?></td>
+                <td>
+                    <?php
+                    $default_avatar_url = EP_MASTER_ASSETS . '/images/dhp.png';
+                    if (!empty($epm_user_avatar)) {
+                        echo '<img src="' . esc_url($epm_user_avatar) . '" alt="' . esc_attr__('User Avatar', 'eco-profile-master') . '" width="50" height="50">';
+                    } else {
+                        echo '<img src="' . esc_url($default_avatar_url) . '" alt="' . esc_attr__('Default Avatar', 'eco-profile-master') . '" width="50" height="50">';
+                    }
+                    ?>
+                </td>
+                <td><?php echo esc_attr($full_name); ?></td>
                 <td><?php echo isset($user->user_email) ? $user->user_email : ''; ?></td>
-                <td><?php echo esc_attr($epm_user_phone); ?></td>
-                <td>
-                    <a href="<?php echo isset($user->user_url) ? esc_url($user->user_url) : ''; ?>" target="_blank"><?php echo esc_url($user->user_url); ?></a>
-                </td>
-
-                <td><?php echo isset($user->description) ? wpautop(wp_kses_post($user->description)) : ''; ?></td>
-                <td>
-                    <img src="<?php echo esc_url($epm_user_avatar); ?>" alt="<?php echo esc_attr__('User Avatar', 'eco-profile-master'); ?>" width="50" height="50">
-                </td>
                 <td><?php echo esc_attr($epm_user_signup_date); ?></td>
                 <td>
-                    <button data-user-id="<?php echo esc_attr($user->ID); ?>" data-modal-target="userModal" data-modal-toggle="userModal" class="view-profile-btn block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                        <?php _e('View Profile'); ?>
-                    </button>
+                    <a href="<?php echo esc_url(add_query_arg(array('user_id' => $user->ID, 'username' => $user->user_login), home_url('/profile'))); ?>">View Profile</a>
                 </td>
             </tr>
 <?php
@@ -775,46 +568,6 @@ function get_epm_user_listings()
         echo __('No users found', 'echo-profile-master');
     }
 }
-
-
-
-function user_listing_details()
-{
-    if (isset($_GET['user_id'])) {
-        $user_id = $_GET['user_id'];
-        $user = get_user_by('ID', $user_id);
-        $epm_user_phone = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_phone', true) : '';
-        $epm_user_avatar = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_avatar', true) : '';
-        $epm_user_facebook = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_facebook', true) : '';
-        $epm_user_twitter = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_twitter', true) : '';
-        $epm_user_linkedin = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_linkedin', true) : '';
-        $epm_user_youtube = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_youtube', true) : '';
-        $epm_user_instagram = isset($user->ID) ? get_user_meta($user->ID, 'epm_user_instagram', true) : '';
-        $signup_date = isset($user->user_registered) ? $user->user_registered : '';
-        $epm_user_signup_date = date('F j, Y', strtotime($signup_date));
-        // Output the user details
-
-        echo isset($user->display_name) && !empty($user->display_name) ? '<p>' . esc_html__('Display Name: ', 'echo-profile-master') . esc_html($user->display_name) . '</p>' : '';
-        echo isset($user->first_name) && !empty($user->first_name) ? '<p>' . esc_html__('First Name: ', 'echo-profile-master') . esc_html($user->first_name) . '</p>' : '';
-        echo isset($user->last_name) && !empty($user->last_name) ? '<p>' . esc_html__('Last Name: ', 'echo-profile-master') . esc_html($user->last_name) . '</p>' : '';
-        echo isset($user->user_nicename) && !empty($user->user_nicename) ? '<p>' . esc_html__('User NiceName: ', 'echo-profile-master') . esc_html($user->user_nicename) . '</p>' : '';
-        echo isset($user->user_email) && !empty($user->user_email) ? '<p>' . esc_html__('Email: ', 'echo-profile-master') . esc_html($user->user_email) . '</p>' : '';
-        echo isset($epm_user_phone) && !empty($epm_user_phone) ? '<p>' . esc_html__('Phone: ', 'echo-profile-master') . esc_html($epm_user_phone) . '</p>' : '';
-        echo isset($user->user_url) && !empty($user->user_url) ? '<a href="' . esc_url($user->user_url) . '" target="_blank">' . esc_html__('Website: ', 'echo-profile-master') . esc_url($user->user_url) . '</a>' : '';
-        echo isset($user->description) && !empty($user->description) ? '<p><strong>' . esc_html__('Bio: ', 'echo-profile-master') . '</strong>' . wpautop(wp_kses_post($user->description)) . '</p>' : '';
-        echo isset($epm_user_avatar) && !empty($epm_user_avatar) ? '<p>' . esc_html__('Profile Image: ', 'echo-profile-master') . '<img src="' . esc_url($epm_user_avatar) . '" alt="' . esc_attr__('Profile Image', 'echo-profile-master') . '" width="150" height="150" />' . '</p>' : '';
-        echo isset($epm_user_facebook) && !empty($epm_user_facebook) ? '<p><a href="' . esc_url($epm_user_facebook) . '" target="_blank">' . esc_html__('Facebook Url: ', 'echo-profile-master') . esc_url($epm_user_facebook) . '</a></p>' : '';
-        echo isset($epm_user_twitter) && !empty($epm_user_twitter) ? '<p><a href="' . esc_url($epm_user_twitter) . '" target="_blank">' . esc_html__('Twitter Url: ', 'echo-profile-master') . esc_url($epm_user_twitter) . '</a></p>' : '';
-        echo isset($epm_user_linkedin) && !empty($epm_user_linkedin) ? '<p><a href="' . esc_url($epm_user_linkedin) . '" target="_blank">' . esc_html__('Linkedin Url: ', 'echo-profile-master') . esc_url($epm_user_linkedin) . '</a></p>' : '';
-        echo isset($epm_user_youtube) && !empty($epm_user_youtube) ? '<p><a href="' . esc_url($epm_user_youtube) . '" target="_blank">' . esc_html__('Youtube Url: ', 'echo-profile-master') . esc_url($epm_user_youtube) . '</a></p>' : '';
-        echo isset($epm_user_instagram) && !empty($epm_user_instagram) ? '<p><a href="' . esc_url($epm_user_instagram) . '" target="_blank">' . esc_html__('Instagram Url: ', 'echo-profile-master') . esc_url($epm_user_instagram) . '</a></p>' : '';
-        echo isset($epm_user_signup_date) && !empty($epm_user_signup_date) ? '<p>' . esc_html__('Registration Date: ', 'echo-profile-master') . esc_html($epm_user_signup_date) . '</p>' : '';
-    }
-}
-
-add_action('wp_ajax_epm_ajax_action', 'user_listing_details');
-add_action('wp_ajax_nopriv_epm_ajax_action', 'user_listing_details');
-
 
 
 /**
