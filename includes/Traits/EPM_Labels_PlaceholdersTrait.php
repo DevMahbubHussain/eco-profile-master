@@ -45,6 +45,7 @@ trait EPM_Labels_PlaceholdersTrait
             'youtube' => array('label', 'placeholder'),
             'instagram' => array('label', 'placeholder'),
             'image' => array('label', ''),
+            'cimage' => array('label', ''),
             // Add more fields here
         );
 
@@ -155,6 +156,10 @@ trait EPM_Labels_PlaceholdersTrait
                 'placeholder' => ''
             ),
             'image' => array(
+                'label' => '',
+                'placeholder' => ''
+            ),
+            'cimage' => array(
                 'label' => '',
                 'placeholder' => ''
             ),
@@ -345,6 +350,11 @@ trait EPM_Labels_PlaceholdersTrait
         // profile image
         if (isset($values['image']['label'])) {
             $formattedFields['image']['label'] = $values['image']['label'];
+        }
+
+        // cover image
+        if (isset($values['cimage']['label'])) {
+            $formattedFields['cimage']['label'] = $values['cimage']['label'];
         }
         return $formattedFields;
     }

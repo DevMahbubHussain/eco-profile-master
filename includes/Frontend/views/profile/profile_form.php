@@ -4,6 +4,7 @@ $epm_form_heading_name = $this->generate_section_heading('epm_form_heading_name_
 $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
 $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
 $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
+$epm_form_heading_cover_image =  $this->generate_section_heading('epm_form_heading_cover_image_hide', 'epm_form_heading_cover_image', '1', 'Cover Image');
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
 $epm_form_heading_mailing_address =  $this->generate_section_heading('epm_form_heading_mailing_address_hide', 'epm_form_heading_mailing_address', '1', 'Mailing Address');
 $enabledSocialFields = $this->getEnabledSocialFields();
@@ -213,6 +214,25 @@ $blood_options = array(
         </div>
     </div>
     <!-- profile image section -->
+
+    <!-- cover image section -->
+    <h4 class="text-xl font-semibold"> <?php echo $epm_form_heading_cover_image; ?> </h4>
+    <div class="flow py-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar"><?php echo esc_attr($labelsPlaceholders['cimage']['label']); ?></label>
+        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 <?php echo $this->has_error('epm_user_cover_image') ? 'error-field' : ''; ?>" id="epm_user_cover_image" type="file" name="epm_user_cover_image">
+        <?php if ($this->has_error('epm_user_cover_image')) : ?>
+            <?php foreach ($this->get_error('epm_user_cover_image') as $error_message) : ?>
+                <span class="error-message"><?php echo esc_html($error_message); ?></span><br>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <div class="mt-5">
+            <?php render_cover_image(); ?>
+        </div>
+        <div class="my-5">
+            <?php display_current_user_cover_image(); ?>
+        </div>
+    </div>
+    <!-- cover image section -->
 
     <!-- occupation -->
     <div class="flow py-2">

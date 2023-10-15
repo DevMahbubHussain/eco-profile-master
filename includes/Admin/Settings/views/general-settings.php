@@ -76,6 +76,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <th><label for="epm_cimage"><?php _e('Allow Users to Upload Cover Image:', 'eco-profile-master'); ?></label></th>
+                    <td>
+                        <select class="epm-select" name="epm_cimage" id="epm_cimage">
+                            <option value="no" <?php selected('no', get_option('epm_cimage')); ?>><?php _e('No'); ?></option>
+                            <option value="yes" <?php selected('yes', get_option('epm_cimage')); ?>><?php _e('Yes'); ?></option>
+                        </select>
+                        <p class="epm-description"><?php _e('Users can Upload their Cover Image.', 'echo-profile-master'); ?></p>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="epm_mailing_address"><?php _e('Display Mailing Address to Users:.', 'eco-profile-master'); ?></label></th>
                     <td>
                         <select class="epm-select" name="epm_mailing_address" id="epm_mailing_address">

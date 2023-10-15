@@ -180,6 +180,32 @@ trait EPM_Form_ValidationTrait
             $this->errors['epm_user_avatar'] = $image_errors;
         }
 
+        // cover image 
+
+        // Initialize an array to store image upload errors
+        $cover_image_errors = array();
+
+        // Validate uploaded image if provided
+        if (isset($_FILES['epm_user_cover_image']) && $_FILES['epm_user_cover_image']['error'] === 0) {
+            $image_mime_types = array('image/jpeg', 'image/png', 'image/gif');
+            $max_image_size = 1024 * 1024; // 1 MB
+
+            // Check if the uploaded file is an image
+            if (!in_array($_FILES['epm_user_cover_image']['type'], $image_mime_types)) {
+                $cover_image_errors[] = __('Please upload a valid image file (JPEG, PNG, GIF).', 'eco-profile-master');
+            }
+
+            // Check if the image size is within limits
+            if ($_FILES['epm_user_cover_image']['size'] > $max_image_size) {
+                $cover_image_errors[] = __('Image size should be 1 MB or less.', 'eco-profile-master');
+            }
+        }
+
+        // Store the array of error messages for epm_user_avatar
+        if (!empty($cover_image_errors)) {
+            $this->errors['epm_user_cover_image'] = $image_errors;
+        }
+
         //gender filed
         $labelsPlaceholders = $this->epm_label_placeholder();
         $epm_gender = isset($_POST['epm_user_gender']) ? sanitize_text_field($_POST['epm_user_gender']) : '';

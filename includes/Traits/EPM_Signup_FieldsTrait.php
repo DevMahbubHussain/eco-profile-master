@@ -46,11 +46,13 @@ trait EPM_Signup_FieldsTrait
     public function epm_allow_user_common_fields($field)
     {
         $allow_user_profile_image = get_option('epm_image', 'no');
+        $allow_user_cover_image = get_option('epm_cimage', 'no');
         $allow_user_profile_phone = get_option('epm_display_phone_number', 'no');
         $allow_user_profile_email = get_option('epm_display_email', 'yes');
         $allow_user_social_links = get_option('epm_display_social_links', 'no');
 
         $allow_user_profile_image = sanitize_text_field($allow_user_profile_image);
+        $allow_user_cover_image = sanitize_text_field($allow_user_cover_image);
         $allow_user_profile_phone = sanitize_text_field($allow_user_profile_phone);
         $allow_user_profile_email = sanitize_text_field($allow_user_profile_email);
         $allow_user_social_links = sanitize_text_field($allow_user_social_links);
@@ -58,6 +60,8 @@ trait EPM_Signup_FieldsTrait
         switch ($field) {
             case 'image':
                 return $allow_user_profile_image === 'yes';
+            case 'cimage':
+                return $allow_user_cover_image === 'yes';
             case 'phone':
                 return $allow_user_profile_phone === 'yes';
             case 'email':

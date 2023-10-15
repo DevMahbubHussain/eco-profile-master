@@ -52,7 +52,11 @@ function epm_get_my_pages()
 // }
 
 
-
+/**
+ * Profile iamge function.
+ *
+ * @return void
+ */
 function render_uploaded_image()
 {
     $uploaded_image_src = '';
@@ -89,6 +93,67 @@ function render_uploaded_image()
         document.addEventListener('DOMContentLoaded', function() {
             const input = document.getElementById('epm_user_avatar');
             const preview = document.getElementById('uploaded-image');
+
+            input.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = '';
+                    preview.style.display = 'none';
+                }
+            });
+        });
+    </script>
+<?php
+}
+
+/**
+ * Cover Image function.
+ *
+ * @return void
+ */
+function render_cover_image()
+{
+    $uploaded_image_src = '';
+    $uploaded_image_style = 'display: none;'; // Hide the image by default
+    $image_width = ''; // Initialize the width attribute
+    $image_height = ''; // Initialize the height attribute
+
+    // Check if an image has been uploaded
+    if (isset($_FILES['epm_user_cover_image']) && $_FILES['epm_user_cover_image']['error'] === 0) {
+        // Load WordPress core functions
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+
+        // Handle the image upload
+        $attachment_id = media_handle_upload('epm_user_cover_image', 0);
+
+        if (!is_wp_error($attachment_id)) {
+            // Get the image URL
+            $uploaded_image_src = wp_get_attachment_url($attachment_id);
+
+            // Set the desired width and height for the image
+            $image_width = 300; // Change this to your desired width
+            $image_height = 300; // Change this to your desired height
+
+            // Show the image with specified dimensions
+            $uploaded_image_style = 'display: block; max-width: ' . $image_width . 'px; max-height: ' . $image_height . 'px;';
+        }
+    }
+
+    echo '<img id="uploaded-cimage" src="' . $uploaded_image_src . '" style="' . $uploaded_image_style . '" width="' . $image_width . '" height="' . $image_height . '">';
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('epm_user_cover_image');
+            const preview = document.getElementById('uploaded-cimage');
 
             input.addEventListener('change', function(event) {
                 const file = event.target.files[0];
@@ -511,6 +576,33 @@ function display_current_user_image()
     } else {
         // Display a default image or a translated message if no image is available
         echo esc_html__('No profile image available', 'eco-profile-master');
+    }
+}
+
+/**
+ * display cover function.
+ *
+ * @return void
+ */
+function display_current_user_cover_image()
+{
+    // Get the current user's image URL from user meta
+    $user_id = get_current_user_id();
+    $current_image_url = get_user_meta($user_id, 'epm_user_cover_image', true);
+
+    if ($current_image_url) {
+        // Extract the file name from the URL
+        $file_name = basename($current_image_url);
+
+        // Define the desired width and height for the thumbnail
+        $thumbnail_width = 300; // Change this to your desired width
+        $thumbnail_height = 300; // Change this to your desired height
+
+        // Display the image as a thumbnail with the specified width and height, and set the file name as alt text
+        echo '<img id="current-cimage" src="' . esc_url($current_image_url) . '" alt="' . esc_attr($file_name) . '" width="' . $thumbnail_width . '" height="' . $thumbnail_height . '">';
+    } else {
+        // Display a default image or a translated message if no image is available
+        echo esc_html__('No Cover image available', 'eco-profile-master');
     }
 }
 

@@ -149,6 +149,7 @@ final class Eco_Profile_Master
 			'epm_display_email' => __('yes', 'eco-profile-master'),
 			'epm_display_phone_number' => __('no', 'eco-profile-master'),
 			'epm_image' => __('no', 'eco-profile-master'),
+			'epm_cimage' => __('no', 'eco-profile-master'),
 			'epm_mailing_address' => __('no', 'eco-profile-master'),
 			'epm_display_social_links' => __('no', 'eco-profile-master')
 		);
@@ -208,6 +209,7 @@ final class Eco_Profile_Master
 			'contact_info' => __('Contact Info', 'eco-profile-master'),
 			'about_yourself' => __('About Yourself', 'eco-profile-master'),
 			'profile_image' => __('Profile Image', 'eco-profile-master'),
+			'cover_image' => __('Cover Image', 'eco-profile-master'),
 			'social_links' => __('Social Links', 'eco-profile-master'),
 			'mailing_address' => __('Mailing Address', 'eco-profile-master'),
 		);
@@ -229,7 +231,7 @@ final class Eco_Profile_Master
 		$fields = array(
 			'username', 'firstname', 'lastname', 'nickname', 'email',
 			'phone', 'website', 'biographical', 'password', 'repassword',
-			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image',
+			'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'image', 'cimage',
 			'occupation', 'religion', 'skin', 'gender', 'birthdate', 'blood', 'house',
 			'road', 'location'
 		);
@@ -250,6 +252,11 @@ final class Eco_Profile_Master
 
 			if ($field === 'image') {
 				$default_values[$field]['label'] = __('Upload your profile image', 'eco-profile-master');
+				unset($default_values[$field]['placeholder']);
+			}
+
+			if ($field === 'cimage') {
+				$default_values[$field]['label'] = __('Profile Cover image', 'eco-profile-master');
 				unset($default_values[$field]['placeholder']);
 			}
 		}
@@ -314,6 +321,7 @@ final class Eco_Profile_Master
 			'epm_display_email',
 			'epm_display_phone_number',
 			'epm_image',
+			'epm_cimage',
 			'epm_mailing_address',
 			'epm_display_social_kinks',
 			'epm_lost_password_page' // Delete the "Select Recover Password Page" option
@@ -366,6 +374,7 @@ final class Eco_Profile_Master
 			'contact_info',
 			'about_yourself',
 			'profile_image',
+			'cover_image',
 			'social_links',
 			'mailing_address',
 

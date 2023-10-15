@@ -180,6 +180,10 @@ class EPM_LabelPlaceholderSettings
                 'label' => __('Profile Image', 'eco-profile-master'),
                 'type' => 'text', // Field type
             ),
+            'cimage' => array(
+                'label' => __('Cover Image', 'eco-profile-master'),
+                'type' => 'text', // Field type
+            ),
             // Add more fields here
         );
 
@@ -217,7 +221,7 @@ class EPM_LabelPlaceholderSettings
         $placeholder = isset($values[$field]['placeholder']) ? $values[$field]['placeholder'] : $args['default_placeholder'];
 
         foreach (array('label', 'placeholder') as $type) {
-            if ($field === 'image' && $type === 'placeholder') {
+            if (($field === 'image' || $field === 'cimage') && $type === 'placeholder') {
                 // No need to render a placeholder input for file type
             } else {
                 echo '<label for="' . $field . '_' . $type . '">' . esc_html__(ucfirst($type) . ':', 'eco-profile-master') . '</label>';

@@ -37,6 +37,7 @@ function epm_general_settings_form_submission()
             'epm_display_email' => 'epm_display_email',
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
+            'epm_cimage' => 'epm_cimage',
             'epm_mailing_address' => 'epm_mailing_address',
             'epm_display_social_links' => 'epm_display_social_links',
             'epm_lost_password_page' => 'epm_lost_password_page',
@@ -169,11 +170,11 @@ function epm_admin_form_fields_settings()
         return;
     }
     if (!isset($_POST['form_fields_settings_nonce']) || !wp_verify_nonce($_POST['form_fields_settings_nonce'], 'form_fields_settings_nonce')) {
-        wp_die('Security check failed.');
+        wp_die(__('Security check failed.', 'eco-profile-master'));
     }
 
     if (!current_user_can('manage_options')) {
-        wp_die('Not allowed.');
+        wp_die(__('Not allowed.', 'eco-profile-master'));
     }
 
     $sections = array(
@@ -181,6 +182,7 @@ function epm_admin_form_fields_settings()
         'contact_info' => 'epm_form_heading_contact_info',
         'about_yourself' => 'epm_form_heading_about_yourself',
         'profile_image' => 'epm_form_heading_profile_image',
+        'cover_image' => 'epm_form_heading_cover_image',
         'social_links' => 'epm_form_heading_social_links',
         'mailing_address' => 'epm_form_heading_ mailing_address'
     );

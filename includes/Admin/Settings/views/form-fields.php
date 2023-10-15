@@ -10,6 +10,7 @@
                     'contact_info' => __('Contact Info', 'eco-profile-master'),
                     'about_yourself' => __('About Yourself', 'eco-profile-master'),
                     'profile_image' => __('Profile Image', 'eco-profile-master'),
+                    'cover_image' => __('Cover Image', 'eco-profile-master'),
                     'social_links' => __('Social Links', 'eco-profile-master'),
                     'mailing_address' => __('Mailing Address', 'eco-profile-master'),
                 );

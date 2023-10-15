@@ -127,6 +127,7 @@ class Profile
             }
             // Handle image upload
             $this->handle_image_upload_and_update_usermeta($user_id);
+            $this->handle_cover_image_upload_and_update_usermeta($user_id);
             // Update the user's data
             $result =  wp_update_user($updated_data);
             if ($result) {
@@ -178,6 +179,50 @@ class Profile
 
                 // Update user's meta data with the resized image URL
                 update_user_meta($user_id, 'epm_user_avatar', $resized_image_url);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle cover image upload and update usermeta.
+     *
+     * @param int $user_id The user's ID.
+     * @return bool True if successful, false otherwise.
+     */
+    public function handle_cover_image_upload_and_update_usermeta($user_id)
+    {
+        // Check if an image file has been uploaded
+        if (isset($_FILES['epm_user_cover_image']) && $_FILES['epm_user_cover_image']['error'] === 0) {
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+
+            // Get the previous avatar URL
+            $previous_avatar_url = get_user_meta($user_id, 'epm_user_cover_image', true);
+
+            if (!empty($previous_avatar_url)) {
+                // Get the attachment ID associated with the previous avatar
+                $attachment_id = attachment_url_to_postid($previous_avatar_url);
+
+                if ($attachment_id) {
+                    // Delete the previous avatar from the media library
+                    wp_delete_attachment($attachment_id, true);
+                }
+            }
+
+            // Handle the new image upload
+            $attachment_id = media_handle_upload('epm_user_cover_image', 0);
+
+            if (!is_wp_error($attachment_id)) {
+                // Get the URL of the uploaded image
+                $resized_image_url = wp_get_attachment_image_url($attachment_id, 'full');
+
+                // Update user's meta data with the resized image URL
+                update_user_meta($user_id, 'epm_user_cover_image', $resized_image_url);
 
                 return true;
             }

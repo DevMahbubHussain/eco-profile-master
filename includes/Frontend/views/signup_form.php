@@ -4,6 +4,7 @@ $epm_form_heading_name = $this->generate_section_heading('epm_form_heading_name_
 $epm_form_heading_contact_info =  $this->generate_section_heading('epm_form_heading_contact_info_hide', 'epm_form_heading_contact_info', '1', 'Contact Info');
 $epm_form_heading_about_yourself =  $this->generate_section_heading('epm_form_heading_about_yourself_hide', 'epm_form_heading_about_yourself', '1', 'About Yourself');
 $epm_form_heading_profile_image =  $this->generate_section_heading('epm_form_heading_profile_image_hide', 'epm_form_heading_profile_image', '1', 'Profile Image');
+$epm_form_heading_cover_image =  $this->generate_section_heading('epm_form_heading_cover_image_hide', 'epm_form_heading_cover_image', '1', 'Cover Image');
 $epm_form_heading_social_links =  $this->generate_section_heading('epm_form_heading_social_links_hide', 'epm_form_heading_social_links', '1', 'Social Links');
 $epm_form_heading_mailing_address =  $this->generate_section_heading('epm_form_heading_mailing_address_hide', 'epm_form_heading_mailing_address', '1', 'Mailing Address');
 $enabledSocialFields = $this->getEnabledSocialFields();
@@ -26,6 +27,7 @@ $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
         <?php require_once __DIR__ . '/fields/birth-date-info.php'; ?>
         <?php require_once __DIR__ . '/fields/occupation-info.php'; ?>
         <?php require_once __DIR__ . '/fields/profileimage.php'; ?>
+        <?php require_once __DIR__ . '/fields/coverimage.php'; ?>
         <?php require_once __DIR__ . '/fields/mailing-address-info.php'; ?>
         <?php require_once __DIR__ . '/fields/religion-info.php'; ?>
         <?php require_once __DIR__ . '/fields/skin-color-info.php'; ?>

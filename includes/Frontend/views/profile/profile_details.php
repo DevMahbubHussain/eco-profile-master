@@ -11,68 +11,74 @@ if (is_user_logged_in()) {
                 <?php if (!empty($current_user->epm_user_avatar)) : ?>
                     <div class="profile-picture overflow-hidden absolute left-9 -bottom-6 w-36 h-36 p-2 bg-orange-300 border-8 border-white rounded-full">
                         <img class="rounded-t-3xl overflow-hidden object-cover" src="<?php echo esc_url($current_user->epm_user_avatar); ?>" alt="<?php echo esc_attr($current_user->display_name); ?>">
+                    <?php else : ?>
+                        <img class="rounded-t-3xl overflow-hidden object-cover" src="<?php echo EP_MASTER_ASSETS . '/images/dhp.png'; ?>" alt="<?php echo esc_attr($current_user->display_name); ?>">
+                    <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                    <div class="cover-photo h-64 w-full overflow-hidden rounded-t-3xl">
+                        <?php if (!empty($current_user->epm_user_cover_image)) : ?>
+                            <img class="w-full h-full object-cover" src="<?php echo esc_url($current_user->epm_user_cover_image); ?>" alt="<?php echo esc_attr($current_user->display_name); ?>">
+                        <?php else : ?>
+                            <img class="w-full h-full object-cover" src="<?php echo EP_MASTER_ASSETS . '/images/dhc.png'; ?>" alt="<?php echo esc_attr($current_user->display_name); ?>">
+                        <?php endif; ?>
+                    </div>
 
-                <div class="cover-photo h-64 w-full overflow-hidden rounded-t-3xl">
-                    <img class="w-full h-full object-cover" src="<?php echo EP_MASTER_ASSETS . '/images/dhc.png'; ?>" alt="">
-                </div>
-                <div class="basic-info absolute left-48 bottom-6">
-                    <?php
-                    if (!empty($current_user->first_name) && !empty($current_user->last_name)) {
-                        $full_name = trim($current_user->first_name . ' ' . $current_user->last_name);
-                    ?>
-                        <h2 class="fullname text-white text-3xl font-semibold"><?php echo esc_html($full_name); ?></h2>
-                    <?php } ?>
+                    <div class="basic-info absolute left-48 bottom-6">
+                        <?php
+                        if (!empty($current_user->first_name) && !empty($current_user->last_name)) {
+                            $full_name = trim($current_user->first_name . ' ' . $current_user->last_name);
+                        ?>
+                            <h2 class="fullname text-white text-3xl font-semibold"><?php echo esc_html($full_name); ?></h2>
+                        <?php } ?>
 
-                    <h3 class="identity bg-orange-400 px-3 py-[4px] mt-1 rounded-lg space-x-3 text-xl"><span class="age block sm:inline">
-                            <?php
-                            $date_of_birth = $current_user->epm_user_birthdate;
-                            if (!empty($date_of_birth)) {
-                                $birth_date = new DateTime($date_of_birth);
-                                $current_date = new DateTime();
-                                $age = $current_date->diff($birth_date)->y;
-                            ?>
-                                <strong><?php echo esc_html($age); ?></strong> <?php _e('Years Old', 'eco-pprofile-master'); ?>
-                            <?php } ?>
-                            <?php if (!empty($current_user->epm_user_gender)) : ?>
-                                <span class="gender mr-1"><strong><?php echo esc_html($current_user->epm_user_gender); ?></strong></span>
-                            <?php endif; ?>
+                        <h3 class="identity bg-orange-400 px-3 py-[4px] mt-1 rounded-lg space-x-3 text-xl"><span class="age block sm:inline">
+                                <?php
+                                $date_of_birth = $current_user->epm_user_birthdate;
+                                if (!empty($date_of_birth)) {
+                                    $birth_date = new DateTime($date_of_birth);
+                                    $current_date = new DateTime();
+                                    $age = $current_date->diff($birth_date)->y;
+                                ?>
+                                    <strong><?php echo esc_html($age); ?></strong> <?php _e('Years Old', 'eco-pprofile-master'); ?>
+                                <?php } ?>
+                                <?php if (!empty($current_user->epm_user_gender)) : ?>
+                                    <span class="gender mr-1"><strong><?php echo esc_html($current_user->epm_user_gender); ?></strong></span>
+                                <?php endif; ?>
 
-                            <?php if (!empty($current_user->epm_user_occupation)) : ?>
-                                <span class="gender"><strong><?php echo esc_html($current_user->epm_user_occupation); ?></strong></span>
-                            <?php endif; ?>
-                    </h3>
-                </div>
-                <div class="additional-info absolute right-4 top-4 bg-teal-500 bg-opacity-60 shadow-xl border-b-[6px] border-l-4 border-white rounded-bl-[60px] rounded-tl-[100px] p-3 flex flex-col items-end">
-                    <?php if (!empty($current_user->epm_user_phone)) : ?>
-                        <h4 class="contact-no text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
-                            <i class="fa-solid fa-phone text-white bg-orange-600 px-2 py-2 text-[10px] rounded-full ml-2"></i>
-                            <strong class="font-bold text-slate-900"><?php _e('Call', 'eco-profile-master'); ?>:</strong>
-                            <a href="tel:<?php echo esc_attr($current_user->epm_user_phone); ?>" class="text-slate-900">
-                                <?php echo esc_html($current_user->epm_user_phone); ?>
-                            </a>
-                        </h4>
-                    <?php endif; ?>
-                    <?php if (!empty($current_user->user_email)) : ?>
-                        <h4 class="email-address text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
-                            <i class="fa-solid fa-envelope text-white bg-orange-600 px-2 py-[6px] text-xs rounded-full ml-2"></i>
-                            <strong class="font-bold text-slate-900"><?php _e('E-mail', 'eco-profile-master'); ?>:</strong>
-                            <a href="mailto:<?php echo esc_attr($current_user->user_email); ?>" class="text-slate-900">
-                                <?php echo esc_html($current_user->user_email); ?>
-                            </a>
-                        </h4>
-                    <?php endif; ?>
-                    <?php if (!empty($current_user->user_url)) : ?>
-                        <h4 class="website text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
-                            <i class="fa-solid fa-globe text-white bg-orange-600 px-2 py-2 text-[10px] rounded-full ml-2"></i>
-                            <strong class="font-bold text-slate-900"><?php _e('Visit', 'eco-profile-master'); ?>:</strong>
-                            <a href="<?php echo esc_url($current_user->user_url); ?>" class="text-slate-900" target="_blank" rel="noopener noreferrer">
-                                <?php echo esc_url($current_user->user_url); ?>
-                            </a>
-                        </h4>
-                    <?php endif; ?>
-                </div>
+                                <?php if (!empty($current_user->epm_user_occupation)) : ?>
+                                    <span class="gender"><strong><?php echo esc_html($current_user->epm_user_occupation); ?></strong></span>
+                                <?php endif; ?>
+                        </h3>
+                    </div>
+                    <div class="additional-info absolute right-4 top-4 bg-teal-500 bg-opacity-60 shadow-xl border-b-[6px] border-l-4 border-white rounded-bl-[60px] rounded-tl-[100px] p-3 flex flex-col items-end">
+                        <?php if (!empty($current_user->epm_user_phone)) : ?>
+                            <h4 class="contact-no text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
+                                <i class="fa-solid fa-phone text-white bg-orange-600 px-2 py-2 text-[10px] rounded-full ml-2"></i>
+                                <strong class="font-bold text-slate-900"><?php _e('Call', 'eco-profile-master'); ?>:</strong>
+                                <a href="tel:<?php echo esc_attr($current_user->epm_user_phone); ?>" class="text-slate-900">
+                                    <?php echo esc_html($current_user->epm_user_phone); ?>
+                                </a>
+                            </h4>
+                        <?php endif; ?>
+                        <?php if (!empty($current_user->user_email)) : ?>
+                            <h4 class="email-address text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
+                                <i class="fa-solid fa-envelope text-white bg-orange-600 px-2 py-[6px] text-xs rounded-full ml-2"></i>
+                                <strong class="font-bold text-slate-900"><?php _e('E-mail', 'eco-profile-master'); ?>:</strong>
+                                <a href="mailto:<?php echo esc_attr($current_user->user_email); ?>" class="text-slate-900">
+                                    <?php echo esc_html($current_user->user_email); ?>
+                                </a>
+                            </h4>
+                        <?php endif; ?>
+                        <?php if (!empty($current_user->user_url)) : ?>
+                            <h4 class="website text-white text-sm sm:text-lg font-bold p-1 flex items-center space-x-2">
+                                <i class="fa-solid fa-globe text-white bg-orange-600 px-2 py-2 text-[10px] rounded-full ml-2"></i>
+                                <strong class="font-bold text-slate-900"><?php _e('Visit', 'eco-profile-master'); ?>:</strong>
+                                <a href="<?php echo esc_url($current_user->user_url); ?>" class="text-slate-900" target="_blank" rel="noopener noreferrer">
+                                    <?php echo esc_url($current_user->user_url); ?>
+                                </a>
+                            </h4>
+                        <?php endif; ?>
+                    </div>
             </div>
             <div class="profile-body py-4 flex flex-col space-y-3 md:flex md:flex-row md:space-x-6">
                 <div class="left-sec my-6 md:w-1/4">

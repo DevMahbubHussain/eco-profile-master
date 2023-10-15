@@ -67,6 +67,7 @@ trait EPM_UserAccountManagementTrait
             $this->update_social_media_links($user_id, $data);
             // Handle image upload
             $this->upload_user_avatar('epm_user_avatar', $user_id);
+            $this->upload_user_cover_image('epm_user_cover_image', $user_id);
         }
         // Handle user creation success
         $this->handle_user_creation_success($user_id, $data);
@@ -146,6 +147,36 @@ trait EPM_UserAccountManagementTrait
             } else {
                 $image_url = wp_get_attachment_url($attachment_id);
                 update_user_meta($user_id, 'epm_user_avatar', $image_url);
+                return $image_url;
+            }
+        }
+    }
+
+    /**
+     * Uploads a user avatar and updates user meta with the image URL.
+     *
+     * @param string $file_input_name The name attribute of the file input field.
+     * @param int $user_id The user ID to associate with the uploaded avatar.
+     * @return string|WP_Error The image URL on success or a WP_Error object on failure.
+     */
+    public function upload_user_cover_image($file_input_name, $user_id)
+    {
+        if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] === 0) {
+            // Load necessary WordPress functions
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+
+            $attachment_id = media_handle_upload($file_input_name, 0);
+
+            if (is_wp_error($attachment_id)) {
+                $error_message = $attachment_id->get_error_message();
+                _e('Image upload failed: ', 'eco-profile-master');
+                echo $error_message;
+                return $attachment_id;
+            } else {
+                $image_url = wp_get_attachment_url($attachment_id);
+                update_user_meta($user_id, 'epm_user_cover_image', $image_url);
                 return $image_url;
             }
         }
