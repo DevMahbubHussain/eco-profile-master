@@ -10,7 +10,8 @@ namespace EcoProfile\Master\Admin\Settings;
  */
 class EPM_LabelPlaceholderSettings
 {
-    private $fields; // Declare the class property
+    private $fields;
+
     /**
      * Constructor.
      * Hooks into the 'admin_init' action to register settings and fields.
@@ -206,6 +207,7 @@ class EPM_LabelPlaceholderSettings
             register_setting('eco-profile-master-form-labels', 'epm_form_label_placeholder', array($this, 'epm_sanitize_label_placeholder_settings'));
         }
     }
+
     /**
      * Callback to render the form fields for label and placeholder configuration.
      *
@@ -216,7 +218,7 @@ class EPM_LabelPlaceholderSettings
     public function epm_render_field($args)
     {
         $field = $args['field'];
-        $values = $this->get_label_placeholder_option(); // Retrieve saved label/placeholder values
+        $values = $this->get_label_placeholder_option();
         $label = isset($values[$field]['label']) ? $values[$field]['label'] : $args['default_label'];
         $placeholder = isset($values[$field]['placeholder']) ? $values[$field]['placeholder'] : $args['default_placeholder'];
 
@@ -224,7 +226,7 @@ class EPM_LabelPlaceholderSettings
             if (($field === 'image' || $field === 'cimage') && $type === 'placeholder') {
                 // No need to render a placeholder input for file type
             } else {
-                echo '<label for="' . $field . '_' . $type . '">' . esc_html__(ucfirst($type) . ':', 'eco-profile-master') . '</label>';
+                echo '<label for="' . $field . '_' . $type . '">' . esc_html(ucfirst($type) . ':', 'eco-profile-master') . '</label>';
                 echo '<input type="text" id="' . $field . '_' . $type . '" name="epm_form_label_placeholder[' . $field . '][' . $type . ']" value="' . esc_attr($type === 'label' ? $label : $placeholder) . '" class="regular-text" maxlength="50">';
                 echo '<br>';
             }
@@ -240,7 +242,6 @@ class EPM_LabelPlaceholderSettings
      *
      * @since 1.0.0
      */
-
     public function epm_sanitize_label_placeholder_settings($input)
     {
         // Initialize an empty array to store the sanitized values

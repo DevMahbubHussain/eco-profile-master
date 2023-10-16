@@ -72,10 +72,6 @@ class Manager
                 'src'       => EP_MASTER_BUILD . '/index.js',
                 'version'   => $dependency,
                 'deps'      => 1,
-                // 'version'   => $dependency[1],
-                // 'deps'      => $dependency[1],
-                // 'version' => 1,
-                // 'deps' => 1,
                 'in_footer' => true,
             ],
             'epm-master-main-js' => [

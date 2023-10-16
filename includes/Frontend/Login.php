@@ -6,12 +6,26 @@ use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
 use EcoProfile\Master\Traits\EPM_LoginTrait;
 use WP_Error;
 
+/**
+ * Login Class
+ *
+ * Handles user login, password reset, and custom password reset on the front end.
+ *
+ * @package EcoProfile\Master\Frontend
+ */
 class Login
 {
     use EPM_Form_ValidationTrait;
     use EPM_LoginTrait;
     private $username_or_email_error = '';
     private $password_error = '';
+
+    /**
+     * Class Constructor
+     *
+     * Initializes the Login class and sets up hooks and shortcodes for user login,
+     * password reset, and custom password reset functionalities.
+     */
     public function __construct()
     {
         add_shortcode('epm-login', array($this, 'epm_render_login_form'));
@@ -22,6 +36,13 @@ class Login
         add_action('template_redirect', array($this, 'epm_process_custom_lostpassword'));
     }
 
+    /**
+     * Render Login Form
+     *
+     * Generates and returns the HTML markup for the login form or displays a logged-in user message.
+     *
+     * @return string HTML markup for the login form or a logged-in user message.
+     */
 
     public function epm_render_login_form()
     {
@@ -30,6 +51,13 @@ class Login
         return ob_get_clean();
     }
 
+    /**
+     * Render Login Form Style
+     *
+     * Displays the login form or a logged-in user message depending on the user's status.
+     *
+     * @return void
+     */
 
     private function epm_render_login_form_style()
     {
@@ -44,6 +72,14 @@ class Login
             require_once  __DIR__ . '/views/login/login_form.php';
         }
     }
+
+    /**
+     * Process User Login
+     *
+     * Validates and processes user login if the login form is submitted.
+     *
+     * @return void
+     */
 
     public function epm_process_login()
     {
@@ -65,7 +101,17 @@ class Login
             }
         }
     }
-
+    /**
+     * User Login
+     *
+     * Authenticates a user based on their provided credentials and logs them in.
+     *
+     * @param WP_User|WP_Error|null $user      User object if login is successful, WP_Error if unsuccessful.
+     * @param string                $username  The username or email address for login.
+     * @param string                $password  The user's password.
+     *
+     * @return WP_User|WP_Error|null The logged-in user or WP_Error in case of authentication failure.
+     */
     private function epm_user_login($user, $username, $password)
     {
         if (is_email($username)) {
@@ -90,14 +136,27 @@ class Login
         }
     }
 
-    // password reset options 
+    /**
+     * Render the Password Reset Form
+     *
+     * Generates and returns the HTML for the password reset form to be displayed.
+     *
+     * @return string HTML content of the password reset form.
+     */
+
     public function epm_render_password_reset_form()
     {
         ob_start();
         $this->epm_render_password_reset_form_style();
-        //echo $this->epm_process_reset_password();
         return ob_get_clean();
     }
+
+    /**
+     * Render the Password Reset Form Style
+     *
+     * Generates and displays the style and content of the password reset form, including logged-in user information
+     * or the password reset form template.
+     */
 
     private function epm_render_password_reset_form_style()
     {
@@ -113,12 +172,15 @@ class Login
         }
     }
 
-
     /**
-     * epm_process_reset_password function.
+     * Process Password Reset Request
      *
-     * @return void
+     * Handles the password reset request submitted by the user. Validates the request, generates a password
+     * reset link, and sends a password reset email to the user if the request is valid.
+     *
+     * @return string Confirmation message about the password reset process.
      */
+
     public function epm_process_reset_password()
     {
         $confirmation_message = '';
@@ -168,6 +230,14 @@ class Login
         return $confirmation_messages;
     }
 
+    /**
+     * Redirect to Custom Password Reset Form
+     *
+     * Redirects users to a custom password reset form. If the user is already logged in, it provides
+     * the option to log out before accessing the reset form.
+     *
+     * @return string HTML content of the custom password reset form.
+     */
 
     public function epm_redirect_to_custom_lostpassword()
     {
@@ -176,6 +246,15 @@ class Login
         $this->epm_custom_password_reset_form();
         return ob_get_clean();
     }
+
+    /**
+     * Custom Password Reset Form
+     *
+     * Displays a custom password reset form. If the user is already logged in, it provides the option to log out
+     * before accessing the custom reset form.
+     *
+     * @return void
+     */
 
     private function epm_custom_password_reset_form()
     {
@@ -191,10 +270,30 @@ class Login
         }
     }
 
+    /**
+     * Process Custom Lost Password Request
+     *
+     * Initiates the processing of a custom lost password request, including the validation
+     * of the reset token and password update if required.
+     *
+     * @return void
+     */
+
     public function epm_process_custom_lostpassword()
     {
         $this->epm_custom_password_reset_process();
     }
+
+    /**
+     * Process Custom Password Reset Request
+     *
+     * Handles the processing of a custom password reset request, including token validation
+     * and, if necessary, updating the user's password. Additionally, it handles form submissions
+     * for password reset.
+     *
+     * @return mixed|void Returns an error message in case of invalid or expired token,
+     *                     false for invalid form submissions, or void for successful processing.
+     */
 
     private function epm_custom_password_reset_process()
     {
@@ -220,6 +319,18 @@ class Login
         }
     }
 
+    /**
+     * Validate and Process Custom Password Reset Form
+     *
+     * Validates and processes the custom password reset form submission, updating the user's
+     * password and handling the associated user redirection after a successful password reset.
+     *
+     * @param WP_User[] $user An array of WordPress user objects.
+     *
+     * @return mixed|void Returns success message in case of a successful password reset,
+     *                     void if validation fails, or void for successful processing.
+     */
+
     private function epm_custom_password_reset_form_validation($user)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['epm_password_reset_form'])) {
@@ -237,5 +348,6 @@ class Login
                 return $password_reset_messages;
             }
         }
-    }
+    } 
+    
 }

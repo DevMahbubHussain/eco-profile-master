@@ -9,6 +9,11 @@ namespace EcoProfile\Master\Traits;
  */
 trait EPM_Social_FieldsTrait
 {
+    /**
+     * Check if user social fields should be enabled.
+     *
+     * @return array An associative array with social fields as keys and their enable status as values.
+     */
     protected function epm_allow_user_social_fields()
     {
         $enable_fb_field = get_option('epm_facebook_url', '1');
@@ -35,7 +40,11 @@ trait EPM_Social_FieldsTrait
         ];
     }
 
-
+    /**
+     * Get enabled social fields for user profiles.
+     *
+     * @return array An array of enabled social fields.
+     */
     public function getEnabledSocialFields()
     {
         $socialFields = [
@@ -61,9 +70,9 @@ trait EPM_Social_FieldsTrait
     }
 
     /**
-     * Advanced field function.
+     * Check if advanced user fields should be enabled.
      *
-     * @return void
+     * @return array An associative array with advanced fields as keys and their enable status as values.
      */
     protected function epm_allow_user_advanced_fields()
     {
@@ -95,16 +104,14 @@ trait EPM_Social_FieldsTrait
         ];
     }
 
-
     /**
-     * getEnabledMalingAddressFields function.
+     * Get enabled mailing address fields for user profiles.
      *
-     * @return void
+     * @return bool True if mailing address fields should be enabled, false otherwise.
      */
     public function getEnabledMailingAddressFields()
     {
         $mailing_address_enable = sanitize_text_field(get_option('epm_mailing_address', 'no'));
         return $mailing_address_enable === 'yes';
     }
-
 }

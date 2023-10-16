@@ -7,12 +7,27 @@ use EcoProfile\Master\Traits\EPM_Signup_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Social_FieldsTrait;
 use EcoProfile\Master\Traits\EPM_Form_ValidationTrait;
 
+/**
+ * Profile Class
+ *
+ * Handles user profile and Profile Editing on the front end.
+ *
+ * @package EcoProfile\Master\Frontend
+ */
 class Profile
 {
     use EPM_Signup_FieldsTrait;
     use EPM_Labels_PlaceholdersTrait;
     use EPM_Social_FieldsTrait;
     use EPM_Form_ValidationTrait;
+
+    /**
+     * Initialize Profile Editing and Display
+     *
+     * Sets up the actions and shortcodes required for profile editing and display. It adds
+     * shortcodes for profile editing and viewing, hooks into the WordPress initialization process,
+     * and sets up actions to display profile details.
+     */
 
     public function __construct()
     {
@@ -22,6 +37,14 @@ class Profile
         add_action('wp', array($this, 'epm_profile_details'));
     }
 
+    /**
+     * Render Profile Editing Form
+     *
+     * Generates and returns the HTML content for the profile editing form. This method
+     * encapsulates the presentation logic for the profile editing form.
+     *
+     * @return string HTML content of the profile editing form.
+     */
 
     public function epm_render_profile_form()
     {
@@ -30,13 +53,32 @@ class Profile
         return ob_get_clean();
     }
 
+    /**
+     * Render Profile Editing Form Style
+     *
+     * Renders the style and content of the profile editing form based on the current user's data.
+     *
+     * @param WP_User $current_user The current logged-in user.
+     */
+
     public function epm_render_profile_form_style()
     {
-        $current_user = wp_get_current_user();
-        require_once  __DIR__ . '/views/profile/profile_form.php';
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            require_once  __DIR__ . '/views/profile/profile_form.php';
+        } else {
+            echo '<p class="text-left">' . sprintf(__('You are currently not logged in. <a href="%s">login »</a>', 'eco-profile-master'), home_url('/login')) . '</p>';
+        }
     }
 
-    // profile details 
+    /**
+     * Render Profile Details Form
+     *
+     * Renders the user's profile details in a form for viewing/editing.
+     *
+     * @return string Rendered HTML content of the profile details form.
+     */
+
     public function epm_render_profile_details_form()
     {
         ob_start();
@@ -44,12 +86,33 @@ class Profile
         return ob_get_clean();
     }
 
+    /**
+     * Render Profile Details Form Style
+     *
+     * Renders the style and content for the user's profile details form, which includes details like
+     * user information, settings, and other profile-related data.
+     *
+     * @return void
+     */
+
     public function epm_render_profile_details_form_style()
     {
         if (is_user_logged_in()) {
             require_once  __DIR__ . '/views/profile/profile_details.php';
+        } else {
+            echo '<p class="text-left">' . sprintf(__('You are currently not logged in. <a href="%s">login »</a>', 'eco-profile-master'), home_url('/login')) . '</p>';
         }
     }
+
+    /**
+     * Handle Profile Details Redirection
+     *
+     * This method handles the redirection for profile details. If the action is 'profile', it
+     * checks if the profile page is available and published. If yes, it redirects to the profile
+     * page; otherwise, it displays an error message and provides a link to the homepage.
+     *
+     * @return void
+     */
 
     public function epm_profile_details()
     {
@@ -72,8 +135,16 @@ class Profile
             }
         }
     }
-    
 
+    /**
+     * Initialize User Profile Editing
+     *
+     * This method is called during the WordPress initialization process. It checks if a user is logged in and
+     * if a form with the name 'user_profile' has been submitted via POST request. If both conditions are met,
+     * it proceeds to render the user profile edit form.
+     *
+     * @return void
+     */
 
     public function init()
     {
@@ -83,6 +154,17 @@ class Profile
             }
         }
     }
+
+    /**
+     * Render and Process User Profile Edit Form
+     *
+     * This method handles the rendering and processing of the user profile edit form. It validates the nonce,
+     * performs custom form field validation, and updates the user's profile data based on the submitted form data.
+     * It also handles image uploads for the user's profile picture and cover image. After processing, it sets a
+     * transient message to indicate the result of the profile update.
+     *
+     * @return string The profile update confirmation message.
+     */
 
     public function epm_render_profile_edit_form()
     {

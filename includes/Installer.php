@@ -3,12 +3,14 @@
 namespace EcoProfile\Master;
 
 /**
- * Installer class
+ * Installer class for initializing and configuring the plugin.
  */
 class Installer
 {
     /**
-     * Run the installer
+     * Run the installer.
+     *
+     * This method performs initial setup and configuration of the plugin during installation.
      *
      * @return void
      */
@@ -19,10 +21,14 @@ class Installer
         $this->add_plugin_default_value();
     }
 
-
     /**
-     * Add time and version on DB
+     * Add the plugin version and installation timestamp to the database.
+     *
+     * This method stores the plugin version and installation timestamp in the WordPress options table.
+     *
+     * @return void
      */
+
     public function add_version()
     {
         $installed = get_option('epm_installed');
@@ -33,6 +39,14 @@ class Installer
         update_option('epm_version', EP_MASTER_VERSION);
     }
 
+    /**
+     * Add default values and settings for the plugin.
+     *
+     * This method initializes various default values and settings for the plugin during installation.
+     *
+     * @return void
+     */
+
     public function add_plugin_default_value()
     {
         $epm_general_default_options = array(
@@ -40,6 +54,7 @@ class Installer
             'epm_automatically_login' => __('no', 'eco-profile-master'),
             'epm_email_confirmation_activated' => __('no', 'eco-profile-master'),
             'epm_admin_approval' => __('no', 'eco-profile-master'),
+            'epm_show_logout' => __('no', 'eco-profile-master'),
             'epm_display_email' => __('yes', 'eco-profile-master'),
             'epm_display_phone_number' => __('no', 'eco-profile-master'),
             'epm_image' => __('no', 'eco-profile-master'),
@@ -167,8 +182,14 @@ class Installer
         flush_rewrite_rules();
     }
 
-
-
+    /**
+     * Create a new plugin page with a given slug, title, and shortcode.
+     *
+     * @param string $slug      The slug for the new page.
+     * @param string $title     The title of the new page.
+     * @param string $shortcode The shortcode to add to the new page's content.
+     */
+    
     public function epm_plugin_pages($slug, $title, $shortcode)
     {
         global $wpdb;

@@ -6,6 +6,18 @@ trait EPM_LoginTrait
 {
     public $errors = array();
 
+    /**
+     * Validate Login Form
+     *
+     * Validates the login form fields, including username or email and password.
+     * Sets error messages in the `$errors` array if validation fails.
+     *
+     * @param string $username_or_email The entered username or email.
+     * @param string $password The entered password.
+     *
+     * @return array An array of error messages.
+     */
+
     public function validateLoginForm($username_or_email, $password)
     {
         if (empty($username_or_email)) {
@@ -27,13 +39,20 @@ trait EPM_LoginTrait
             }
         }
 
-        // $approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
-        // if ($approval_status !== 'approved') {
-        //     $this->errors['approval_status'] = __('Your account is pending admin approval. Please wait for approval.', 'eco-profile-master');
-        // }
-
         return $this->errors;
     }
+
+    /**
+     * Validate Password Reset Form
+     *
+     * Validates the password reset form fields, including new password and confirm password.
+     * Sets error messages in the `$errors` array if validation fails.
+     *
+     * @param string $new_password The new password.
+     * @param string $confirm_password The confirmation of the new password.
+     *
+     * @return array An array of error messages.
+     */
 
     public function validateResetForm($new_password, $confirm_password)
     {
@@ -46,18 +65,31 @@ trait EPM_LoginTrait
         return $this->errors;
     }
 
+    /**
+     * Check if a Login Error Exists
+     *
+     * Checks if a specific login error key exists in the `$errors` array.
+     *
+     * @param string $key The key to check for an error.
+     *
+     * @return bool True if the error exists, false otherwise.
+     */
+
     public function login_has_error($key)
     {
         return isset($this->errors[$key]) ? true : false;
     }
 
     /**
-     * Get the error by key
+     * Get a Login Error Message
      *
-     * @param  key $key
+     * Retrieves an error message from the `$errors` array by the provided key.
      *
-     * @return string | false
+     * @param string $key The key to get the error message.
+     *
+     * @return string|false The error message if it exists, false otherwise.
      */
+    
     public function login_get_error($key)
     {
         if (isset($this->errors[$key])) {
@@ -67,22 +99,15 @@ trait EPM_LoginTrait
         return false;
     }
 
-
-    // public function EmailConfirmationHandler()
-    // {
-
-    //     $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
-
-    //     if ($is_admin_approved === 'yes') {
-    //         // Display a message and redirect for admin approval
-    //         return __('Your email has been confirmed. Please wait for admin approval.', 'eco-profile-master');
-    //         // $this->redirectToWaitingPage();
-    //     } else {
-    //         // Display a message and provide a login link
-    //         return __('Your email has been confirmed. You can now <a href="' . home_url('/login') . '">log in</a>.', 'eco-profile-master');
-    //     }
-    // }
-
+    /**
+     * Email Confirmation Handler
+     *
+     * Handles email confirmation based on the admin approval setting.
+     * Generates a confirmation message and sets it to be displayed to the user.
+     *
+     * @return string Confirmation message.
+     */
+    
     public function EmailConfirmationHandler()
     {
         $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
@@ -96,7 +121,6 @@ trait EPM_LoginTrait
             $epm_login_page = sanitize_text_field(get_option('epm_login_page', 'Login'));
             $confirmation_message = __('Your email has been confirmed.', 'eco-profile-master');
             $confirmation_message = generate_confirmation_message($confirmation_message, $epm_login_page);
-            //$confirmation_message = __('Your email has been confirmed. You can now <a href="' .  $login_link . '">log in</a>.', 'eco-profile-master');
         }
 
         // Add the confirmation message to the epm_login_page
@@ -110,20 +134,3 @@ trait EPM_LoginTrait
         return $confirmation_message;
     }
 }
-
-
-
-    // private function validateConfirmationKey($user_id, $key)
-    // {
-    //     // Get the stored confirmation key for the user
-    //     $stored_key = get_user_meta($user_id, 'confirmation_key', true);
-
-    //     // Check if the provided key matches the stored key
-    //     if ($key === $stored_key) {
-    //         // Valid confirmation key
-    //         return true;
-    //     } else {
-    //         // Invalid confirmation key
-    //         return false;
-    //     }
-    // }

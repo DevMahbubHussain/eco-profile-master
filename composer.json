@@ -18,8 +18,7 @@
 		},
 		"files": [
 			"includes/functions.php",
-			"includes/Admin/Settings/functions.php",
-			"includes/Admin/Settings/utility.php"
+			"includes/Admin/Settings/functions.php"
 		]
 	},
 	"require-dev": {

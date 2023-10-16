@@ -4,9 +4,22 @@ namespace EcoProfile\Master\Traits;
 
 use EcoProfile\Master\Traits\EPM_EmailTemplatesTrait;
 
+/**
+ * Trait EPM_UserAccountManagementTrait
+ *
+ * @package EcoProfileMaster
+ */
+
 trait EPM_UserAccountManagementTrait
 {
     use EPM_EmailTemplatesTrait;
+
+    /**
+     * Create a user account based on provided data.
+     *
+     * @param array $data An array of user data.
+     * @return int|WP_Error The user ID on success or a WP_Error object on failure.
+     */
 
     private function create_user($data)
     {
@@ -75,13 +88,14 @@ trait EPM_UserAccountManagementTrait
     }
 
     /**
-     * Handle saving user meta data for various fields.
+     * Handle saving user meta data for various advanced fields.
      *
-     * @param int    $user_id       The user ID.
-     * @param string $field_name    The name of the field (e.g., 'epm_user_occupation').
-     * @param string $data_value    The value of the field from the form data.
-     * @param array  $labels_placeholders An array of labels and placeholders for the field.
+     * @param int $user_id The user ID.
+     * @param string $field_name The name of the field.
+     * @param string $data_value The value from the form data.
+     * @param array $labels_placeholders An array of labels and placeholders.
      */
+
     public function handle_epm_user_advanced_field($user_id, $field_name, $data_value, $labels_placeholders)
     {
         $sanitized_value = isset($data_value) ? sanitize_text_field($data_value) : '';
@@ -99,7 +113,15 @@ trait EPM_UserAccountManagementTrait
         update_user_meta($user_id, $field_name_with_prefix, $saved_value);
     }
 
-    //  mailing address
+    /**
+     * Handle and sanitize user mailing field data and update user meta.
+     *
+     * @param int $user_id The user ID.
+     * @param string $field_name The name of the mailing field.
+     * @param string $data_value The value from the form data.
+     * @param array $labels_placeholders An array of labels and placeholders.
+     */
+
     public function handle_epm_user_mailing_field($user_id, $field_name, $data_value, $labels_placeholders)
     {
         // Check if the field exists in the data and is not empty
@@ -115,7 +137,7 @@ trait EPM_UserAccountManagementTrait
 
         // Check if the sanitized value matches the placeholder
         if ($sanitized_value === $field_placeholder) {
-            $saved_value = ''; // Store an empty value if it matches the placeholder
+            $saved_value = ''; 
         } else {
             $saved_value = $sanitized_value;
         }
@@ -153,7 +175,7 @@ trait EPM_UserAccountManagementTrait
     }
 
     /**
-     * Uploads a user avatar and updates user meta with the image URL.
+     * Uploads a user cover and updates user meta with the image URL.
      *
      * @param string $file_input_name The name attribute of the file input field.
      * @param int $user_id The user ID to associate with the uploaded avatar.
@@ -211,11 +233,24 @@ trait EPM_UserAccountManagementTrait
         }
     }
 
+    /**
+     * Handle actions when user creation is successful.
+     *
+     * @param int $user_id The user ID.
+     * @param array $data An array of user data.
+     */
+
     public function handle_user_creation_success($user_id, $data)
     {
         // Set user role
         $this->set_user_role($user_id);
     }
+
+    /**
+     * Send a confirmation email to the user.
+     *
+     * @param int $user_id The user ID.
+     */
 
     private function send_confirmation_email($user_id)
     {
@@ -229,6 +264,11 @@ trait EPM_UserAccountManagementTrait
         wp_mail($user->user_email,  $email_data['subject'], $email_data['message'], $email_data['headers']);
     }
 
+    /**
+     * Notify the admin for user approval.
+     *
+     * @param int $user_id The user ID.
+     */
 
     private function notify_admin_for_approval($user_id)
     {
@@ -237,6 +277,12 @@ trait EPM_UserAccountManagementTrait
         $email_data = $this->admin_confirmation_email($user_id);
         wp_mail($admin_email,  $email_data['subject'], $email_data['message'], $email_data['headers']);
     }
+
+    /**
+     * Automatically log in the user after account creation.
+     *
+     * @param int $user_id The user ID.
+     */
 
     private function auto_login($user_id)
     {
@@ -260,6 +306,12 @@ trait EPM_UserAccountManagementTrait
             exit;
         }
     }
+
+    /**
+     * Set the user role for the newly created user.
+     *
+     * @param int $user_id The user ID.
+     */
 
     private function set_user_role($user_id)
     {

@@ -15,7 +15,6 @@
  * checks user capabilities, sanitizes input, and updates the plugin options.
  * After processing, it redirects the user back to the referring page with a success message.
  *
- * @return void
  * @since 1.0.0
  */
 function epm_general_settings_form_submission()
@@ -26,7 +25,7 @@ function epm_general_settings_form_submission()
             return;
         }
         if (!wp_verify_nonce($_POST['general_settings_nonce'], 'general_settings_nonce') || !current_user_can('manage_options')) {
-            wp_die('Security check failed.');
+            wp_die(__('Security check failed.', 'eco-profile-master'));
         }
         // Define an array with the option names and their corresponding POST keys
         $options = array(
@@ -34,6 +33,7 @@ function epm_general_settings_form_submission()
             'epm_automatically_login' => 'epm_automatically_login',
             'epm_email_confirmation_activated' => 'epm_email_confirmation_activated',
             'epm_admin_approval' => 'epm_admin_approval',
+            'epm_show_logout' => 'epm_show_logout',
             'epm_display_email' => 'epm_display_email',
             'epm_display_phone_number' => 'epm_display_phone_number',
             'epm_image' => 'epm_image',
@@ -64,7 +64,6 @@ function epm_general_settings_form_submission()
  * checks user capabilities, sanitizes input, and updates the plugin options.
  * After processing, it redirects the user back to the referring page with a success message.
  *
- * @return void
  * @since 1.0.0
  */
 function epm_advanced_settings_form_submission()
@@ -76,7 +75,7 @@ function epm_advanced_settings_form_submission()
         }
 
         if (!wp_verify_nonce($_POST['advanced_settings_nonce'], 'advanced_settings_nonce') || !current_user_can('manage_options')) {
-            wp_die('Security check failed.');
+            wp_die(__('Security check failed.', 'eco-profile-master'));
         }
 
         // Define an array with the checkbox names
@@ -117,7 +116,6 @@ function epm_advanced_settings_form_submission()
  * checks user capabilities, sanitizes input, and updates the plugin options.
  * After processing, it redirects the user back to the referring page with a success message.
  *
- * @return void
  * @since 1.0.0
  */
 function update_epm_display_admin_settings()
@@ -126,11 +124,11 @@ function update_epm_display_admin_settings()
         return;
     }
     if (!isset($_POST['update_epm_display_admin_settings_nonce']) || !wp_verify_nonce($_POST['update_epm_display_admin_settings_nonce'], 'update_epm_display_admin_settings_nonce')) {
-        wp_die('Security check failed.');
+        wp_die(__('Security check failed.', 'eco-profile-master'));
     }
 
     if (!current_user_can('manage_options')) {
-        wp_die('Not allowed.');
+        wp_die(__('Security check failed.', 'eco-profile-master'));
     }
 
     if (isset($_POST['epm_display_admin_settings'])) {
@@ -150,9 +148,6 @@ function update_epm_display_admin_settings()
     wp_safe_redirect(add_query_arg('epm_action_result', 'success', wp_get_referer()));
     exit();
 }
-// add_action('admin_post_update_epm_display_admin_settings', 'update_epm_display_admin_settings');
-// add_action('admin_post_nopriv_update_epm_display_admin_settings', 'update_epm_display_admin_settings');
-
 
 /**
  * Process and save the form fields settings submitted by the user.
@@ -176,7 +171,7 @@ function epm_admin_form_fields_settings()
     if (!current_user_can('manage_options')) {
         wp_die(__('Not allowed.', 'eco-profile-master'));
     }
-
+    
     $sections = array(
         'name' => 'epm_form_heading_name',
         'contact_info' => 'epm_form_heading_contact_info',
@@ -200,7 +195,6 @@ function epm_admin_form_fields_settings()
     exit();
 }
 
-
 /**
  * Display admin notice based on the epm_action_result query parameter.
  *
@@ -208,7 +202,6 @@ function epm_admin_form_fields_settings()
  * the epm_action_result query parameter. If the value is 'success', a success message
  * is displayed. If the value is 'error', an error message is displayed.
  *
- * @return void
  * @since 1.0.0
  */
 function display_admin_notice()
@@ -224,14 +217,12 @@ function display_admin_notice()
 }
 add_action('admin_notices', 'display_admin_notice');
 
-
 /**
  * Get the selected lost password page option for the general settings.
  *
  * Retrieves the lost password page option from the plugin settings and generates
  * a list of options with the currently selected page marked as 'selected'.
  *
- * @return void
  * @since 1.0.0
  */
 function epm_lost_password_page()
@@ -276,7 +267,6 @@ function epm_profile_page()
     endforeach;
 }
 
-
 function epm_password_reset_form()
 {
     $epm_pages = epm_get_my_pages();
@@ -291,10 +281,13 @@ function epm_password_reset_form()
     endforeach;
 }
 
-
-
-// admin notice after user approved
-
+/**
+ * Admin notice after user approved.
+ *
+ * Display a success notice when a user is approved.
+ *
+ * @since 1.0.0
+ */
 function epm_approval_success_notice()
 {
     // Check if the approval was successful
@@ -308,8 +301,13 @@ function epm_approval_success_notice()
 }
 add_action('admin_notices', 'epm_approval_success_notice');
 
-
-// admin notice after user unapproved
+/**
+ * Admin notice after user unapproved.
+ *
+ * Display a success notice when a user is unapproved.
+ *
+ * @since 1.0.0
+ */
 function epm_unapproved_success_notice()
 {
     // Check if the unapproval was successful
@@ -321,11 +319,15 @@ function epm_unapproved_success_notice()
     <?php
     }
 }
-
 add_action('admin_notices', 'epm_unapproved_success_notice');
 
-// for reject user 
-
+/**
+ * Admin notice after user rejection.
+ *
+ * Display a success notice when a user is rejected.
+ *
+ * @since 1.0.0
+ */
 function epm_reject_success_notice()
 {
     // Check if the rejection was successful
@@ -337,5 +339,4 @@ function epm_reject_success_notice()
 <?php
     }
 }
-
 add_action('admin_notices', 'epm_reject_success_notice');

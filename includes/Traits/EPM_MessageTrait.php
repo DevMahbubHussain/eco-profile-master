@@ -4,40 +4,40 @@ namespace EcoProfile\Master\Traits;
 
 trait EPM_MessageTrait
 {
-
-    // private function set_error_message($message)
-    // {
-    //     set_transient('epm_registration_error_message', $message, 30); // Store the message for 30 seconds
-    // }
-
-    // private function set_success_message($message)
-    // {
-    //     set_transient('epm_registration_success_message', $message, 30);
-    // }
-
-    // private function get_error_message()
-    // {
-    //     return get_transient('epm_registration_error_message');
-    // }
-
-    // private function get_success_message()
-    // {
-    //     return get_transient('epm_registration_success_message');
-    // }
-
-
     protected $registration_messages = array();
+
+    /**
+     * Add a Registration Message
+     *
+     * Adds a message to the registration messages array.
+     *
+     * @param string $message The message to add.
+     */
 
     public function add_message($message)
     {
         $this->registration_messages[] = $message;
     }
 
+    /**
+     * Get Registration Messages
+     *
+     * Retrieves the registration messages array.
+     *
+     * @return array An array of registration messages.
+     */
+
     public function get_messages()
     {
         return $this->registration_messages;
     }
 
+    /**
+     * Display Registration Messages
+     *
+     * Displays registration messages as an HTML list.
+     */
+    
     public function display_messages()
     {
         // Display messages as HTML list

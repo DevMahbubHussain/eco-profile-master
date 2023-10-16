@@ -17,6 +17,15 @@ trait EPM_Form_ValidationTrait
      */
     public $errors = array();
 
+    /**
+     * Validate User Registration Fields
+     *
+     * Validates the user registration data provided in the form fields.
+     * Checks and sanitizes various fields, including username, email, password, and more.
+     *
+     * @param array $data The user registration data to validate.
+     * @return array An array of error messages for invalid or missing fields.
+     */
 
     public function epm_validate_registration_fields($data)
     {
@@ -73,7 +82,6 @@ trait EPM_Form_ValidationTrait
         // Initialize an array to store email errors
         $email_errors = array();
         // Validate and sanitize the email
-
         if (empty($epm_user_email)) {
             $email_errors[] = __('Email is required.', 'eco-profile-master');
         } else {
@@ -86,7 +94,6 @@ trait EPM_Form_ValidationTrait
         if (!is_email($epm_user_email)) {
             $email_errors[] = __('Invalid email format.', 'eco-profile-master');
         }
-
         // Store the array of error messages for epm_user_email
         if (!empty($email_errors)) {
             $this->errors['epm_user_email'] = $email_errors;
@@ -214,11 +221,15 @@ trait EPM_Form_ValidationTrait
         }
 
         return $this->errors;
-
     }
 
+    /**
+     * Validate User Capability
+     *
+     * Checks if the current user has the capability to manage options (usually an administrator).
+     * If not, it displays an error message and terminates the script.
+     */
 
-    // Verify user capability
     public function validateUserCapability()
     {
         if (!current_user_can('manage_options')) {
@@ -226,7 +237,16 @@ trait EPM_Form_ValidationTrait
         }
     }
 
-    // Verify nonce
+    /**
+     * Validate Nonce
+     *
+     * Verifies the nonce value submitted in a form to enhance security and prevent cross-site request forgery (CSRF) attacks.
+     * If the nonce verification fails, it displays an error message and terminates the script.
+     *
+     * @param string $nonce_field The name of the nonce field in the form.
+     * @param string $nonce_action The nonce action used as part of the verification process.
+     */
+
     public function validateNonce($nonce_field, $nonce_action)
     {
         if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
@@ -290,7 +310,6 @@ trait EPM_Form_ValidationTrait
 
         return $errors;
     }
-    
 
     /**
      * Check if the form has error
@@ -320,7 +339,4 @@ trait EPM_Form_ValidationTrait
 
         return false;
     }
-
-
-
 }

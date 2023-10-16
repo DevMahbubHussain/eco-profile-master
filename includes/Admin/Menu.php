@@ -8,54 +8,89 @@ namespace EcoProfile\Master\Admin;
  */
 class Menu
 {
-
     /**
-     * Slug
-     * 
-     * @return string
-     * 
+     * Slug for the main menu page.
+     *
+     * @var string
      */
     public $slug = EP_MASTER_SLUG;
 
     /**
-     * Variable
+     * Variables for plugin settings and form label placeholders.
+     *
      * @var string
      */
-
     public $epm_admin_settings;
     public $epm_form_label_placeholder;
 
     /**
-     * Constructor
+     * Constructor to initialize the menu class.
+     *
+     * @param string $epm_admin_settings          Variable for plugin settings.
+     * @param string $epm_form_label_placeholder  Variable for form label placeholders.
      */
     public function __construct($epm_admin_settings, $epm_form_label_placeholder)
     {
         $this->epm_admin_settings = $epm_admin_settings;
         $this->epm_form_label_placeholder = $epm_form_label_placeholder;
+
+        // Add an action to create the admin menu.
         add_action('admin_menu', array($this, 'epm_init_menu'));
     }
 
     /**
-     * Init Menu.
-     *
+     * Initialize the admin menu.
      *
      * @return void
      */
-
     public function epm_init_menu()
     {
         $menu_position = 50;
-        $capability    = 'manage_options';
+        $capability = 'manage_options';
         $logo_icon = 'dashicons-businessperson';
-        add_menu_page(esc_attr__('Eco Profile Master', 'eco-profile-master'), esc_attr__('Eco Profile Master', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page'], $logo_icon, $menu_position);
-        add_submenu_page($this->slug, esc_attr__('General Information', 'eco-profile-master'), esc_attr__('General Information', 'eco-profile-master'), $capability, $this->slug, [$this, 'epm_plugin_page']);
-        add_submenu_page($this->slug, esc_attr__('Settings', 'eco-profile-master'), esc_attr__('Settings', 'eco-profile-master'), $capability, 'eco-profile-master-settings', [$this->epm_admin_settings, 'epm_plugin_settings_page']);
-        add_submenu_page($this->slug, esc_attr__('Form Labels', 'eco-profile-master'), esc_attr__('Form Labels', 'eco-profile-master'), $capability, 'eco-profile-master-form-labels', [$this->epm_form_label_placeholder, 'epm_form_fields_label_plugin_page']);
+
+        // Add the main menu page.
+        add_menu_page(
+            esc_attr__('Eco Profile Master', 'eco-profile-master'), // Page title
+            esc_attr__('Eco Profile Master', 'eco-profile-master'), // Menu title
+            $capability, // Capability
+            $this->slug, // Menu slug
+            [$this, 'epm_plugin_page'], // Callback function
+            $logo_icon, // Icon for the menu
+            $menu_position // Menu position
+        );
+
+        // Add sub-menu pages.
+        add_submenu_page(
+            $this->slug, // Parent menu slug
+            esc_attr__('General Information', 'eco-profile-master'), // Page title
+            esc_attr__('General Information', 'eco-profile-master'), // Menu title
+            $capability, // Capability
+            $this->slug, // Menu slug
+            [$this, 'epm_plugin_page'] // Callback function
+        );
+
+        add_submenu_page(
+            $this->slug, // Parent menu slug
+            esc_attr__('Settings', 'eco-profile-master'), // Page title
+            esc_attr__('Settings', 'eco-profile-master'), // Menu title
+            $capability, // Capability
+            'eco-profile-master-settings', // Menu slug
+            [$this->epm_admin_settings, 'epm_plugin_settings_page'] // Callback function
+        );
+
+        add_submenu_page(
+            $this->slug, // Parent menu slug
+            esc_attr__('Form Labels', 'eco-profile-master'), // Page title
+            esc_attr__('Form Labels', 'eco-profile-master'), // Menu title
+            $capability, // Capability
+            'eco-profile-master-form-labels', // Menu slug
+            [$this->epm_form_label_placeholder, 'epm_form_fields_label_plugin_page'] // Callback function
+        );
     }
 
-
     /**
-     * Plugin page callback function
+     * Callback function for the main plugin page.
      *
      * @return void
      */
@@ -63,13 +98,4 @@ class Menu
     {
         require_once EP_MASTER_TEMPLATE_PATH . '/features/general-settings/general.php';
     }
-
-
-
-
-  
-   
-  
-
-    
 }

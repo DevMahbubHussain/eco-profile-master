@@ -9,15 +9,6 @@ namespace EcoProfile\Master\Admin\Settings;
  */
 class Epm_Settings
 {
-
-    // public function __construct()
-    // {
-    //     add_filter('manage_users_columns', array($this, 'add_custom_user_columns'));
-    //     add_filter('manage_users_custom_column', array($this, 'populate_custom_user_column'), 10, 3);
-    //     add_filter('user_row_actions', array($this, 'add_user_action_links'), 10, 2);
-    //     add_action('admin_post_handle_user_actions', array($this, 'handle_user_actions'));
-    // }
-
     /**
      * Plugin settings page handler.
      *
@@ -31,8 +22,6 @@ class Epm_Settings
         if (file_exists($template)) {
             include $template;
         }
-
-        // wp_enqueue_script('epm-accordian-js');
     }
 
     /**
@@ -89,5 +78,4 @@ class Epm_Settings
     {
         epm_admin_form_fields_settings();
     }
-
 }

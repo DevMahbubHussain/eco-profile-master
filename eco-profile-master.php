@@ -6,13 +6,13 @@
  * Description:       Login, registration and edit profile shortcodes for the front-end. Also you can choose what fields should be displayed or add new (custom) ones both in the front-end and in the dashboard.
  * Version:           1.0.0
  * Requires at least: 5.2
- * Requires PHP:      7.2
+ * Requires PHP:      7.4
  * Author:            Mahbub Hussain
  * Author URI:        https://mahbub.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://example.com/my-plugin/
- * Text Domain:       echo-profile-master
+ * Text Domain:       eco-profile-master
  * Domain Path:       /languages
  *
  * @package EcoProfileMaster
@@ -236,14 +236,13 @@ final class Eco_Profile_Master
 	 */
 	public function localization_setup()
 	{
-		load_plugin_textdomain('echo-profile-master', false, dirname(plugin_basename(__FILE__)) . '/languages');
+		load_plugin_textdomain('eco-profile-master', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
 		if (is_admin()) {
 			// Load script translation for wp-scripts
-			wp_set_script_translations('ep-master-js', 'echo-profile-master', plugin_dir_path(__FILE__) . 'languages/');
+			wp_set_script_translations('ep-master-js', 'eco-profile-master', plugin_dir_path(__FILE__) . 'languages/');
 		}
 	}
-
 
 	/**
 	 * Determine the type of request.
@@ -289,7 +288,7 @@ final class Eco_Profile_Master
 
 	public function plugin_action_links($links)
 	{
-		$links[] = '<a href="' . admin_url('admin.php?page=eco-profile-master-settings') . '">' . __('Settings', ' echo-profile-master') . '</a>';
+		$links[] = '<a href="' . admin_url('admin.php?page=eco-profile-master-settings') . '">' . __('Settings', ' eco-profile-master') . '</a>';
 		return $links;
 	}
 }

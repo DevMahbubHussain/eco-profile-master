@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * users profile details.
+ */
+
 if (!defined('ABSPATH')) {
     exit;
 }

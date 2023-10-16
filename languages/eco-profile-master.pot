@@ -1,0 +1,2093 @@
+# Blank WordPress Pot
+# Copyright 2014 ...
+# This file is distributed under the GNU General Public License v3 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Eco "
+"Profile Master Pot "
+"v1.0.0\n"
+"Report-Msgid-Bugs-To: "
+"Translator Name "
+"<translations@example."
+"com>\n"
+"POT-Creation-Date: "
+"2023-10-17 04:49+0600\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Your "
+"Name <you@example.com>\n"
+"Language-Team: Your Team "
+"<translations@example."
+"com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/"
+"plain; charset=UTF-8\n"
+"Content-Transfer-"
+"Encoding: 8bit\n"
+"Plural-Forms: "
+"nplurals=2; plural=n != "
+"1;\n"
+"X-Textdomain-Support: "
+"yesX-Generator: Poedit "
+"1.6.4\n"
+"X-Poedit-SourceCharset: "
+"UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;esc_html_e;"
+"esc_html_x:1,2c;"
+"esc_html__;esc_attr_e;"
+"esc_attr_x:1,2c;"
+"esc_attr__;_ex:1,2c;"
+"_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;"
+"_n:1,2;_n_noop:1,2;"
+"__ngettext:1,2;"
+"__ngettext_noop:1,2;_c,"
+"_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 3.4\n"
+"X-Poedit-"
+"SearchPath-0: .\n"
+
+#: eco-profile-master.php:292
+#: includes/Admin/Menu.php:75
+#: includes/Admin/Menu.php:76
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/Menu.php:54
+#: includes/Admin/Menu.php:55
+#: templates/features/general-settings/general.php:5
+msgid "Eco Profile Master"
+msgstr ""
+
+#: includes/Admin/Menu.php:66
+#: includes/Admin/Menu.php:67
+msgid "General Information"
+msgstr ""
+
+#: includes/Admin/Menu.php:84
+#: includes/Admin/Menu.php:85
+msgid "Form Labels"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:60
+msgid "Username"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:61
+msgid "Enter your username"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:65
+msgid "First Name"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:66
+msgid ""
+"Enter your first name"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:70
+msgid "Last Name"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:71
+msgid ""
+"Enter your last name"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:75
+msgid "Nickname"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:76
+msgid "Enter your Nickname"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:80
+#: includes/Frontend/views/users/users_view.php:8
+#: includes/Frontend/views/users/users_view.php:20
+msgid "Email"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:81
+msgid "Enter your email"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:85
+msgid "Phone"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:86
+msgid "Enter your phone"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:90
+msgid "Website"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:91
+msgid ""
+"Enter your website url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:95
+msgid "Biographical Info"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:96
+msgid ""
+"Enter your biographical "
+"info"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:100
+#: includes/Frontend/views/login/login_form.php:20
+msgid "Password"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:101
+msgid "Enter your password"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:105
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:106
+msgid "Repeat Password"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:110
+msgid "Occupation"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:111
+msgid ""
+"Select your Occupation"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:115
+msgid "Religion"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:116
+msgid ""
+"Select your Religion"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:120
+msgid "Skin Color"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:121
+msgid ""
+"Select your Skin Color"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:125
+msgid "Gender"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:126
+msgid "Select your Gender"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:130
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:131
+msgid "Date of Birth"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:135
+msgid "Blood Group"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:136
+msgid ""
+"Select your Blood Group"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:140
+msgid "House"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:141
+msgid ""
+"Enter your House Number"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:145
+msgid "Road"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:146
+msgid ""
+"Enter your Road Number"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:150
+msgid "Location"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:151
+msgid "Enter your Location"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:155
+msgid "Facebook Url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:156
+msgid ""
+"Enter your facebook url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:160
+msgid "Twitter Url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:161
+msgid ""
+"Enter your twitter url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:165
+msgid "LinkedIn Url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:166
+msgid ""
+"Enter your linkedin url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:170
+msgid "Youtube Url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:171
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:176
+msgid ""
+"Enter your youtube url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:175
+msgid "Instagram Url"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:181
+#: includes/Admin/Settings/views/form-fields.php:12
+#: includes/Frontend/views/users/users_view.php:6
+#: includes/Frontend/views/users/users_view.php:18
+#: includes/Installer.php:120
+msgid "Profile Image"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_LabelPlaceholderSettings.php:185
+#: includes/Admin/Settings/views/form-fields.php:13
+#: includes/Installer.php:121
+msgid "Cover Image"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:61
+msgid "Approved"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:63
+msgid "Rejected"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:65
+msgid "Unapproved"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:93
+msgid "Approve"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:94
+msgid "Reject"
+msgstr ""
+
+#: includes/Admin/Settings/EPM_Users_Columns.php:97
+msgid "Unapprove"
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:28
+#: includes/Admin/Settings/functions.php:78
+#: includes/Admin/Settings/functions.php:127
+#: includes/Admin/Settings/functions.php:131
+#: includes/Admin/Settings/functions.php:168
+msgid ""
+"Security check failed."
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:172
+msgid "Not allowed."
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:213
+msgid ""
+"Settings saved "
+"successfully!"
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:215
+msgid ""
+"Failed to save settings. "
+"Please try again."
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:297
+msgid ""
+"The account has been "
+"approved, and the email "
+"has been sent to the "
+"user."
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:317
+msgid ""
+"The account has been "
+"unapproved successfully."
+msgstr ""
+
+#: includes/Admin/Settings/functions.php:337
+msgid ""
+"The account has been "
+"rejected successfully."
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:5
+msgid ""
+"Choose which user roles "
+"view the admin bar in "
+"the front-end of the "
+"website."
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:9
+msgid "User-Role"
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:10
+msgid "Visibility"
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:28
+msgid "Default"
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:29
+msgid "Show"
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:30
+msgid "Hide"
+msgstr ""
+
+#: includes/Admin/Settings/views/admin-bar-settings.php:45
+#: includes/Admin/Settings/views/advanced-settings.php:87
+#: includes/Admin/Settings/views/form-fields.php:37
+#: includes/Admin/Settings/views/general-settings.php:150
+msgid "Save Changes"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:8
+msgid "Enable gender field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:11
+msgid ""
+"By checking this option, "
+"gender field will enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:15
+msgid ""
+"Enable birthdate field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:18
+msgid ""
+"By checking this option, "
+"birthdate field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:22
+msgid ""
+"Enable occupation field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:25
+msgid ""
+"By checking this option, "
+"occupation field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:29
+msgid ""
+"Enable religion field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:32
+msgid ""
+"By checking this option, "
+"religion field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:36
+msgid ""
+"Enable skin color field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:39
+msgid ""
+"By checking this option, "
+"skin color field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:43
+msgid ""
+"Enable blood group field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:46
+msgid ""
+"By checking this option, "
+"blood group field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:50
+msgid ""
+"Enable facebook field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:53
+msgid ""
+"By checking this option, "
+"facebook field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:57
+msgid ""
+"Enable twitter field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:60
+msgid ""
+"By checking this option, "
+"twitter field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:64
+msgid ""
+"Enable linkedin field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:67
+msgid ""
+"By checking this option, "
+"linkedin field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:71
+msgid ""
+"Enable youtube field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:74
+msgid ""
+"By checking this option, "
+"youtube field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:78
+msgid ""
+"Enable instagram field"
+msgstr ""
+
+#: includes/Admin/Settings/views/advanced-settings.php:81
+msgid ""
+"By checking this option, "
+"instagram field will "
+"enable."
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:9
+#: includes/Frontend/views/users/users_view.php:7
+#: includes/Frontend/views/users/users_view.php:19
+#: includes/Installer.php:117
+msgid "Name"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:10
+#: includes/Installer.php:118
+msgid "Contact Info"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:11
+#: includes/Installer.php:119
+msgid "About Yourself"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:14
+#: includes/Installer.php:122
+msgid "Social Links"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:15
+#: includes/Frontend/views/profile/profile_details.php:104
+#: includes/Frontend/views/profile/profile_details.php:284
+#: includes/Frontend/views/profile/profile_details.php:467
+#: includes/Installer.php:123
+msgid "Mailing Address"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:23
+#, php-format
+msgid ""
+"Modify Form Heading '%s'"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:27
+#, php-format
+msgid ""
+"Checked Form Heading '%s'"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:29
+msgid "Show or Hide"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-fields.php:30
+msgid ""
+"By checking the heading "
+"won't be shown, Default "
+"is Show."
+msgstr ""
+
+#: includes/Admin/Settings/views/form-label-placeholder.php:2
+msgid ""
+"Label and Placeholder "
+"Configuration"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-navigation.php:2
+msgid "General Settings"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-navigation.php:3
+msgid "Admin Bar"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-navigation.php:4
+msgid "Advanced Settings"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-navigation.php:5
+msgid "Form Fields"
+msgstr ""
+
+#: includes/Admin/Settings/views/form-settings.php:7
+msgid ""
+"Eco Profile Master "
+"Settings"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:8
+msgid "Form Styles:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:11
+#: includes/Installer.php:53
+msgid "Style 1"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:12
+msgid "Style 2"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:13
+msgid "Style 3"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:15
+msgid "Select form style."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:19
+msgid ""
+"Automatically Log In:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:22
+#: includes/Admin/Settings/views/general-settings.php:32
+#: includes/Admin/Settings/views/general-settings.php:42
+#: includes/Admin/Settings/views/general-settings.php:52
+#: includes/Admin/Settings/views/general-settings.php:63
+#: includes/Admin/Settings/views/general-settings.php:72
+#: includes/Admin/Settings/views/general-settings.php:82
+#: includes/Admin/Settings/views/general-settings.php:92
+#: includes/Admin/Settings/views/general-settings.php:102
+#: includes/Admin/Settings/views/general-settings.php:112
+msgid "No"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:23
+#: includes/Admin/Settings/views/general-settings.php:33
+#: includes/Admin/Settings/views/general-settings.php:43
+#: includes/Admin/Settings/views/general-settings.php:53
+#: includes/Admin/Settings/views/general-settings.php:62
+#: includes/Admin/Settings/views/general-settings.php:73
+#: includes/Admin/Settings/views/general-settings.php:83
+#: includes/Admin/Settings/views/general-settings.php:93
+#: includes/Admin/Settings/views/general-settings.php:103
+#: includes/Admin/Settings/views/general-settings.php:113
+msgid "Yes"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:25
+msgid ""
+"Select \"Yes\" to "
+"automatically log in new "
+"users after successful "
+"registration."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:29
+msgid ""
+"Email Confirmation "
+"Activated:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:35
+msgid ""
+"This works with front-"
+"end forms only."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:39
+msgid "Admin Approval:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:45
+msgid ""
+"You decide who is a user "
+"on your website. Get "
+"notified via email or "
+"approve multiple users "
+"at once from the "
+"WordPress UI."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:49
+msgid "Show logout link"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:55
+msgid ""
+"Show the Logout link "
+"option if logged in."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:59
+msgid ""
+"Display Email Address to "
+"Users:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:65
+msgid ""
+"Select \"Yes\" email "
+"address field will be "
+"avilable."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:69
+msgid ""
+"Display Phone Number to "
+"Users:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:75
+msgid ""
+"Select \"Yes\" phone "
+"number field will be "
+"avilable."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:79
+msgid ""
+"Allow Users to Upload "
+"Profile Image:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:85
+msgid ""
+"Users can Upload their "
+"Profile Image."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:89
+msgid ""
+"Allow Users to Upload "
+"Cover Image:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:95
+msgid ""
+"Users can Upload their "
+"Cover Image."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:99
+msgid ""
+"Display Mailing Address "
+"to Users:."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:105
+msgid ""
+"Select \"Yes\" mailing "
+"address fields will be "
+"avilable."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:109
+msgid ""
+"Display Social Links to "
+"Users:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:115
+msgid ""
+"Select \"Yes\" social "
+"links fields will be "
+"avilable."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:120
+msgid ""
+"Select Recover Password "
+"Page:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:123
+msgid ""
+"Select the page which "
+"contains the [epm-"
+"recover-password] "
+"shortcode."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:127
+msgid ""
+"Registration Redirect "
+"Page:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:130
+msgid ""
+"Select the page which "
+"contains the [epm-login] "
+"shortcode."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:134
+msgid ""
+"Login Redirect Page:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:137
+msgid ""
+"Select the page which "
+"contains the [epm-"
+"profile-edit] shortcode."
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:141
+msgid ""
+"Password Reset Page:"
+msgstr ""
+
+#: includes/Admin/Settings/views/general-settings.php:144
+msgid ""
+"Select the page which "
+"contains the [epm-"
+"password-reset-form] "
+"shortcode."
+msgstr ""
+
+#: includes/Assets/Manager.php:200
+msgid ""
+"Failed to load user "
+"details."
+msgstr ""
+
+#: includes/Frontend/Login.php:67
+#: includes/Frontend/Login.php:166
+#: includes/Frontend/Login.php:264
+#, php-format
+msgid ""
+"You are currently logged "
+"in as %s. <a "
+"href=\"%s\">Log out »</a>"
+msgstr ""
+
+#: includes/Frontend/Login.php:69
+#: includes/Frontend/Login.php:168
+#: includes/Frontend/Login.php:266
+#: includes/Frontend/Signup.php:160
+#, php-format
+msgid ""
+"You are currently logged "
+"in. <a href=\"%s\">Log "
+"out »</a>"
+msgstr ""
+
+#: includes/Frontend/Login.php:120
+msgid ""
+"Invalid email address."
+msgstr ""
+
+#: includes/Frontend/Login.php:200
+#: includes/Frontend/views/login/password_reset_form.php:11
+msgid "Reset Password"
+msgstr ""
+
+#: includes/Frontend/Login.php:205
+#: includes/Frontend/views/login/password_reset_form.php:2
+msgid "Password Reset"
+msgstr ""
+
+#: includes/Frontend/Login.php:207
+msgid ""
+"Click the following "
+"button to reset your "
+"password:"
+msgstr ""
+
+#: includes/Frontend/Login.php:220
+msgid ""
+"Password reset email "
+"sent. Check your inbox."
+msgstr ""
+
+#: includes/Frontend/Login.php:222
+msgid ""
+"Failed to send the "
+"password reset email. "
+"Please try again later."
+msgstr ""
+
+#: includes/Frontend/Login.php:225
+msgid "User not found."
+msgstr ""
+
+#: includes/Frontend/Login.php:306
+#: includes/Frontend/Login.php:315
+msgid ""
+"Invalid or expired token."
+msgstr ""
+
+#: includes/Frontend/Login.php:346
+msgid ""
+"Password reset "
+"successful. You can now "
+"login with your new "
+"password."
+msgstr ""
+
+#: includes/Frontend/Profile.php:70
+#: includes/Frontend/Profile.php:103
+#: includes/Frontend/Users.php:41
+#, php-format
+msgid ""
+"You are currently not "
+"logged in. <a "
+"href=\"%s\">login »</a>"
+msgstr ""
+
+#: includes/Frontend/Profile.php:126
+msgid ""
+"Sorry, the page you are "
+"looking for is not "
+"available."
+msgstr ""
+
+#: includes/Frontend/Profile.php:127
+msgid "Go to the homepage"
+msgstr ""
+
+#: includes/Frontend/Profile.php:128
+msgid ""
+"or contact the site "
+"administrator for "
+"assistance."
+msgstr ""
+
+#: includes/Frontend/Profile.php:215
+msgid ""
+"Profile Updated "
+"Successfully."
+msgstr ""
+
+#: includes/Frontend/Profile.php:217
+msgid ""
+"Failed to Update "
+"Profile. Please try "
+"again later."
+msgstr ""
+
+#: includes/Frontend/Profile.php:220
+msgid "Validation Errors."
+msgstr ""
+
+#: includes/Frontend/Signup.php:68
+msgid ""
+"Email verification "
+"failed. Please try again."
+msgstr ""
+
+#: includes/Frontend/Signup.php:157
+msgid ""
+"You are already logged "
+"in as a"
+msgstr ""
+
+#: includes/Frontend/Signup.php:250
+#: includes/Traits/EPM_Form_ValidationTrait.php:253
+msgid ""
+"Security check failed. "
+"Please try again."
+msgstr ""
+
+#: includes/Frontend/Signup.php:265
+msgid ""
+"Confirmation email sent. "
+"Please check your inbox."
+msgstr ""
+
+#: includes/Frontend/Signup.php:272
+msgid ""
+"Registration successful. "
+"Please wait for admin "
+"approval."
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:7
+#: includes/Frontend/views/profile/profile_form.php:63
+msgid "A+"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:8
+#: includes/Frontend/views/profile/profile_form.php:64
+msgid "A-"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:9
+#: includes/Frontend/views/profile/profile_form.php:65
+msgid "B+"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:10
+#: includes/Frontend/views/profile/profile_form.php:66
+msgid "B-"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:11
+#: includes/Frontend/views/profile/profile_form.php:67
+msgid "O+"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:12
+#: includes/Frontend/views/profile/profile_form.php:68
+msgid "O-"
+msgstr ""
+
+#: includes/Frontend/views/fields/blood-group-info.php:13
+#: includes/Frontend/views/profile/profile_form.php:69
+msgid "AB+"
+msgstr ""
+
+#: includes/Frontend/views/fields/gender-info.php:7
+#: includes/Frontend/views/profile/profile_form.php:16
+msgid "Male"
+msgstr ""
+
+#: includes/Frontend/views/fields/gender-info.php:8
+#: includes/Frontend/views/profile/profile_form.php:17
+msgid "Female"
+msgstr ""
+
+#: includes/Frontend/views/fields/gender-info.php:9
+#: includes/Frontend/views/fields/occupation-info.php:19
+#: includes/Frontend/views/fields/religion-info.php:13
+#: includes/Frontend/views/profile/profile_form.php:18
+#: includes/Frontend/views/profile/profile_form.php:36
+#: includes/Frontend/views/profile/profile_form.php:48
+msgid "Other"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:7
+#: includes/Frontend/views/profile/profile_form.php:24
+msgid "Student"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:8
+#: includes/Frontend/views/profile/profile_form.php:25
+msgid "Doctor"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:9
+#: includes/Frontend/views/profile/profile_form.php:26
+msgid "Architect"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:10
+#: includes/Frontend/views/profile/profile_form.php:27
+msgid "Engineer"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:11
+#: includes/Frontend/views/profile/profile_form.php:28
+msgid "Teacher"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:12
+#: includes/Frontend/views/profile/profile_form.php:29
+msgid "Govt Employee"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:13
+#: includes/Frontend/views/profile/profile_form.php:30
+msgid "Private Service"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:14
+#: includes/Frontend/views/profile/profile_form.php:31
+msgid "Media Professional"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:15
+#: includes/Frontend/views/profile/profile_form.php:32
+msgid "IT Professional"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:16
+#: includes/Frontend/views/profile/profile_form.php:33
+msgid "Businessman"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:17
+#: includes/Frontend/views/profile/profile_form.php:34
+msgid "Lawyer"
+msgstr ""
+
+#: includes/Frontend/views/fields/occupation-info.php:18
+#: includes/Frontend/views/profile/profile_form.php:35
+msgid "Banker"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:7
+#: includes/Frontend/views/profile/profile_form.php:42
+msgid "Islam"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:8
+#: includes/Frontend/views/profile/profile_form.php:43
+msgid "Christianity"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:9
+#: includes/Frontend/views/profile/profile_form.php:44
+msgid "Buddhism"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:10
+#: includes/Frontend/views/profile/profile_form.php:45
+msgid "Hinduism"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:11
+#: includes/Frontend/views/profile/profile_form.php:46
+msgid "Judaism"
+msgstr ""
+
+#: includes/Frontend/views/fields/religion-info.php:12
+#: includes/Frontend/views/profile/profile_form.php:47
+msgid "Jainism"
+msgstr ""
+
+#: includes/Frontend/views/fields/skin-color-info.php:7
+#: includes/Frontend/views/profile/profile_form.php:54
+msgid "Fair"
+msgstr ""
+
+#: includes/Frontend/views/fields/skin-color-info.php:8
+#: includes/Frontend/views/profile/profile_form.php:55
+msgid "Brown"
+msgstr ""
+
+#: includes/Frontend/views/fields/skin-color-info.php:9
+#: includes/Frontend/views/profile/profile_form.php:56
+msgid "Dark"
+msgstr ""
+
+#: includes/Frontend/views/fields/skin-color-info.php:10
+#: includes/Frontend/views/profile/profile_form.php:57
+msgid "Black"
+msgstr ""
+
+#: includes/Frontend/views/login/custom-password-reset-form.php:2
+msgid "Pick a New Password"
+msgstr ""
+
+#: includes/Frontend/views/login/custom-password-reset-form.php:7
+msgid "New Password"
+msgstr ""
+
+#: includes/Frontend/views/login/custom-password-reset-form.php:14
+msgid "Repeat new Password"
+msgstr ""
+
+#: includes/Frontend/views/login/custom-password-reset-form.php:21
+msgid "Get New Password"
+msgstr ""
+
+#: includes/Frontend/views/login/login_form.php:3
+#: includes/Frontend/views/login/login_form.php:27
+#: includes/Installer.php:73
+msgid "Login"
+msgstr ""
+
+#: includes/Frontend/views/login/login_form.php:12
+msgid ""
+"Username or Email Address"
+msgstr ""
+
+#: includes/Frontend/views/login/login_form.php:28
+msgid "Lost your password?"
+msgstr ""
+
+#: includes/Frontend/views/login/login_form.php:32
+msgid ""
+"Don't have an account?"
+msgstr ""
+
+#: includes/Frontend/views/login/login_form.php:32
+msgid "Sign Up"
+msgstr ""
+
+#: includes/Frontend/views/login/password_reset_form.php:7
+msgid "Email Address"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:55
+#: includes/Frontend/views/profile/profile_details.php:226
+#: includes/Frontend/views/profile/profile_details.php:418
+msgid "Years Old"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:70
+#: includes/Frontend/views/profile/profile_details.php:241
+#: includes/Frontend/views/profile/profile_details.php:433
+msgid "Call"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:79
+#: includes/Frontend/views/profile/profile_details.php:250
+#: includes/Frontend/views/profile/profile_details.php:442
+msgid "E-mail"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:88
+#: includes/Frontend/views/profile/profile_details.php:259
+#: includes/Frontend/views/profile/profile_details.php:451
+msgid "Visit"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:99
+#: includes/Frontend/views/profile/profile_details.php:271
+#: includes/Frontend/views/profile/profile_details.php:462
+msgid "Biological Info"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:100
+#: includes/Frontend/views/profile/profile_details.php:273
+#: includes/Frontend/views/profile/profile_details.php:463
+msgid "Skin:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:101
+#: includes/Frontend/views/profile/profile_details.php:277
+#: includes/Frontend/views/profile/profile_details.php:464
+msgid "Blood Group:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:106
+#: includes/Frontend/views/profile/profile_details.php:286
+#: includes/Frontend/views/profile/profile_details.php:469
+msgid "House:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:109
+#: includes/Frontend/views/profile/profile_details.php:289
+#: includes/Frontend/views/profile/profile_details.php:472
+msgid "Road:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:112
+#: includes/Frontend/views/profile/profile_details.php:292
+#: includes/Frontend/views/profile/profile_details.php:475
+msgid "Location:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:116
+#: includes/Frontend/views/profile/profile_details.php:300
+#: includes/Frontend/views/profile/profile_details.php:479
+msgid "Other Info"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:117
+#: includes/Frontend/views/profile/profile_details.php:303
+#: includes/Frontend/views/profile/profile_details.php:480
+msgid "First Name:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:118
+#: includes/Frontend/views/profile/profile_details.php:307
+#: includes/Frontend/views/profile/profile_details.php:481
+msgid "Last Name:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:119
+#: includes/Frontend/views/profile/profile_details.php:311
+#: includes/Frontend/views/profile/profile_details.php:482
+msgid "Religion:"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:125
+#: includes/Frontend/views/profile/profile_details.php:321
+#: includes/Frontend/views/profile/profile_details.php:488
+msgid ""
+"A Few Words About Myself"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_details.php:136
+#: includes/Frontend/views/profile/profile_details.php:332
+#: includes/Frontend/views/profile/profile_details.php:499
+msgid "Get Connected with"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_form.php:333
+msgid "Update Profile"
+msgstr ""
+
+#: includes/Frontend/views/profile/profile_form.php:334
+msgid "View Profile"
+msgstr ""
+
+#: includes/Frontend/views/signup_form.php:38
+#: includes/Frontend/views/signup_form_style2.php:38
+#: includes/Frontend/views/signup_form_style3.php:38
+msgid "Submit"
+msgstr ""
+
+#: includes/Frontend/views/signup_form.php:41
+#: includes/Frontend/views/signup_form_style2.php:41
+#: includes/Frontend/views/signup_form_style3.php:41
+msgid ""
+"Already have an account?"
+msgstr ""
+
+#: includes/Frontend/views/signup_form.php:41
+#: includes/Frontend/views/signup_form_style2.php:41
+#: includes/Frontend/views/signup_form_style3.php:41
+msgid "Log In"
+msgstr ""
+
+#: includes/Frontend/views/users/users_view.php:2
+msgid "Users Listing"
+msgstr ""
+
+#: includes/Frontend/views/users/users_view.php:9
+#: includes/Frontend/views/users/users_view.php:21
+msgid "Joining Date"
+msgstr ""
+
+#: includes/Frontend/views/users/users_view.php:10
+msgid "View User Data"
+msgstr ""
+
+#: includes/Installer.php:54
+#: includes/Installer.php:55
+#: includes/Installer.php:56
+#: includes/Installer.php:57
+#: includes/Installer.php:59
+#: includes/Installer.php:60
+#: includes/Installer.php:61
+#: includes/Installer.php:62
+#: includes/Installer.php:63
+msgid "no"
+msgstr ""
+
+#: includes/Installer.php:58
+msgid "yes"
+msgstr ""
+
+#: includes/Installer.php:72
+msgid "Recover-Password"
+msgstr ""
+
+#: includes/Installer.php:74
+msgid "Profile Edit"
+msgstr ""
+
+#: includes/Installer.php:150
+msgid "repassword"
+msgstr ""
+
+#: includes/Installer.php:151
+#: includes/Installer.php:153
+msgid "Enter your "
+msgstr ""
+
+#: includes/Installer.php:163
+msgid ""
+"Upload your profile image"
+msgstr ""
+
+#: includes/Installer.php:168
+msgid "Profile Cover image"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:19
+msgid ""
+"Account Confirmation"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:23
+#, php-format
+msgid "Hello %s,"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:27
+#, php-format
+msgid ""
+"Click the following link "
+"to confirm your account "
+"on %s:"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:36
+msgid "Confirm Account"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:37
+msgid ""
+"If you did not request "
+"this, please disregard "
+"this email."
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:57
+msgid ""
+"New User Registration "
+"Requires Approval"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:61
+msgid ""
+"<p>A new user has "
+"registered and requires "
+"approval:</p>"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:66
+#, php-format
+msgid ""
+"<li><strong>Username:</"
+"strong> %s</li>"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:70
+#, php-format
+msgid ""
+"<li><strong>Email:</"
+"strong> %s</li>"
+msgstr ""
+
+#: includes/Traits/EPM_EmailTemplatesTrait.php:74
+#, php-format
+msgid ""
+"<li><strong>Name:</"
+"strong> %s %s</li>"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:41
+msgid ""
+"First name cannot be "
+"purely numeric."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:47
+msgid ""
+"Last name cannot be "
+"purely numeric."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:53
+msgid ""
+"Nickname  cannot be "
+"purely numeric."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:58
+msgid ""
+"Display Name cannot be "
+"purely numeric."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:64
+msgid ""
+"Username is required."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:69
+msgid ""
+"Username already exists. "
+"Please choose a "
+"different username."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:74
+msgid ""
+"Username cannot be "
+"purely numeric."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:86
+msgid "Email is required."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:90
+msgid ""
+"Email already exists. "
+"Please use a different "
+"email address."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:95
+msgid ""
+"Invalid email format."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:111
+#: includes/Traits/EPM_Form_ValidationTrait.php:114
+msgid ""
+"Please enter a valid "
+"phone number."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:121
+#: includes/Traits/EPM_Form_ValidationTrait.php:129
+#: includes/Traits/EPM_Form_ValidationTrait.php:304
+msgid ""
+"Password must be at "
+"least 7 characters long."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:124
+#: includes/Traits/EPM_Form_ValidationTrait.php:132
+#: includes/Traits/EPM_Form_ValidationTrait.php:308
+msgid ""
+"Passwords do not match."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:141
+msgid ""
+"Please enter a valid "
+"website URL."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:146
+msgid "Facebook"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:147
+msgid "Twitter"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:148
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:149
+msgid "YouTube"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:150
+msgid "Instagram"
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:158
+#, php-format
+msgid ""
+"Please enter a valid %s "
+"URL."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:176
+#: includes/Traits/EPM_Form_ValidationTrait.php:202
+msgid ""
+"Please upload a valid "
+"image file (JPEG, PNG, "
+"GIF)."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:181
+#: includes/Traits/EPM_Form_ValidationTrait.php:207
+msgid ""
+"Image size should be 1 "
+"MB or less."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:220
+msgid ""
+"Please select a valid "
+"gender."
+msgstr ""
+
+#: includes/Traits/EPM_Form_ValidationTrait.php:236
+msgid ""
+"Unauthorized access. "
+"Please contact the site "
+"administrator."
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:24
+msgid ""
+"Username or email is "
+"required."
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:29
+msgid ""
+"Invalid username or email"
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:33
+msgid ""
+"Password is required."
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:38
+msgid "Incorrect password."
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:60
+msgid ""
+"Passwords do not match"
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:118
+msgid ""
+"Your email has been "
+"confirmed. Please wait "
+"for admin approval."
+msgstr ""
+
+#: includes/Traits/EPM_LoginTrait.php:122
+msgid ""
+"Your email has been "
+"confirmed."
+msgstr ""
+
+#: includes/Traits/EPM_UserAccountManagementTrait.php:41
+msgid "unapproved"
+msgstr ""
+
+#: includes/Traits/EPM_UserAccountManagementTrait.php:166
+#: includes/Traits/EPM_UserAccountManagementTrait.php:196
+msgid ""
+"Image upload failed: "
+msgstr ""
+
+#: includes/Traits/EPM_UserAccountManagementTrait.php:328
+msgid ""
+"Error setting user role: "
+msgstr ""
+
+#: includes/functions.php:207
+#: includes/functions.php:242
+#: includes/functions.php:274
+#: includes/functions.php:308
+#: includes/functions.php:527
+#: includes/functions.php:559
+msgid "Dismiss"
+msgstr ""
+
+#: includes/functions.php:351
+msgid "log in"
+msgstr ""
+
+#: includes/functions.php:358
+#, php-format
+msgid ""
+"You can now <a "
+"href=\"%s\">log in</a>."
+msgstr ""
+
+#: includes/functions.php:476
+msgid ""
+"No profile image "
+"available"
+msgstr ""
+
+#: includes/functions.php:504
+msgid ""
+"No Cover image available"
+msgstr ""
+
+#: includes/functions.php:597
+msgid "User Avatar"
+msgstr ""
+
+#: includes/functions.php:599
+msgid "Default Avatar"
+msgstr ""
+
+#: includes/functions.php:613
+msgid "No users found"
+msgstr ""
+
+#: includes/functions.php:654
+msgid "Logout"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntaxKey"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntax"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntaxExpression"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntaxKeyedExpression"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntaxLet"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-angular.js:2
+msgid "NGMicrosyntaxAs"
+msgstr ""
+
+#: node_modules/@wordpress/scripts/node_modules/prettier/parser-typescript.js:250
+msgid "  "
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:105
+msgid ""
+"is not a finite number"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:172
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:188
+msgid ""
+"is not a finite floating-"
+"point value"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:198
+msgid ""
+"is outside the range of "
+"a single-precision "
+"floating-point value"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:228
+msgid ""
+"is a symbol, which "
+"cannot be converted to a "
+"string"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:239
+msgid ""
+"is not a valid ByteString"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:276
+msgid "is not an object"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:288
+msgid "is not a function"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:308
+msgid ""
+"is not a view on an "
+"ArrayBuffer object"
+msgstr ""
+
+#: node_modules/domexception/node_modules/webidl-conversions/lib/index.js:320
+msgid ""
+"is not a view on an "
+"DataView object"
+msgstr ""
+
+#: node_modules/prettier/parser-glimmer.js:1
+msgid "Broken"
+msgstr ""
+
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:419
+#: node_modules/yargs-parser/index.js:372
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:419
+#, javascript-format
+msgid ""
+"Argument unexpected for: "
+"%s"
+msgstr ""
+
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:428
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:442
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:495
+#: node_modules/yargs-parser/index.js:382
+#: node_modules/yargs-parser/index.js:392
+#: node_modules/yargs-parser/index.js:446
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:428
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:442
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:495
+#, javascript-format
+msgid ""
+"Not enough arguments "
+"following: %s"
+msgstr ""
+
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:634
+#: node_modules/yargs-parser/index.js:591
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:634
+#, javascript-format
+msgid ""
+"Invalid JSON config "
+"file: %s"
+msgstr ""
+
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:963
+#: node_modules/yargs-parser/index.js:941
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:963
+#, javascript-format
+msgid ""
+"Invalid configuration: "
+"%s, opts.count excludes "
+"opts.array."
+msgstr ""
+
+#: node_modules/stylelint/node_modules/yargs-parser/build/lib/yargs-parser.js:967
+#: node_modules/yargs-parser/index.js:944
+#: node_modules/yargs/node_modules/yargs-parser/build/lib/yargs-parser.js:967
+#, javascript-format
+msgid ""
+"Invalid configuration: "
+"%s, opts.count excludes "
+"opts.narg."
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:79
+msgid "Positionals:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:173
+#: node_modules/yargs/build/lib/usage.js:176
+msgid "command"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:182
+msgid "Commands:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:199
+msgid "default"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:201
+msgid "aliases:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:205
+#: node_modules/yargs/build/lib/usage.js:311
+#, javascript-format
+msgid "deprecated: %s"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:208
+#: node_modules/yargs/build/lib/usage.js:312
+msgid "deprecated"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:227
+msgid "Options:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:299
+msgid "boolean"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:301
+msgid "count"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:303
+#: node_modules/yargs/build/lib/usage.js:305
+msgid "string"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:307
+msgid "array"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:309
+msgid "number"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:318
+msgid "required"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:320
+msgid "choices:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:339
+msgid "Examples:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:441
+msgid "generated-value"
+msgstr ""
+
+#: node_modules/yargs/build/lib/usage.js:458
+msgid "default:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:146
+msgid "Invalid values:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:148
+#, javascript-format
+msgid ""
+"Argument: %s, Given: %s, "
+"Choices: %s"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:171
+#, javascript-format
+msgid ""
+"Argument check failed: %s"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:233
+msgid ""
+"Implications failed:"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:267
+#, javascript-format
+msgid ""
+"Arguments %s and %s are "
+"mutually exclusive"
+msgstr ""
+
+#: node_modules/yargs/build/lib/validation.js:286
+#, javascript-format
+msgid "Did you mean %s?"
+msgstr ""
+
+#: src/assets/js/lib/dataTables.min.js:4
+msgid "row"
+msgstr ""
+
+#: src/assets/js/lib/dataTables.min.js:4
+msgid "column"
+msgstr ""
+
+#: src/assets/js/lib/dataTables.min.js:4
+msgid "cell"
+msgstr ""
+
+#: templates/features/general-settings/general.php:6
+msgid ""
+"The best way to add "
+"front-end registration, "
+"edit profile, and login "
+"forms"
+msgstr ""
+
+#: templates/features/general-settings/general.php:9
+msgid "image-coming-soon"
+msgstr ""
+
+#: templates/features/general-settings/general.php:19
+msgid ""
+"Speed up the setup "
+"process by automatically "
+"creating the form pages:"
+msgstr ""
+
+#: templates/features/general-settings/general.php:25
+msgid "Login Form"
+msgstr ""
+
+#: templates/features/general-settings/general.php:26
+msgid ""
+"Friction-less login "
+"using [epm-login] "
+"shortcode"
+msgstr ""
+
+#: templates/features/general-settings/general.php:31
+msgid "Registration Form"
+msgstr ""
+
+#: templates/features/general-settings/general.php:32
+msgid ""
+"Beautiful registration "
+"forms fully customizable "
+"using the [epm-register] "
+"shortcode."
+msgstr ""
+
+#: templates/features/general-settings/general.php:37
+msgid "Edit Profile Form"
+msgstr ""
+
+#: templates/features/general-settings/general.php:38
+msgid ""
+"Straightforward edit "
+"profile forms using [epm-"
+"profile-edit] shortcode."
+msgstr ""
+
+#: templates/features/general-settings/general.php:48
+msgid "Features List"
+msgstr ""
+
+#: templates/features/general-settings/general.php:49
+msgid ""
+"Features that give you "
+"more control over your "
+"users, increased "
+"security, and help you "
+"fight user registration "
+"spam."
+msgstr ""
+
+#: templates/features/general-settings/general.php:53
+msgid "Recover Password"
+msgstr ""
+
+#: templates/features/general-settings/general.php:54
+msgid ""
+"Allow users to recover "
+"their password in the "
+"front-end using the [epm-"
+"pass-recover] shortcode"
+msgstr ""
+
+#: templates/features/general-settings/general.php:59
+msgid "Profile Page"
+msgstr ""
+
+#: templates/features/general-settings/general.php:60
+msgid ""
+"Allow users to show "
+"profile page using [epm-"
+"profile] shortcode"
+msgstr ""
+
+#: templates/features/general-settings/general.php:65
+msgid ""
+"Login with Email or "
+"Username"
+msgstr ""
+
+#: templates/features/general-settings/general.php:66
+msgid ""
+"Allow users to log in "
+"with their email or "
+"username when accessing "
+"your site."
+msgstr ""
+
+#: templates/features/general-settings/general.php:71
+msgid "User Listings Page"
+msgstr ""
+
+#: templates/features/general-settings/general.php:72
+msgid ""
+"Allow users to show user "
+"listings page using [epm-"
+"user-listings] shortcode"
+msgstr ""
+
+#: templates/features/general-settings/general.php:77
+msgid "Admin Approval"
+msgstr ""
+
+#: templates/features/general-settings/general.php:78
+msgid ""
+"You decide who is a user "
+"on your website. Get "
+"notified via email or "
+"approve multiple users "
+"at once from the "
+"WordPress."
+msgstr ""
+
+#: templates/features/general-settings/general.php:83
+msgid ""
+"Automatically Log In"
+msgstr ""
+
+#: templates/features/general-settings/general.php:84
+msgid ""
+"Automatically log in new "
+"users after successful "
+"registration"
+msgstr ""
+
+#: templates/features/general-settings/general.php:89
+#: templates/features/general-settings/general.php:90
+msgid ""
+"Email Confirmation "
+"Activated"
+msgstr ""
+
+#: templates/features/general-settings/general.php:95
+msgid ""
+"Phone Number to Users"
+msgstr ""
+
+#: templates/features/general-settings/general.php:96
+msgid ""
+"Allow users phone number "
+"field"
+msgstr ""

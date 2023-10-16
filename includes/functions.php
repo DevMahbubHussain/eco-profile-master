@@ -1,9 +1,12 @@
 <?php
 
 /**
- * Get all the pages
+ * Retrieve an array of page IDs and titles.
  *
- * @return array page names with key value pairs
+ * This function retrieves a list of pages and creates an associative array
+ * where the keys are page IDs, and the values are page titles.
+ *
+ * @return array An array of page IDs and titles.
  */
 function epm_get_my_pages()
 {
@@ -19,9 +22,11 @@ function epm_get_my_pages()
 }
 
 /**
- * Profile iamge function.
+ * Render an uploaded image with dynamic display.
  *
- * @return void
+ * This function handles the display of an uploaded image and dynamically updates
+ * its visibility and dimensions based on the uploaded file. It also includes
+ * client-side JavaScript for image preview.
  */
 function render_uploaded_image()
 {
@@ -78,9 +83,11 @@ function render_uploaded_image()
 }
 
 /**
- * Cover Image function.
+ * Render an uploaded image with dynamic display.
  *
- * @return void
+ * This function handles the display of an uploaded image and dynamically updates
+ * its visibility and dimensions based on the uploaded file. It also includes
+ * client-side JavaScript for image preview.
  */
 function render_cover_image()
 {
@@ -137,30 +144,6 @@ function render_cover_image()
 }
 
 /**
- * Signup form submission handler 
- */
-
-function epm_activate_user_signup()
-{
-    // form submission code goes here 
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register'])) {
-
-        // Verify hidden field value
-        if ($_POST['user_registration'] !== 'user_registration') {
-            wp_die(__('Security check failed. Please try again hidden.', 'eco-profile-master'));
-        }
-        // Verify user capability
-        if (!current_user_can('manage_options')) {
-            wp_die(__('Unauthorized access. Please contact the site administrator.', 'eco-profile-master'));
-        }
-
-        print_r($_POST);
-        exit();
-    }
-}
-
-/**
  * Filter to hide or show the admin bar based on plugin settings for all user roles.
  *
  * This function retrieves the admin bar settings from the plugin's admin panel and applies
@@ -199,7 +182,13 @@ function hide_admin_bar_for_all_roles($show)
 add_filter('show_admin_bar', 'hide_admin_bar_for_all_roles');
 
 
-// displayConfirmationMessages message
+/**
+ * Display confirmation messages in styled alert boxes.
+ *
+ * This function retrieves an array of confirmation messages from a transient named 'confirmation_messages'
+ * and displays each message in a separate styled alert box. After displaying the messages, it clears the
+ * confirmation messages from the transient.
+ */
 function displayConfirmationMessages()
 {
     $confirmation_messages = get_transient('confirmation_messages');
@@ -223,14 +212,19 @@ function displayConfirmationMessages()
             </div>
         <?php
         }
-
         // Clear the confirmation messages from the transient
         delete_transient('confirmation_messages');
     }
 }
 
 
-// password reset Message
+/**
+ * Display a confirmation message in a styled alert box.
+ *
+ * This function displays a confirmation message in a styled alert box with options to dismiss.
+ * It retrieves the confirmation message from a transient named 'password_reset_confirmation_messages'
+ * and removes the transient afterward.
+ */
 function display_confirmation_message()
 {
     $confirmation_messages = get_transient('password_reset_confirmation_messages');
@@ -257,7 +251,12 @@ function display_confirmation_message()
 }
 
 
-// password reset successfully
+/**
+ * Display a password reset confirmation message in a styled alert box.
+ *
+ * This function retrieves a password reset confirmation message from a transient named 'password_reset_success_messages'
+ * and displays it in a styled alert box. After displaying the message, it clears the transient.
+ */
 function display_password_reset_confirmation_message()
 {
     $confirmation_messages = get_transient('password_reset_success_messages');
@@ -284,6 +283,13 @@ function display_password_reset_confirmation_message()
     delete_transient('password_reset_success_messages');
 }
 
+/**
+ * Display an error message for an expired token in a styled alert box.
+ *
+ * This function checks for the presence of an 'expired_token' transient, and if found,
+ * it displays the contained error message in a styled alert box. After displaying the message,
+ * it clears the 'expired_token' transient.
+ */
 
 function display_error_token_message()
 {
@@ -373,7 +379,13 @@ function custom_redirect_action_hook()
 }
 add_action('template_redirect', 'custom_redirect_action_hook');
 
-
+/**
+ * Custom Lost Password Page Redirection
+ *
+ * This function checks for a custom Lost Password page URL specified in the WordPress options.
+ * If such a page URL is found, it redirects the user to that custom Lost Password page. 
+ * This is used to override the default WordPress Lost Password page.
+ */
 function custom_lost_password_page()
 {
     $epm_lost_password_page = sanitize_text_field(get_option('epm_lost_password_page', 'Recover-Password'));
@@ -384,8 +396,12 @@ function custom_lost_password_page()
     exit; // Add exit to prevent further code execution
 }
 
-
-// signup
+/**
+ * Custom Redirect for Signup Hook
+ *
+ * This function checks if the 'action' parameter is set in the URL and if it's equal to 'sign_up'.
+ * If these conditions are met, it redirects the user to a custom signup page.
+ */
 function custom_redirect_signup_hook()
 {
     if (isset($_GET['action'])) {
@@ -398,9 +414,12 @@ function custom_redirect_signup_hook()
 }
 add_action('template_redirect', 'custom_redirect_signup_hook');
 
-
-
-// signin
+/**
+ * Custom Redirect for Login Hook
+ *
+ * This function checks if the 'action' parameter is set in the URL and if it's equal to 'login_page'.
+ * If these conditions are met, it calls the 'custom_login_redirect' function to handle the redirection.
+ */
 function custom_redirect_login_hook()
 {
     if (isset($_GET['action'])) {
@@ -412,9 +431,12 @@ function custom_redirect_login_hook()
 }
 add_action('template_redirect', 'custom_redirect_login_hook');
 
-
-
-
+/**
+ * Custom Redirect for Login Hook After Logout
+ *
+ * This function checks if the 'action' parameter is set in the URL and if it's equal to 'logout'.
+ * If these conditions are met, it calls the 'custom_login_redirect' function to handle the redirection.
+ */
 function custom_redirect_login_hook_after_logout()
 {
     if (isset($_GET['action'])) {
@@ -426,6 +448,13 @@ function custom_redirect_login_hook_after_logout()
 }
 add_action('template_redirect', 'custom_redirect_login_hook_after_logout');
 
+/**
+ * Display Current User's Image
+ *
+ * This function retrieves the current user's image URL from user meta, displays the image as a thumbnail
+ * with the specified width and height, and sets the file name as alt text. If no image is available,
+ * it displays a default message.
+ */
 function display_current_user_image()
 {
     // Get the current user's image URL from user meta
@@ -449,9 +478,11 @@ function display_current_user_image()
 }
 
 /**
- * display cover function.
+ * Display Current User's Cover Image
  *
- * @return void
+ * This function retrieves the current user's image URL from user meta, displays the image as a thumbnail
+ * with the specified width and height, and sets the file name as alt text. If no image is available,
+ * it displays a default message.
  */
 function display_current_user_cover_image()
 {
@@ -474,7 +505,12 @@ function display_current_user_cover_image()
     }
 }
 
-// profile message
+/**
+ * Display Profile Update Confirmation Messages
+ *
+ * This function displays confirmation messages related to profile updates stored in a transient.
+ * It checks if there are confirmation messages, and if so, displays them in a styled alert box.
+ */
 function displayConfirmationprofileUpdateMessages()
 {
     $confirmation_messages = get_transient('profile_update_message');
@@ -496,12 +532,17 @@ function displayConfirmationprofileUpdateMessages()
         </div>
     <?php
     }
-
     // Clear the confirmation messages from the transient
     delete_transient('profile_update_message');
 }
 
-// administration message 
+/**
+ * Display User Registration Success Message
+ *
+ * This function displays a success message related to user registration, which is stored in a transient.
+ * It checks if there is a success message, and if so, displays it in a styled alert box.
+ * After displaying the message, it clears it from the transient storage to prevent it from being shown again.
+ */
 function displayUserRegistrationMessage()
 {
     $success_message = get_transient('registration_success_message');
@@ -526,8 +567,12 @@ function displayUserRegistrationMessage()
     delete_transient('registration_success_message');
 }
 
-
-// user listings 
+/**
+ * Get EPM User Listings
+ *
+ * This function retrieves a list of users with the 'subscriber' role and displays their information in a table format.
+ * It includes the user's avatar, full name, email, signup date, and a link to view the user's profile.
+ */
 function get_epm_user_listings()
 {
     $users = get_users([
@@ -582,4 +627,36 @@ function generate_common_select_options($current_value, $options)
         $selected = ($current_value === $value) ? 'selected' : '';
         echo '<option value="' . esc_attr($value) . '" ' . $selected . '>' . esc_html($label) . '</option>';
     }
+}
+
+/**
+ * Customize the menu items in the primary menu.
+ *
+ * If the primary menu is supported in the theme, the user is logged in,
+ * and the 'show_logout_link' option is enabled, adds a "Logout" link to the menu.
+ *
+ * If the primary menu is not supported in the theme, and the user is logged in,
+ * and the 'show_logout_link' option is enabled, also adds a "Logout" link to the menu.
+ *
+ * @param string $menu The original menu content.
+ * @param stdClass $args An object containing menu arguments.
+ * @return string The modified menu content.
+ */
+add_filter('wp_nav_menu_items', 'customize_menu_items', 10, 2);
+
+function customize_menu_items($menu, $args)
+{
+    $show_logout_link = get_option('epm_show_logout', 'no');
+
+    if ($args->theme_location == 'primary' || !has_nav_menu('primary')) {
+        if (is_user_logged_in() && $show_logout_link === 'yes') {
+            // Translate the "Logout" text
+            $logout_text = __('Logout', 'eco-profile-master');
+            // User is logged in, and the 'show_logout_link' option is enabled, add a "Logout" link
+            $logout_link = '<li><a href="' . wp_logout_url(home_url('/')) . '">' . esc_html($logout_text) . '</a></li>';
+            $menu .= $logout_link;
+        }
+    }
+
+    return $menu;
 }

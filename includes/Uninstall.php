@@ -4,10 +4,26 @@ namespace EcoProfile\Master;
 
 class Uninstall
 {
+    /**
+     * Run the uninstall process.
+     *
+     * This method is responsible for performing necessary actions when the plugin is uninstalled.
+     *
+     * @return void
+     */
+
     public function run()
     {
         $this->remove_plugin_default_value();
     }
+
+    /**
+     * Remove default values and options of the plugin.
+     *
+     * This method deletes various options and settings from the database during plugin uninstallation.
+     *
+     * @return void
+     */
 
     public function remove_plugin_default_value()
     {
@@ -16,6 +32,7 @@ class Uninstall
             'epm_automatically_login',
             'epm_email_confirmation_activated',
             'epm_admin_approval',
+            'epm_show_logout',
             'epm_display_email',
             'epm_display_phone_number',
             'epm_image',
@@ -105,6 +122,14 @@ class Uninstall
         }
     }
 
+    /**
+     * Deactivate and delete plugin-specific pages.
+     *
+     * This method deactivates and deletes plugin-specific pages during uninstallation.
+     *
+     * @return void
+     */
+    
     public function epm_plugin_deactive_pages()
     {
         $pages_to_delete = array('login', 'register', 'profile-edit', 'listings', 'new-password-form', 'profile', 'recover-password');

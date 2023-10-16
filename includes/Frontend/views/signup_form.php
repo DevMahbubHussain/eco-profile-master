@@ -15,29 +15,32 @@ $enabledAdvancedField = $this->epm_allow_user_advanced_fields();
     <p class="success"><?php $this->display_registration_messages(); ?></p>
 <?php endif; ?>
 <?php displayUserRegistrationMessage(); ?>
-
-<form class="flow flow-vertical" method="post" enctype="multipart/form-data" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-    <input type="hidden" name="user_registration" value="user_registration" />
-    <?php wp_nonce_field('user_registration_nonce', 'user_registration_nonce'); ?>
-    <div class="flow space-y-4 bg-white shadow-md rounded-lg px-8 py-6">
-        <?php require_once __DIR__ . '/fields/name.php'; ?>
-        <?php require_once __DIR__ . '/fields/contact-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/about-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/gender-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/birth-date-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/occupation-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/profileimage.php'; ?>
-        <?php require_once __DIR__ . '/fields/coverimage.php'; ?>
-        <?php require_once __DIR__ . '/fields/mailing-address-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/religion-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/skin-color-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/blood-group-info.php'; ?>
-        <?php require_once __DIR__ . '/fields/social-fields.php'; ?>
-        <div class="flow">
-            <button type="submit" class="btn btn-primary mt-10" name="user_register"><?php _e('Submit', 'eco-profile-master'); ?></button>
-        </div>
-        <div class="mt-4">
-            <p class="text-gray-600 text-sm"><?php _e("Already have an account?", 'echo-profile-master') ?><a href="?action=login_page" class="text-blue-500 hover:underline"> <?php _e('Log In'); ?></a></p>
-        </div>
+<div class="container mx-auto">
+    <div class="bg-orange-100 w-full py-8 px-8">
+        <form class="flow flow-vertical" method="post" enctype="multipart/form-data" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
+            <input type="hidden" name="user_registration" value="user_registration" />
+            <?php wp_nonce_field('user_registration_nonce', 'user_registration_nonce'); ?>
+            <div class="flow space-y-4 bg-white shadow-md rounded-lg px-8 py-6">
+                <?php require_once __DIR__ . '/fields/name.php'; ?>
+                <?php require_once __DIR__ . '/fields/contact-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/about-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/gender-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/birth-date-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/occupation-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/profileimage.php'; ?>
+                <?php require_once __DIR__ . '/fields/coverimage.php'; ?>
+                <?php require_once __DIR__ . '/fields/mailing-address-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/religion-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/skin-color-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/blood-group-info.php'; ?>
+                <?php require_once __DIR__ . '/fields/social-fields.php'; ?>
+                <div class="flow">
+                    <button type="submit" class="btn btn-primary mt-10 px-6 py-[8px] font-medium text-white uppercase bg-orange-500 border border-orange-500 rounded-full hover:bg-white hover:text-orange-500 transition-all duration-300 btn btn-primary" name="user_register"><?php _e('Submit', 'eco-profile-master'); ?></button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-gray-600 text-sm"><?php _e("Already have an account?", 'echo-profile-master') ?><a href="?action=login_page" class="text-blue-500 hover:underline"> <?php _e('Log In'); ?></a></p>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>

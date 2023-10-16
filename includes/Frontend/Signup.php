@@ -26,9 +26,6 @@ class Signup
     use EPM_UserAccountManagementTrait;
     use EPM_MessageTrait;
     use EPM_LoginTrait;
-
-
-    // use EPM_So
     private $registrationSuccess = false;
 
     /**
@@ -39,19 +36,23 @@ class Signup
      */
     public function __construct()
     {
-        //  add_action('init', array($this, 'init'));
         add_shortcode('epm-register', array($this, 'epm_render_activate_user_signup'));
         add_action('init', array($this, 'handle_confirmation_link'));
     }
 
-
+    /**
+     * Handle User Email Confirmation Link
+     *
+     * This method is responsible for processing the email confirmation link. It checks if the provided user ID and
+     * confirmation key are valid, and if so, marks the user as verified, removes the confirmation key, and redirects
+     * the user to the login page. Additionally, it triggers an email confirmation handler. If the verification fails,
+     * it may redirect to an error page or display an error message to the user.
+     */
     public function handle_confirmation_link()
     {
         if (isset($_GET['key']) && isset($_GET['user_id'])) {
             $user_id = intval($_GET['user_id']);
             $confirmation_key = sanitize_text_field($_GET['key']);
-
-            // var_dump("confirmation key: ", $confirmation_key);
 
             if ($this->verify_confirmation_key($user_id, $confirmation_key)) {
                 // Remove the verification key
@@ -64,10 +65,22 @@ class Signup
                 exit;
             } else {
                 // Redirect to an error page or display an error message
-                echo 'Email verification failed. Please try again.';
+                echo __('Email verification failed. Please try again.', 'your-text-domain');
             }
         }
     }
+
+    /**
+     * Verify User Email Confirmation Key
+     *
+     * This method compares the provided confirmation key with the stored verification key for a user.
+     *
+     * @param int   $user_id  The ID of the user for whom confirmation is being verified.
+     * @param string $confirmation_key  The confirmation key provided in the confirmation link.
+     *
+     * @return bool True if the provided confirmation key matches the stored key, indicating successful verification;
+     *              otherwise, false.
+     */
 
     private function verify_confirmation_key($user_id, $confirmation_key)
     {
@@ -82,6 +95,14 @@ class Signup
             return false;
         }
     }
+
+    /**
+     * Get the Eco Profile Master Form Style
+     *
+     * Retrieve the selected form style for Eco Profile Master from the WordPress options.
+     *
+     * @return string The sanitized key representing the chosen form style, e.g., 'style1'.
+     */
 
     public function get_epm_form_styles()
     {
@@ -200,6 +221,13 @@ class Signup
         $this->init_hook();
     }
 
+    /**
+     * Initialize Hook for User Registration
+     *
+     * This method serves as a hook initialization for user registration. It checks if a POST request with 'user_register'
+     * is received and triggers the user registration process accordingly.
+     */
+
     public function init_hook()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register'])) {
@@ -208,10 +236,13 @@ class Signup
     }
 
     /**
-     * Signup Process function
+     * Process User Signup
      *
-     * @return void
+     * This method handles the user registration process. It validates registration fields, creates a new user if validation
+     * is successful, and triggers actions based on email confirmation, admin approval, and automatic login options.
+     * Additionally, it handles security checks, sends emails, sets user roles, and redirects users as needed.
      */
+
     private function epm_process_signup()
     {
 
@@ -262,8 +293,14 @@ class Signup
         } 
     }
 
+    /**
+     * Display registration messages.
+     * Delegates to the display_messages method to display messages.
+     */
+    
     public function display_registration_messages()
     {
         $this->display_messages();
     }
+
 }
