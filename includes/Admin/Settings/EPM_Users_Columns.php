@@ -103,4 +103,108 @@ class EPM_Users_Columns
     }
 
     // Methods for user approval, rejection, and unapproval actions...
+
+    /**
+     * User Approved function.
+     *
+     * @return void
+     */
+    public function approve_user()
+    {
+        if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
+            wp_die(__('Invalid user ID', 'eco-profile-master'));
+        }
+
+        $user_id = intval($_GET['user_id']);
+
+        // Update user meta to mark as approved
+        update_user_meta($user_id, 'epm_admin_approval', 'approved');
+
+        // Get user data
+        $user = get_userdata($user_id);
+
+        // Generate a random password
+        $new_password = wp_generate_password(12);
+
+        // Update user's password
+        wp_set_password($new_password, $user_id);
+
+        // Send an HTML email to the user with login information
+        $site_url = get_site_url();
+        $login_url = home_url('/login');
+        $username = $user->user_login;
+
+        $subject = __('Account Approved', 'eco-profile-master');
+        $message = '<html>
+    <body>
+        <p>' . __('Your account has been approved. You can now log in using the following credentials:', 'eco-profile-master') . '</p>
+        <p><strong>' . __('Site URL:', 'eco-profile-master') . '</strong> ' . esc_html($site_url) . '</p>
+        <p><strong>' . __('Username:', 'eco-profile-master') . '</strong> ' . esc_html($username) . '</p>
+        <p><strong>' . __('Password:', 'eco-profile-master') . '</strong> ' . esc_html($new_password) . '</p>
+        <p><a href="' . esc_url($login_url) . '" style="background-color:#0073aa; color:#fff; text-decoration:none; padding:10px 20px; border-radius:4px; display:inline-block;">' . __('Login Now', 'eco-profile-master') .
+        '</a></p>
+    </body>
+</html>';
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        wp_mail($user->user_email, $subject, $message, $headers);
+
+        // Redirect back to the users page with the "approved" query parameter
+        wp_redirect(admin_url('users.php?approved=1'));
+        exit;
+    }
+
+    /**
+     *  User Reject function.
+     *
+     * @return void
+     */
+    public function reject_user()
+    {
+        if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
+            wp_die(__('Invalid user ID', 'eco-profile-master'));
+        }
+
+        $user_id = intval($_GET['user_id']);
+
+        // Update user meta to mark as rejected
+        update_user_meta($user_id, 'epm_admin_approval', 'rejected');
+
+        //send an email to the user notifying them of rejection
+        $user = get_userdata($user_id);
+        $subject = __('Account Rejected', 'eco-profile-master');
+        $message = __('Your account registration has been rejected.', 'eco-profile-master');
+        wp_mail($user->user_email, $subject, $message);
+
+        // Redirect back to the users page
+        wp_redirect(admin_url('users.php'));
+        exit;
+    }
+
+    /**
+     * User Unapproved function.
+     *
+     * @return void
+     */
+    public function unapprove_user()
+    {
+        // Check if the user ID is provided in the query parameter
+        if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
+            wp_die(__('Invalid user ID', 'eco-profile-master'));
+        }
+
+        $user_id = intval($_GET['user_id']);
+        // Update user meta to mark as unapproved
+        update_user_meta($user_id, 'epm_admin_approval', 'unapproved');
+
+        // send an email to the user notifying them of unapproval
+        $user = get_userdata($user_id);
+        $subject = __('Account Unapproved', 'eco-profile-master');
+        $message = __('Your account registration has been marked as unapproved.', 'eco-profile-master');
+        wp_mail($user->user_email, $subject, $message);
+        // Redirect back to the users page
+        wp_redirect(admin_url('users.php?rejected=1'));
+        exit;
+    }
 }

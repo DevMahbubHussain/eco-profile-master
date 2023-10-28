@@ -348,6 +348,5 @@ class Login
                 return $password_reset_messages;
             }
         }
-    } 
-    
+    }
 }

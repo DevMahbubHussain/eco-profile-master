@@ -34,7 +34,7 @@ trait EPM_UserAccountManagementTrait
             '__return_true'
         );
         if (is_wp_error($user_id)) {
-            echo 'User creation failed: ' . $user_id->get_error_message();
+            echo _e('User creation failed: ', 'eco-profile-master') . $user_id->get_error_message();
         } else {
             $is_admin_approved = sanitize_text_field(get_option('epm_admin_approval', 'no'));
             if ($is_admin_approved === 'yes') {
@@ -137,13 +137,13 @@ trait EPM_UserAccountManagementTrait
 
         // Check if the sanitized value matches the placeholder
         if ($sanitized_value === $field_placeholder) {
-            $saved_value = ''; 
+            $saved_value = '';
         } else {
             $saved_value = $sanitized_value;
         }
         update_user_meta($user_id, $field_name, $saved_value);
     }
-    
+
     /**
      * Uploads a user avatar and updates user meta with the image URL.
      *

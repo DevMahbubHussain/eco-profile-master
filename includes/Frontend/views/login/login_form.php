@@ -1,6 +1,16 @@
 <div class="container mx-auto">
     <div class="bg-white p-8 rounded-lg shadow-md w-full">
         <h2 class="text-2xl font-semibold mb-4"><?php _e('Login', 'epm-profile-master') ?></h2>
+        <?php
+        $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
+        if ($this->login_has_error('username_or_email_confirmed') && $send_confirmation == 'yes') : ?>
+            <span class="error-message"><?php echo $this->login_get_error('username_or_email_confirmed'); ?></span>
+        <?php endif; ?>
+        <?php
+        $admin_confirmation = sanitize_text_field(get_option('epm_admin_approval', 'no'));
+        if ($this->login_has_error('admin_approval_error') && $admin_confirmation == 'yes') : ?>
+            <span class="error-message"><?php echo $this->login_get_error('admin_approval_error'); ?></span>
+        <?php endif; ?>
         <?php display_password_reset_confirmation_message(); ?>
         <?php displayConfirmationMessages(); ?>
         <?php if ($this->login_has_error('approval_status')) : ?>
