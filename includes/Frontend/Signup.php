@@ -65,7 +65,8 @@ class Signup
                 exit;
             } else {
                 // Redirect to an error page or display an error message
-                echo __('Email verification failed. Please try again.', 'your-text-domain');
+                $error_message = __('Email verification failed. Please try again.', 'eco-profile-master');
+                set_transient('email_verification_error', $error_message, 60);
             }
         }
     }

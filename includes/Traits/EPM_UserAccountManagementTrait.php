@@ -50,6 +50,29 @@ trait EPM_UserAccountManagementTrait
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
 
             ));
+
+            // email confirmation
+            $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
+            if ($send_confirmation === 'yes') {
+                // Check if the admin timestamp has already been set
+                if (false === get_option('admin_email_confirmation_timestamp')) {
+                    $this->set_admin_email_confirmation_timestamp();
+                }
+            }
+            $admin_email_confirmation_timestamp = get_option('admin_email_confirmation_timestamp');
+            update_user_meta($user_id, 'admin_email_confirmation_timestamp', $admin_email_confirmation_timestamp);
+
+            // admin approval
+            $admin_approval_setting =  sanitize_text_field(get_option('epm_admin_approval', 'no'));
+            if ($admin_approval_setting === 'yes') {
+                if (false === get_option('admin_approval_confirmation_timestamp')) {
+                    $this->set_admin_approval_confirmation_timestamp();
+                }
+            }
+            $admin_approval_confirmation_timestamp = get_option('admin_approval_confirmation_timestamp');
+            update_user_meta($user_id, 'admin_approval_confirmation_timestamp', $admin_approval_confirmation_timestamp);
+
+            update_user_meta($user_id, 'email_confirmation_required', $send_confirmation);
             // Handle the advanced field
             update_user_meta($user_id, 'epm_user_birthdate', isset($data['epm_user_birthdate']) ? sanitize_text_field($data['epm_user_birthdate']) : '');
             $labelsPlaceholders = $this->epm_label_placeholder();
@@ -85,6 +108,30 @@ trait EPM_UserAccountManagementTrait
         // Handle user creation success
         $this->handle_user_creation_success($user_id, $data);
         return $user_id;
+    }
+
+    /**
+     * Sets the admin email confirmation timestamp in the WordPress options.
+     *
+     * This function records the timestamp when the admin enables email confirmation
+     * in the site's settings.
+     */
+    private function  set_admin_email_confirmation_timestamp()
+    {
+        $admin_timestamp = current_time('timestamp');
+        update_option('admin_email_confirmation_timestamp', $admin_timestamp);
+    }
+
+    /**
+     * Sets the admin approval confirmation timestamp in the WordPress options.
+     *
+     * This function records the timestamp when the admin enables email confirmation
+     * in the site's settings.
+     */
+    private function set_admin_approval_confirmation_timestamp()
+    {
+        $admin_timestamp = current_time('timestamp');
+        update_option('admin_approval_confirmation_timestamp', $admin_timestamp);
     }
 
     /**
@@ -325,7 +372,7 @@ trait EPM_UserAccountManagementTrait
         ));
 
         if (is_wp_error($result)) {
-            $error_message = __('Error setting user role: ', 'text-domain') . $result->get_error_message();
+            $error_message = __('Error setting user role: ', 'eco-profile-master') . $result->get_error_message();
             echo esc_html($error_message);
         }
     }

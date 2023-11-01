@@ -17,7 +17,7 @@ trait EPM_LoginTrait
      *
      * @return array An array of error messages.
      */
-	 
+
     public function validateLoginForm($username_or_email, $password)
     {
         if (empty($username_or_email)) {
@@ -34,39 +34,53 @@ trait EPM_LoginTrait
         if (empty($password)) {
             $this->errors['password'] = __('Password is required.', 'eco-profile-master');
         }
+        //email confirmation. 
         $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
-        if ($send_confirmation == 'yes') {
+        if ($send_confirmation === 'yes') {
             if (!empty($username_or_email) && !empty($password)) {
                 $user = $user_by_email ? $user_by_email : $user_by_login;
 
                 if ($user) {
-                    // Check if the user's email is confirmed
-                    $is_email_verified = get_user_meta($user->ID, 'email_verified', true);
+                    // Check if email confirmation is required for this user
+                    $email_confirmation_required = get_user_meta($user->ID, 'email_confirmation_required', true);
 
-                    if ($is_email_verified === true) {
-                        // Email is confirmed, proceed with password check
-                        if (!wp_check_password($password, $user->user_pass, $user->ID)) {
-                            $this->errors['password'] = __('Incorrect password.', 'eco-profile-master');
+                    if ($email_confirmation_required === 'yes') {
+                        // Check if the user's email is confirmed
+                        $is_email_verified = get_user_meta($user->ID, 'email_verified', true);
+
+                        if ($is_email_verified === '1') {
+                            // Email is confirmed, proceed with password check
+                            if (!wp_check_password($password, $user->user_pass, $user->ID)) {
+                                $this->errors['password'] = __('Incorrect password.', 'eco-profile-master');
+                            }
+                        } else {
+                            // Email is not confirmed
+                            $this->errors['username_or_email_confirmed'] = __('Your email is not confirmed. Please check your inbox for the confirmation email.', 'eco-profile-master');
                         }
-                    } else {
-                        // Email is not confirmed
-                        $this->errors['username_or_email_confirmed'] = __('Your email is not confirmed. Please check your inbox for the confirmation email.', 'eco-profile-master');
                     }
                 }
             }
         }
+        // Check if admin approval settings are enabled
         $admin_approval_required = $this->isAdminApprovalRequired();
         if (!empty($username_or_email) && !empty($password)) {
             $user = $this->getUserByEmailOrLogin($username_or_email);
+
             if ($user) {
                 // Check if admin approval is required and the user is not approved
                 if ($admin_approval_required && !$this->isAdminApproved($user)) {
-                    // User is not approved; display an error message
-                    $this->errors['admin_approval_error'] = __('Your account is pending admin approval.', 'eco-profile-master');
-                } else {
-                    // Proceed with password check
-                    if (!wp_check_password($password, $user->user_pass, $user->ID)) {
-                        $this->errors['password'] = __('Incorrect password.', 'eco-profile-master');
+                    // Check the user's registration timestamp
+                    $user_approval_timestamp = get_user_meta($user->ID, 'admin_approval_confirmation_timestamp', true);
+
+                    if ($user_approval_timestamp > $admin_approval_required) {
+                        // User is not approved, but they registered after admin approval was enabled
+                        // Display an error message
+                        $this->errors['admin_approval_error'] = __('Your account is pending admin approval.', 'eco-profile-master');
+                    } else {
+                        // Proceed with password check
+                        if (!wp_check_password($password, $user->user_pass, $user->ID)) {
+                            $this->errors['password'] = __('Incorrect password.', 'eco-profile-master');
+                        }
                     }
                 }
             }

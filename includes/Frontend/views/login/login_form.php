@@ -1,9 +1,10 @@
 <div class="container mx-auto">
     <div class="bg-white p-8 rounded-lg shadow-md w-full">
+        <?php display_transient_error('email_verification_error'); ?>
         <h2 class="text-2xl font-semibold mb-4"><?php _e('Login', 'eco-profile-master') ?></h2>
         <?php
         $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
-        if ($this->login_has_error('username_or_email_confirmed') && $send_confirmation == 'yes') : ?>
+        if ($this->login_has_error('username_or_email_confirmed') && $send_confirmation === 'yes') : ?>
             <span class="error-message"><?php echo $this->login_get_error('username_or_email_confirmed'); ?></span>
         <?php endif; ?>
         <?php

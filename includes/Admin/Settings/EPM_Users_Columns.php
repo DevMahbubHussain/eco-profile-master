@@ -33,7 +33,8 @@ class EPM_Users_Columns
      */
     public function add_custom_user_columns($columns)
     {
-        $columns['approval_status'] = 'Approval Status';
+        $columns['approval_status'] = __('Approval Status', 'eco-profile-master');
+
         return $columns;
     }
 
@@ -45,6 +46,7 @@ class EPM_Users_Columns
      * @param int $user_id The ID of the user being displayed.
      * @return string The updated output content for the custom column.
      */
+
     public function populate_custom_user_column($output, $column_name, $user_id)
     {
         // Get user data based on user ID
@@ -101,9 +103,6 @@ class EPM_Users_Columns
 
         return $actions;
     }
-
-    // Methods for user approval, rejection, and unapproval actions...
-
     /**
      * User Approved function.
      *
@@ -142,7 +141,7 @@ class EPM_Users_Columns
         <p><strong>' . __('Username:', 'eco-profile-master') . '</strong> ' . esc_html($username) . '</p>
         <p><strong>' . __('Password:', 'eco-profile-master') . '</strong> ' . esc_html($new_password) . '</p>
         <p><a href="' . esc_url($login_url) . '" style="background-color:#0073aa; color:#fff; text-decoration:none; padding:10px 20px; border-radius:4px; display:inline-block;">' . __('Login Now', 'eco-profile-master') .
-        '</a></p>
+            '</a></p>
     </body>
 </html>';
 

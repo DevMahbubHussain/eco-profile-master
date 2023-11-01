@@ -567,6 +567,33 @@ function displayUserRegistrationMessage()
     delete_transient('registration_success_message');
 }
 
+
+/**
+ * Display an error message stored in a transient and clear the transient.
+ *
+ * @param string $transient_name The name of the transient to retrieve.
+ * @param string $echo Whether to echo the error message or return it as a string.
+ *
+ * @return string The error message (if $echo is set to false).
+ */
+function display_transient_error($transient_name, $echo = true)
+{
+    $error_message = get_transient($transient_name);
+    if ($error_message) {
+        // Clear the transient
+        delete_transient($transient_name);
+
+        if ($echo) {
+            echo $error_message;
+        } else {
+            return $error_message;
+        }
+    }
+
+    return '';
+}
+
+
 /**
  * Get EPM User Listings
  *

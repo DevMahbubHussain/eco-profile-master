@@ -171,7 +171,7 @@ function epm_admin_form_fields_settings()
     if (!current_user_can('manage_options')) {
         wp_die(__('Not allowed.', 'eco-profile-master'));
     }
-    
+
     $sections = array(
         'name' => 'epm_form_heading_name',
         'contact_info' => 'epm_form_heading_contact_info',
