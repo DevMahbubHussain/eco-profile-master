@@ -61,20 +61,20 @@ trait EPM_LoginTrait
                 }
             }
         }
-        // Check if admin approval settings are enabled
         $admin_approval_required = $this->isAdminApprovalRequired();
         if (!empty($username_or_email) && !empty($password)) {
             $user = $this->getUserByEmailOrLogin($username_or_email);
 
             if ($user) {
-                // Check if admin approval is required and the user is not approved
-                if ($admin_approval_required && !$this->isAdminApproved($user)) {
-                    // Check the user's registration timestamp
-                    $user_approval_timestamp = get_user_meta($user->ID, 'admin_approval_confirmation_timestamp', true);
+                $admin_approval_status = get_user_meta($user->ID, 'epm_admin_approval', true);
 
-                    if ($user_approval_timestamp > $admin_approval_required) {
-                        // User is not approved, but they registered after admin approval was enabled
-                        // Display an error message
+                if ($admin_approval_required && $admin_approval_status === 'unapproved') {
+                    // Check the registration timestamp
+                    $registration_timestamp = get_user_meta($user->ID, 'registration_timestamp', true);
+                    $admin_approval_timestamp = get_option('admin_approval_confirmation_timestamp');
+
+                    if ($registration_timestamp > $admin_approval_timestamp) {
+                        // User is not approved, display an error message
                         $this->errors['admin_approval_error'] = __('Your account is pending admin approval.', 'eco-profile-master');
                     } else {
                         // Proceed with password check

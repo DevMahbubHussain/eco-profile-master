@@ -50,7 +50,7 @@ trait EPM_UserAccountManagementTrait
                 'description' => sanitize_textarea_field($data['epm_user_bio']),
 
             ));
-
+            update_user_meta($user_id, 'registration_timestamp', current_time('timestamp'));
             // email confirmation
             $send_confirmation = sanitize_text_field(get_option('epm_email_confirmation_activated', 'no'));
             if ($send_confirmation === 'yes') {

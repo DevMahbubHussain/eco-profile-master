@@ -174,11 +174,11 @@ class Installer
 
         // plugin pages 
         $this->epm_plugin_pages('login', 'Login', 'epm-login');
-        $this->epm_plugin_pages('register', 'Registration', 'epm-register');
-        $this->epm_plugin_pages('new-password-form', 'Pick a New Password', 'epm-password-reset-form');
+        $this->epm_plugin_pages('register', 'Regisetr', 'epm-register');
+        $this->epm_plugin_pages('Pick a New Password', 'Pick a New Password', 'epm-password-reset-form');
         $this->epm_plugin_pages('profile', 'Profile', 'epm-profile');
         $this->epm_plugin_pages('profile-edit', 'Profile Edit', 'epm-profile-edit');
-        $this->epm_plugin_pages('listings', 'User Listings', 'epm-user-listings');
+        $this->epm_plugin_pages('user-listings', 'User Listings', 'epm-user-listings');
         flush_rewrite_rules();
     }
 
