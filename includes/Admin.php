@@ -26,7 +26,7 @@ class Admin
         new Admin\Menu($epm_admin_settings, $epm_form_label_placeholder);
 
         // Create an instance of the EPM_Users_columns class
-        new Admin\Settings\EPM_Users_columns();
+        new Admin\Settings\EPM_Users_Columns();
     }
 
     /**
